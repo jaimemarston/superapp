@@ -1,0 +1,89 @@
+<div id="clientes" fxLayout="column">
+    <toolbar-table [hidden]="edit" (add)="addRecord()" (delete)="deleteAllSelecteds()"
+                   (printing)="openPrint()"></toolbar-table>
+    <div fxFlex [hidden]="edit">
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="codigo">
+                <mat-header-cell *matHeaderCellDef> CÓDIGO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.codigo}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fechadoc">
+                <mat-header-cell *matHeaderCellDef> FECHA</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.fechadoc}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="ruc">
+                <mat-header-cell *matHeaderCellDef> RUC</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.ruc}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="desruc">
+                <mat-header-cell *matHeaderCellDef> RUC</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.desruc}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="unidadtransporte">
+                <mat-header-cell *matHeaderCellDef> UNIDAD TRANSPORTE</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.unidadtransporte}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="telruc">
+                <mat-header-cell *matHeaderCellDef> TELÉFONO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.telruc}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="correoruc">
+                <mat-header-cell *matHeaderCellDef> CORREO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.correoruc}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="estado">
+                <mat-header-cell *matHeaderCellDef> ESTADO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.estado}}</mat-cell>
+            </ng-container>
+
+
+            <ng-container matColumnDef="options">
+                <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button (click)="editRecord(row.id)" mat-icon-button color="accent">
+                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button (click)="delete(row.id)" mat-icon-button color="accent">
+                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Delete">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row
+                (click)="viewRecorddetail(row)"
+                class="element-row"
+                [ngClass]="{ 'highlight': row.id === cotizacionSelected?.id }"
+                *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+
+        </mat-table>
+    </div>
+    <div fxFlex [hidden]="edit">
+        <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+    <div fxFlex [hidden]="!edit">
+        <app-editcotizacion [id]="selectedId" (back)="showDataTable()"
+                            (update)="updateDataTable($event)"></app-editcotizacion>
+    </div>
+</div>

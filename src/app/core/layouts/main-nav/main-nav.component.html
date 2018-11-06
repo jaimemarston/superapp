@@ -1,0 +1,114 @@
+<div class="example-container">
+  <mat-toolbar class="example-toolbar1">
+
+      <button (click)="snav.toggle()"  mat-button="" class="mat-button">
+        <span class="mat-button-wrapper">
+          <mat-icon>menu</mat-icon>
+        </span>
+        <div class="mat-button-ripple mat-ripple"></div>
+        <div class="mat-button-focus-overlay"></div>
+      </button>
+
+    
+    <h1 class="example-app-name">Gestion Administrativa</h1>
+    <span class="example-spacer"></span>
+
+    <table class="example-full-width" cellspacing="0">
+      <mat-form-field class="pantallafiltro" style="width:40%">
+        <mat-select class="pantallafiltro" placeholder="Mes">
+          <mat-option class="pantallafiltro" *ngFor="let mes of meses" [value]="mes.value">
+            {{mes.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <td></td>
+      <mat-form-field class="pantallafiltro" style="width:50%">
+        <mat-select class="pantallafiltro" placeholder="Periodo">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </table>
+    <td></td>
+    <mat-icon class="example-icon">settings</mat-icon>
+    <mat-icon class="material-icons">notifications</mat-icon>
+    <!--     <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button -->
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
+        <a mat-menu-item [routerLink]="[item.route]" [routerLinkActive]="['active']" [routerLink]="">
+          <mat-icon class="tc-blue-grey-700">{{item.icon}}</mat-icon>
+          {{item.title}}
+        </a>
+      </ng-template>
+    </mat-menu>
+
+    <button [routerLink]="['/login']" mat-button="" class="mat-button">
+      <span class="mat-button-wrapper">
+        <mat-icon>power_settings_new</mat-icon>
+      </span>
+      <div class="mat-button-ripple mat-ripple"></div>
+      <div class="mat-button-focus-overlay"></div>
+    </button>
+  </mat-toolbar>
+
+
+
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56">
+      <mat-nav-list>
+        <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
+          <a mat-menu-item [routerLink]="[item.route]" [routerLinkActive]="['active']">
+            <mat-icon class="tc-blue-grey-700">{{item.icon}}</mat-icon>
+            {{item.title}}
+          </a>
+        </ng-template>
+      </mat-nav-list>
+    </mat-sidenav>
+    <!--
+    
+          <mat-toolbar style="background: #faf9d7;height: 6%;">
+            <h1>{{ selected }}</h1>
+          <span class="example-spacer"></span>
+          <mat-icon color="primary" class="example-icon">print</mat-icon>
+          <mat-icon color="primary" class="example-icon">notifications</mat-icon>
+          <mat-icon color="primary" class="example-icon">settings</mat-icon>     
+          </mat-toolbar>
+   -->
+    <mat-sidenav-content>
+      <br>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+
+
+  </mat-sidenav-container>
+</div>
+
+<!--
+<mat-sidenav-container>
+  
+  <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <h2 mdSubheader>Here are some links to help you start: </h2>
+        <a mat-list-item target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a>
+        <a mat-list-item target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a>
+        <a mat-list-item target="_blank" href="https://blog.angular.io/">Angular blog</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-toolbar>
+      <button type="button" mat-button (click)="sidenav.open()">Menu</button>
+      <h1>Welcome to {{title}}!</h1>
+  </mat-toolbar>
+
+  <div class="content">
+      <img width="300" src="data:image/svg+xml;base64,AquiVaElBase64">
+  </div>
+  
+</mat-sidenav-container>
+-->

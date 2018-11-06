@@ -1,0 +1,107 @@
+<div id="clientes" fxLayout="column">
+    <toolbar-table [hidden]="edit" (add)="addRecord()" (delete)="deleteAllSelecteds()"
+                   (printing)="openPrint()"></toolbar-table>
+    <div [hidden]="!edit">
+        <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()"
+                                   (update)="updateDataTable($event)"></app-editcotizaciondetalle>
+    </div>
+    <div fxFlex>
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="codigo">
+                <mat-header-cell *matHeaderCellDef> CÓDIGO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.codigo}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="descripcion">
+                <mat-header-cell *matHeaderCellDef> DESCRIPCIÓN</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.descripcion}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="desunimed">
+                <mat-header-cell *matHeaderCellDef> UNIDAD MEDIDA</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.desunimed}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef> CANTIDAD</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.cantidad}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="precio">
+                <mat-header-cell *matHeaderCellDef> PRECIO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.precio}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="imptotal">
+                <mat-header-cell *matHeaderCellDef> IMPORTE TOTAL</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.imptotal}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="options">
+                <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button (click)="editRecord(row.id)" mat-icon-button color="accent">
+                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button (click)="delete(row.id)" mat-icon-button color="accent">
+                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Delete">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row
+                (click)="selectedId = row.id"
+                *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="{ 'highlight': row.id === selectedId }">
+            </mat-row>
+
+        </mat-table>
+    </div>
+    <div fxFlex>
+        <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+    <div>
+        <div fxFlex="50"></div>
+        <div fxFlex="50" fxFlexAlign="end center">
+            <table class="simple mat-elevation">
+                <tbody>
+                <tr>
+                    <td><span class="text-truncate">Sub Total</span></td>
+                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate"></span></td>
+                </tr>
+                <tr>
+                    <td><span class="text-truncate">Descuento</span></td>
+                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate"></span></td>
+                </tr>
+                <tr>
+                    <td><span class="text-truncate">IGV 18%</span></td>
+                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate"></span></td>
+                </tr>
+                <tr>
+                    <td><span class="text-truncate">Total General</span></td>
+                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

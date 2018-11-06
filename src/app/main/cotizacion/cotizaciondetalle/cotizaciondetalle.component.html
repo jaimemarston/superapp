@@ -1,0 +1,73 @@
+<div id="clientes" fxLayout="column">
+    <toolbar-table [hidden]="edit" (add)="addRecord()" (delete)="deleteAllSelecteds()"></toolbar-table>
+    <div [hidden]="edit" fxFlex>
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="codigo">
+                <mat-header-cell *matHeaderCellDef> Código</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.codigo}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="descripcion">
+                <mat-header-cell *matHeaderCellDef> descripcion</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.descripcion}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="desunimed">
+                <mat-header-cell *matHeaderCellDef> desunimed</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.desunimed}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="cantidad">
+                <mat-header-cell *matHeaderCellDef> cantidad</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.cantidad}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="precio">
+                <mat-header-cell *matHeaderCellDef> Precio</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.precio}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="imptotal">
+                <mat-header-cell *matHeaderCellDef> imptotal</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.imptotal}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="options">
+                <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button (click)="editRecord(row.id)" mat-icon-button color="accent">
+                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button (click)="delete(row.id)" mat-icon-button color="accent">
+                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Delete">delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+
+        </mat-table>
+    </div>
+    <div [hidden]="edit" fxFlex>
+        <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+    </div>
+    <div [hidden]="!edit">
+        <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()" (update)="updateDataTable($event)"></app-editcotizaciondetalle>
+    </div>
+</div>
