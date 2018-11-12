@@ -1,12 +1,12 @@
 <div class="header p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start start"
      fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
 
-    <search fxFlex fxLayout="row" fxLayoutAlign="start center"></search>
+    <search (onKeyup)="inputText.emit($event)" fxFlex fxLayout="row" fxLayoutAlign="start center"></search>
     <!-- / APP TITLE -->
 
     <!-- SEARCH -->
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center">
-        <button mat-raised-button color="primary" (click)="printing.emit(true)">Imprimir</button>
+        <button mat-raised-button color="primary" (click)="print_pdf();printing.emit(true)">Imprimir</button>
         <button mat-raised-button color="warn" (click)="add.emit(true)">Nuevo</button>
         <button mat-raised-button color="accent" (click)="delete.emit(true)">Eliminar</button>
     </div>

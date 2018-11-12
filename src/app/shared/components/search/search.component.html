@@ -1,12 +1,11 @@
 <div class="search-wrapper">
 
-    <button mat-icon-button class="sidebar-toggle" fxHide.gt-md
-            (click)="toggleSidebar('todo-main-sidebar')">
+    <button mat-icon-button class="sidebar-toggle" fxHide.gt-md>
         <mat-icon>menu</mat-icon>
     </button>
 
     <div class="search" flex fxLayout="row" fxLayoutAlign="start center">
         <mat-icon>search</mat-icon>
-        <input placeholder="Search for a task" fxFlex>
+        <input (keyup)="keyup($event.target.value)" placeholder="Busqueda de cotizaciones" fxFlex>
     </div>
 </div>

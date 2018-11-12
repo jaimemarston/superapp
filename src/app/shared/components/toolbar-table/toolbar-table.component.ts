@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { BASEURL } from '../../../../environments/environment';
 
 @Component({
     selector: 'toolbar-table',
@@ -17,6 +18,10 @@ export class ToolbarTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    print_pdf(): void {
+        window.location.replace(`${BASEURL}generate_pdf`);
     }
 
 }
