@@ -8,6 +8,13 @@ export const navigation: FuseNavigation[] = [
         type: 'group',
         children: [
             {
+                id: 'users',
+                title: 'Usuarios',
+                type: 'item',
+                icon: 'email',
+                url: '/alitour/users',
+            },
+            {
                 id: 'clientes',
                 title: 'Clientes',
                 type: 'item',

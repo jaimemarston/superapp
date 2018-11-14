@@ -32,6 +32,5 @@ export class CotizacionComponent implements OnInit {
 
     getCotizaciones(): void {
         this.cotizacionMaestro.getCotizacion();
-
     }
 }

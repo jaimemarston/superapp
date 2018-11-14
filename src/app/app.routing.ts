@@ -23,6 +23,10 @@ export const routes: Routes = [
         canActivate: [AuthGuard, AlitourGuard],
         children: [
             {
+                path: 'users',
+                loadChildren: './alitour/users/users.module#UsersModule'
+            },
+            {
                 path: 'clientes',
                 loadChildren: './alitour/clientes/clientes.module#ClientesModule'
             },

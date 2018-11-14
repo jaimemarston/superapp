@@ -1,6 +1,6 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table [hidden]="edit" (add)="addRecord()" (delete)="deleteAllSelecteds()"
-                   (printing)="openPrint()"></toolbar-table>
+    <toolbar-table [urlPrint]="'generate_pdf/'+idMaster" (inputText)="applyFilter($event)" [hidden]="edit"
+                   (add)="addRecord()" (delete)="deleteAllSelecteds()"></toolbar-table>
     <div [hidden]="!edit">
         <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()"
                                    (update)="updateDataTable($event)"></app-editcotizaciondetalle>
@@ -82,22 +82,22 @@
                 <tbody>
                 <tr>
                     <td><span class="text-truncate">Sub Total</span></td>
-                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate">{{ cotizacionTotales.subtotal }}</span></td>
                     <td><span class="text-truncate"></span></td>
                 </tr>
                 <tr>
                     <td><span class="text-truncate">Descuento</span></td>
-                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate">{{ cotizacionTotales.descuento }}</span></td>
                     <td><span class="text-truncate"></span></td>
                 </tr>
                 <tr>
                     <td><span class="text-truncate">IGV 18%</span></td>
-                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate">{{ cotizacionTotales.igv }}</span></td>
                     <td><span class="text-truncate"></span></td>
                 </tr>
                 <tr>
                     <td><span class="text-truncate">Total General</span></td>
-                    <td><span class="text-truncate">0.00</span></td>
+                    <td><span class="text-truncate">{{ cotizacionTotales.total_general }}</span></td>
                     <td><span class="text-truncate"></span></td>
                 </tr>
                 </tbody>

@@ -21,6 +21,12 @@ import { fuseAnimations } from '../../../../@fuse/animations';
 
 export class CotizaciondetalleComponent implements OnInit {
     _cotizacionesDetalle: Array<ICotizaciondetalle>;
+    cotizacionTotales = {
+        subtotal: 0,
+        descuento: 0,
+        igv: 0,
+        total_general: 0
+    };
 
     get cotizacionesDetalle(): Array<ICotizaciondetalle> {
         return this._cotizacionesDetalle;
@@ -30,6 +36,12 @@ export class CotizaciondetalleComponent implements OnInit {
         this._cotizacionesDetalle = data;
         /* console.log(this.cotizacionesDetalle); */
         this.dataSource.data = this.cotizacionesDetalle;
+        if (this.cotizacionesDetalle) {
+            this.cotizacionTotales.total_general = this.cotizacionesDetalle.reduce((a, b) => b.imptotal + a, 0);
+            this.cotizacionTotales.igv = this.cotizacionesDetalle.reduce((a, b) => b.impigv + a, 0);
+            this.cotizacionTotales.descuento = this.cotizacionesDetalle.reduce((a, b) => b.impdescuentos + a, 0);
+            this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => b.impsubtotal + a, 0);
+        }
     }
 
     @Input() detail: any;
@@ -142,5 +154,9 @@ export class CotizaciondetalleComponent implements OnInit {
                 this.updated.emit(true);
             }
         }
+    }
+
+    applyFilter(filterValue: string): void {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { BASEURL } from '../../../../environments/environment';
 
 @Component({
     selector: 'toolbar-table',
@@ -7,6 +8,10 @@ import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@ang
     encapsulation: ViewEncapsulation.None
 })
 export class ToolbarTableComponent implements OnInit {
+
+    @Input() search = true;
+    @Input() urlPrint;
+
     @Output() add: EventEmitter<any> = new EventEmitter();
     @Output() printing: EventEmitter<any> = new EventEmitter();
     @Output() delete: EventEmitter<any> = new EventEmitter();
@@ -17,6 +22,12 @@ export class ToolbarTableComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
+
+    print_pdf(): void {
+        if (this.urlPrint) {
+            window.location.replace(`${BASEURL}${this.urlPrint}`);
+        }
     }
 
 }

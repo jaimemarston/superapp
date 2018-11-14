@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '../../../@fuse/animations';
 
 @Component({
-    selector: 'clientes',
+    selector: 'users',
     templateUrl: './clientes.component.html',
     styleUrls: ['./clientes.component.scss'],
     encapsulation: ViewEncapsulation.None,

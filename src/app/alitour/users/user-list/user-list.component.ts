@@ -1,35 +1,33 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { Router } from '@angular/router';
 import { IClientes } from '../../../core/interfaces/clientes.interface';
+import { SelectionModel } from '@angular/cdk/collections';
 import { ClienteService } from '../../../core/services/cliente.service';
-import { fuseAnimations } from '../../../../@fuse/animations';
+import { Router } from '@angular/router';
+import { IUser } from '../../../core/interfaces/user.interface';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
-    selector: 'clientes-list',
-    templateUrl: './clientes-list.component.html',
-    styleUrls: ['./clientes-list.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
+    selector: 'app-user-list',
+    templateUrl: './user-list.component.html',
+    styleUrls: ['./user-list.component.scss']
 })
-export class ClientesListComponent implements OnInit {
+export class UserListComponent implements OnInit {
 
-    /* displayedColumns: string[] = ['select', 'id', 'codigo', 'ruc' ,'nombre', 'telefono1', 'correo', 'options'];*/
-    displayedColumns: string[] = ['select', 'codigo', 'ruc', 'nombre', 'telefono1', 'correo', 'options'];
+    displayedColumns: string[] = ['select', 'foto', 'nombre', 'apellido_paterno', 'apellido_materno', 'id', 'sexo', 'options'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    clientes: Array<IClientes>;
-    dataSource = new MatTableDataSource<IClientes>();
+    users: Array<IUser>;
+    dataSource = new MatTableDataSource<IUser>();
     selectedId: number;
     edit: boolean;
 
 
     /** checkbox datatable */
-    selection = new SelectionModel<IClientes>(true, []);
+    selection = new SelectionModel<IUser>(true, []);
 
     constructor(
-        private clienteService: ClienteService,
+        private userService: UserService,
         private router: Router,
         public dialog: MatDialog,
         private snackBar: MatSnackBar
@@ -37,14 +35,14 @@ export class ClientesListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getClientes();
+        this.getUsers();
     }
 
-    getClientes(): void {
-        this.clienteService.getClientes()
+    getUsers(): void {
+        this.userService.getUsers()
             .subscribe(response => {
-                this.clientes = response;
-                this.dataSource.data = this.clientes;
+                this.users = response;
+                this.dataSource.data = this.users;
 
                 // this.users = response.filter(v => v.id < 93) filtrando el array;
                 /* console.log(this.users); */
@@ -61,17 +59,17 @@ export class ClientesListComponent implements OnInit {
     }
 
     deleteClient(): void {
-        this.clienteService.deleteCliente(this.selectedId)
+        this.userService.deleteUser(this.selectedId)
             .subscribe(response => {
                 /* console.log(response); */
-                this.getClientes();
+                this.getUsers();
             });
     }
 
     public editRecord(id: number): void {
         this.selectedId = id;
         // this.edit = true;
-        this.router.navigate([`alitour/clientes/edit/${id}`]);
+        this.router.navigate([`alitour/users/edit/${id}`]);
     }
 
     public addRecord(): void {
@@ -83,8 +81,8 @@ export class ClientesListComponent implements OnInit {
         this.edit = false;
     }
 
-    updateDataTable(data: IClientes): void {
-        this.getClientes();
+    updateDataTable(data: IUser): void {
+        this.getUsers();
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -106,7 +104,7 @@ export class ClientesListComponent implements OnInit {
         // window.print();
         const prtContent = document.getElementById('div_print');
         const getTbody = () => {
-            const tbody = this.clientes.map(c => `<tr><td>${c.codigo}</td><td>${c.ruc}</td><td>${c.nombre}</td></tr>`).join('');
+            const tbody = this.users.map(c => `<tr><td>${c.id}</td><td>${c.nombre}</td><td>${c.apellido_paterno}</td></tr>`).join('');
             return tbody;
         };
         prtContent.innerHTML = `
@@ -118,10 +116,6 @@ export class ClientesListComponent implements OnInit {
                         <tfoot><button  onclick='window.print();'>Imprimir</button><button (click)="">Descargar PDF</button></tfoot>`;
         const WinPrint = window.open();
         WinPrint.document.write(prtContent.innerHTML);
-        /*  WinPrint.document.close();
-         WinPrint.focus();
-         WinPrint.print();
-         WinPrint.close(); */
     }
 
     /**
@@ -130,15 +124,16 @@ export class ClientesListComponent implements OnInit {
     async deleteAllSelecteds(): Promise<void> {
         const selecteds = this.selection.selected;
         for (let index = 0; index < selecteds.length; index++) {
-            await this.clienteService.deleteCliente(selecteds[index].id).toPromise();
+            await this.userService.deleteUser(selecteds[index].id).toPromise();
             if (index === selecteds.length - 1) {
                 this.snackBar.open('ELMINADOS TODOS');
-                this.getClientes();
+                this.getUsers();
             }
         }
     }
 
-    addClient(): void {
+    addUser(): void {
         this.router.navigate(['alitour/users/add']);
     }
+
 }

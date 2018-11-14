@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'search',
@@ -7,10 +7,16 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent implements OnInit {
+    @Output() onKeyup: EventEmitter<string> = new EventEmitter();
+
     constructor() {
     }
 
     ngOnInit(): void {
+    }
+
+    keyup(value: string): void {
+        this.onKeyup.emit(value);
     }
 
 }

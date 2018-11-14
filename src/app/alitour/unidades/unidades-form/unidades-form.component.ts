@@ -9,11 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '../../../../@fuse/animations';
 
 
-export interface Monedas {
-    codigo: string;
-    descripcion: string;
-}
-
 @Component({
     selector: 'app-unidades-form',
     templateUrl: './unidades-form.component.html',
@@ -21,16 +16,6 @@ export interface Monedas {
 })
 
 export class UnidadesFormComponent implements OnInit {
-    /**
-     * mascara para poner formatos en inputs.
-     * https://github.com/JsDaddy/ngx-mask
-     * */
-
-    selectedmon = '0';
-    /* moneda por defecto */
-    selectedban = '';
-    selectedban2 = '';
-
     private _id: number;
     get id(): number {
         return this._id;
@@ -46,17 +31,6 @@ export class UnidadesFormComponent implements OnInit {
             }
         }
     }
-
-    /*   bancos: Bancos[] = [
-        { codigo: 'steak-0', descripcion: '2018' },
-        { codigo: 'pizza-1', descripcion: '2019' },
-        { codigo: 'tacos-2', descripcion: '2020' }
-      ]; */
-
-    monedas: Monedas[] = [
-        {codigo: 'Soles', descripcion: 'Soles'},
-        {codigo: 'Dolares', descripcion: 'Dolares'},
-    ];
 
 
     unidad: IUnidad;

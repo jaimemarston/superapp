@@ -46,8 +46,8 @@ export class ClientesListComponent implements OnInit {
                 this.clientes = response;
                 this.dataSource.data = this.clientes;
 
-                // this.clientes = response.filter(v => v.id < 93) filtrando el array;
-                /* console.log(this.clientes); */
+                // this.users = response.filter(v => v.id < 93) filtrando el array;
+                /* console.log(this.users); */
                 this.dataSource.paginator = this.paginator;
                 this.paginator._intl.itemsPerPageLabel = 'Item por Pagina:';
             });
@@ -139,6 +139,6 @@ export class ClientesListComponent implements OnInit {
     }
 
     addClient(): void {
-        this.router.navigate(['alitour/clientes/add']);
+        this.router.navigate(['alitour/users/add']);
     }
 }
