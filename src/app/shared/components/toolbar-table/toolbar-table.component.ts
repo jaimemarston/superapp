@@ -10,6 +10,7 @@ import { BASEURL } from '../../../../environments/environment';
 export class ToolbarTableComponent implements OnInit {
 
     @Input() search = true;
+    @Input() urlPrint;
 
     @Output() add: EventEmitter<any> = new EventEmitter();
     @Output() printing: EventEmitter<any> = new EventEmitter();
@@ -24,7 +25,9 @@ export class ToolbarTableComponent implements OnInit {
     }
 
     print_pdf(): void {
-        window.location.replace(`${BASEURL}generate_pdf`);
+        if (this.urlPrint) {
+            window.location.replace(`${BASEURL}${this.urlPrint}`);
+        }
     }
 
 }

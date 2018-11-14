@@ -1,6 +1,6 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table (inputText)="applyFilter($event)" [hidden]="edit" (add)="addRecord()" (delete)="deleteAllSelecteds()"
-                   (printing)="openPrint()"></toolbar-table>
+    <toolbar-table [urlPrint]="'generate_pdf'" (inputText)="applyFilter($event)" [hidden]="edit" (add)="addRecord()"
+                   (delete)="deleteAllSelecteds()"></toolbar-table>
     <div fxFlex [hidden]="edit">
         <mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="select">

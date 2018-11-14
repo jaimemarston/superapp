@@ -1,6 +1,6 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table (inputText)="applyFilter($event)" [hidden]="edit" (add)="addRecord()" (delete)="deleteAllSelecteds()"
-                   (printing)="openPrint()"></toolbar-table>
+    <toolbar-table [urlPrint]="'generate_pdf/'+idMaster" (inputText)="applyFilter($event)" [hidden]="edit"
+                   (add)="addRecord()" (delete)="deleteAllSelecteds()"></toolbar-table>
     <div [hidden]="!edit">
         <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()"
                                    (update)="updateDataTable($event)"></app-editcotizaciondetalle>
