@@ -49,7 +49,7 @@ export class MainNavComponent {
 
   routes: Object[] = [{
     icon: 'directions_walk',
-    route: '/clientes',
+    route: '/users',
     title: 'Clientes',
     description: 'Item description',
   }, {
@@ -67,7 +67,7 @@ export class MainNavComponent {
   },
 /*   {
     icon: 'local_shipping',
-    route: '/unidad',
+    route: '/user',
     title: 'Proveedores',
     description: 'Item description',
   }, */

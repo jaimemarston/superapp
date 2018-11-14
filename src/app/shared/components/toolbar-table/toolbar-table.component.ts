@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { BASEURL } from '../../../../environments/environment';
 
 @Component({
@@ -8,6 +8,9 @@ import { BASEURL } from '../../../../environments/environment';
     encapsulation: ViewEncapsulation.None
 })
 export class ToolbarTableComponent implements OnInit {
+
+    @Input() search = true;
+
     @Output() add: EventEmitter<any> = new EventEmitter();
     @Output() printing: EventEmitter<any> = new EventEmitter();
     @Output() delete: EventEmitter<any> = new EventEmitter();

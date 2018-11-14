@@ -1,7 +1,7 @@
 <div class="header p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start start"
      fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
 
-    <search (onKeyup)="inputText.emit($event)" fxFlex fxLayout="row" fxLayoutAlign="start center"></search>
+    <search *ngIf="search" (onKeyup)="inputText.emit($event)" fxFlex fxLayout="row" fxLayoutAlign="start center"></search>
     <!-- / APP TITLE -->
 
     <!-- SEARCH -->

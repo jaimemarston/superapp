@@ -14,7 +14,7 @@ export class ArticuloService {
   }
 
   getArticulos(): Observable<Array<IArticulo>> {
-    return this.http.get<Array<IArticulo>>(ArticuloEndpoint.rest)
+    return this.http.get<Array<IArticulo>>(ArticuloEndpoint.rest);
   }
 
   getArticulo(id: number): Observable<Articulos> {

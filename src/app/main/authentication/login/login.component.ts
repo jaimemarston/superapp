@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
     authenticate(): void {
         this.authService.authenticate(this.loginForm.getRawValue());
         if (AuthService.isAuthenticated()) {
-            this.router.navigate(['alitour/clientes']);
+            this.router.navigate(['alitour/users']);
         }
     }
 }

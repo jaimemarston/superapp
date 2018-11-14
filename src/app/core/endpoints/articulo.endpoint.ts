@@ -1,6 +1,6 @@
 import { BASEURL } from '../../../environments/environment';
 
 export class ArticuloEndpoint {
-  // public static getClient = BASEURL + 'cliente' + 1 + 'id';
-  public static rest = `${BASEURL}articulo`;
+  // public static getUser = BASEURL + 'cliente' + 1 + 'id';
+  public static rest = `${BASEURL}articulo/`;
 }
