@@ -37,10 +37,7 @@ export class CotizaciondetalleComponent implements OnInit {
         /* console.log(this.cotizacionesDetalle); */
         this.dataSource.data = this.cotizacionesDetalle;
         if (this.cotizacionesDetalle) {
-            this.cotizacionTotales.total_general = this.cotizacionesDetalle.reduce((a, b) => b.imptotal + a, 0);
-            this.cotizacionTotales.igv = this.cotizacionesDetalle.reduce((a, b) => b.impigv + a, 0);
-            this.cotizacionTotales.descuento = this.cotizacionesDetalle.reduce((a, b) => b.impdescuentos + a, 0);
-            this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => b.impsubtotal + a, 0);
+            this.calculateTotales(0);
         }
     }
 
@@ -158,5 +155,16 @@ export class CotizaciondetalleComponent implements OnInit {
 
     applyFilter(filterValue: string): void {
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    calculateTotales(descuento = 0): void {
+        this.cotizacionTotales.descuento = descuento;
+        this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal * b.cantidad) + a, 0);
+        this.cotizacionTotales.total_general = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) + this.cotizacionTotales.igv;
+        this.cotizacionTotales.igv = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) * 0.18;
+    }
+
+    onChangeDscto(event): void {
+        this.calculateTotales(+(event.target.value ? event.target.value !== '' : 0));
     }
 }

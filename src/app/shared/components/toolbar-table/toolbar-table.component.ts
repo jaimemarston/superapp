@@ -26,7 +26,8 @@ export class ToolbarTableComponent implements OnInit {
 
     print_pdf(): void {
         if (this.urlPrint) {
-            window.location.replace(`${BASEURL}${this.urlPrint}`);
+            window.open(`${BASEURL}${this.urlPrint}`, '_blank');
+            // window.location.replace(`${BASEURL}${this.urlPrint}`);
         }
     }
 
