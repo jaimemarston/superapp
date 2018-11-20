@@ -15,7 +15,7 @@
             </label>
             <input type="file" id="file_input" (change)="uploadSuccess($event)">
         </div>
-        <div *ngIf="user?.nombre" class="contact-name mt-8">{{user?.nombre}} {{user?.apellido_paterno}}</div>
+        <div *ngIf="user?.nombre" class="contact-name mt-8">{{user?.nombre}} {{user?.apellido_paterno}} {{user?.apellido_materno}}</div>
     </mat-toolbar-row>
 
     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
