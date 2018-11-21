@@ -70,7 +70,7 @@ export class CotizacionmaestroComponent implements OnInit {
             this.cotizacionSelected = this.cotizacion[0];
         }
         if (emit) {
-            this.detalle.emit(this.cotizacionSelected.cotizaciones);
+            this.detalle.emit(this.cotizacionSelected ? this.cotizacionSelected.cotizaciones : []);
         }
     }
 
