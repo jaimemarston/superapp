@@ -7,6 +7,7 @@ import { CotizaciondetalleService } from '../../../core/services/cotizaciondetal
 import { ICotizaciondetalle } from '../../../core/interfaces/cotizacion.interface';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fuseAnimations } from '../../../../@fuse/animations';
+import { map } from 'rxjs/operators';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -73,6 +74,13 @@ export class CotizaciondetalleComponent implements OnInit {
 
     getCotizacion(): void {
         this.cotizacionService.getCotizaciones()
+            .pipe(map(cotizaciones => {
+                cotizaciones = cotizaciones.map(c => {
+                    c.imptotal = c.cantidad * c.precio;
+                    return c;
+                });
+                return cotizaciones;
+            }))
             .subscribe(response => {
                 this.cotizacion = response;
                 this.dataSource.data = this.cotizacion;
