@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { CotizaciondetalleService } from '../../../../core/services/cotizaciondetalle.service';
 import { ICotizaciondetalle } from '../../../../core/interfaces/cotizacion.interface';
 import { IArticulo } from '../../../../core/interfaces/articulo.interface';
@@ -6,7 +6,7 @@ import { ArticuloService } from '../../../../core/services/articulo.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '../../../../../@fuse/animations';
 
 
@@ -16,7 +16,8 @@ import { fuseAnimations } from '../../../../../@fuse/animations';
     animations: fuseAnimations
 })
 
-export class EditcotizaciondetalleComponent implements OnInit {
+export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
+    $unsubscribe = new Subject();
     private _id: number;
     get id(): number {
         return this._id;
@@ -91,10 +92,31 @@ export class EditcotizaciondetalleComponent implements OnInit {
         this.filteredArticulos = descripcionForm.valueChanges.pipe(
             map(value => this._filter(value))
         );
+
+        this.valueChanges();
+    }
+
+    valueChanges(): void {
+        const precioControl = this.registerForm.get('precio');
+        const cantidadControl = this.registerForm.get('cantidad');
+        precioControl.valueChanges
+            .pipe(takeUntil(this.$unsubscribe))
+            .subscribe(value => {
+                this.setImporteTotal(precioControl.value, cantidadControl.value);
+            });
+
+        cantidadControl.valueChanges
+            .pipe(takeUntil(this.$unsubscribe))
+            .subscribe(value => {
+                this.setImporteTotal(precioControl.value, cantidadControl.value);
+            });
+    }
+
+    setImporteTotal(a, b): void {
+        this.registerForm.get('imptotal').setValue(a * b);
     }
 
     getCotizacion(): void {
-
         this.cotizacionService.getCotizacion(this.id)
             .subscribe(response => {
                 this.cotizacion = response;
@@ -148,8 +170,6 @@ export class EditcotizaciondetalleComponent implements OnInit {
     addCotizacion(): void {
         const data = this.prepareData();
 
-        /*     console.log('data');
-            console.log(data); */
         this.cotizacionService.addCotizacion(data)
             .subscribe(response => {
                 this.update.emit(response);
@@ -158,7 +178,11 @@ export class EditcotizaciondetalleComponent implements OnInit {
     }
 
     saveCotizacion(): void {
-
         this.id ? this.updateCotizacion() : this.addCotizacion();
+    }
+
+    ngOnDestroy(): void {
+        this.$unsubscribe.next();
+        this.$unsubscribe.complete();
     }
 }
