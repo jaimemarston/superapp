@@ -60,7 +60,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
         this.articuloService.getArticulos()
             .subscribe(response => {
                 this.articulos = response;
-                // this.filteredArticulos = from(this.articulos);
             });
     }
 
@@ -80,7 +79,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
 
     createForm(): void {
         this.registerForm = this.formBuilder.group({
-            codigo: [''],
+            codigo: ['', Validators.required],
             descripcion: [''],
             desunimed: [''],
             cantidad: [''],
