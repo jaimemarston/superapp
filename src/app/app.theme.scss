@@ -78,6 +78,7 @@ $typography: mat-typography-config(
 @import "src/app/layout/components/toolbar/toolbar.theme";
 @import "src/app/alitour/authentication/login/login.theme";
 @import "src/app/alitour/clientes/clientes.theme";
+@import "src/app/alitour/dashboards/project/project.theme.scss";
 
 // Define a mixin for easier access
 @mixin components-theme($theme) {

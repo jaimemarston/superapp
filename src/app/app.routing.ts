@@ -42,6 +42,14 @@ export const routes: Routes = [
                 path: 'articulos',
                 loadChildren: './alitour/articulos/articulos.module#ArticulosModule'
             },
+            {
+                path: 'dashboards/analytics',
+                loadChildren: './alitour/dashboards/analytics/analytics.module#AnalyticsDashboardModule'
+            },
+            {
+                path: 'dashboards/projects',
+                loadChildren: './alitour/dashboards/project/project.module#ProjectDashboardModule'
+            },
         ]
     },
 ];

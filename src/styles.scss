@@ -7,3 +7,28 @@
     background-color: #039be5 !important;
     color: #fff !important;
 }
+
+.mat-row {
+    min-height: 33px;
+}
+
+.mat-checkbox-inner-container {
+    height: 13px !important;
+    width: 13px !important;
+}
+
+.mat-divider {
+    border-top-color: tan !important;
+}
+
+.mat-paginator-page-size-select {
+    margin: 6px 3px -16px 4px !important;
+    width: 56px !important;
+}
+
+.mat-paginator-range-actions {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    margin-bottom: -18px;
+}

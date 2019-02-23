@@ -42,6 +42,28 @@ export const navigation: FuseNavigation[] = [
                 icon: 'email',
                 url: '/alitour/cotizacion',
             },
+            {
+                id: 'dashboard',
+                title: 'Dashboard',
+                type: 'collapsable',
+                icon: 'email',
+                children: [
+                    {
+                        id: 'dashboard_analytics',
+                        title: 'Analitica',
+                        type: 'item',
+                        icon: 'email',
+                        url: '/alitour/dashboards/analytics',
+                    },
+                    {
+                        id: 'dashboard_projects',
+                        title: 'Proyectos',
+                        type: 'item',
+                        icon: 'email',
+                        url: '/alitour/dashboards/projects',
+                    }
+                ]
+            },
         ]
     }
 ];

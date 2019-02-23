@@ -11,6 +11,11 @@
                                            [item]="item"></fuse-nav-vertical-collapsable>
             <fuse-nav-vertical-item *ngIf="item.type=='item'" [item]="item"></fuse-nav-vertical-item>
         </ng-container>
+
+        <a (click)="logout()" class="nav-link purple-bg">
+            <mat-icon class="nav-link-icon">exit_to_app</mat-icon>
+            <span class="nav-link-title">Cerrar sesión</span>
+        </a>
     </div>
 
 </ng-container>
