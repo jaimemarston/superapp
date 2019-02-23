@@ -11,6 +11,7 @@ export class ToolbarTableComponent implements OnInit {
 
     @Input() search = true;
     @Input() urlPrint;
+    @Input() title: string;
 
     @Output() add: EventEmitter<any> = new EventEmitter();
     @Output() printing: EventEmitter<any> = new EventEmitter();

@@ -5,6 +5,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { ALITOUR, DEFAULT_ROUTE } from '../../../../environments/environment';
 
 @Component({
     selector: 'login',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+    companyConfig = ALITOUR;
 
     /**
      * Constructor
@@ -65,7 +67,7 @@ export class LoginComponent implements OnInit {
     authenticate(): void {
         this.authService.authenticate(this.loginForm.getRawValue());
         if (AuthService.isAuthenticated()) {
-            this.router.navigate(['alitour/clientes']);
+            this.router.navigate([DEFAULT_ROUTE]);
         }
     }
 }

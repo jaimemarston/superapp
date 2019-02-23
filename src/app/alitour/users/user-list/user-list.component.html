@@ -1,5 +1,5 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table [search]="false" (add)="addUser()" (delete)="deleteAllSelecteds()" (printing)="openPrint()"></toolbar-table>
+    <toolbar-table [title]="'Usuarios'" [search]="true" (add)="addUser()" (delete)="deleteAllSelecteds()" (printing)="openPrint()"></toolbar-table>
     <div fxFlex>
         <mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="select">

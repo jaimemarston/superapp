@@ -18,6 +18,8 @@ import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/alitour/sample/sample.module';
 import { routes } from './app.routing';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FakeDbService } from './fake-db/fake-db.service';
 
 @NgModule({
     declarations: [
@@ -30,6 +32,10 @@ import { routes } from './app.routing';
         RouterModule.forRoot(routes),
 
         TranslateModule.forRoot(),
+        InMemoryWebApiModule.forRoot(FakeDbService, {
+            delay             : 0,
+            passThruUnknownUrl: true
+        }),
 
         // Material moment date module
         MatMomentDateModule,

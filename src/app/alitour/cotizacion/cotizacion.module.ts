@@ -22,9 +22,8 @@ import {
     MatListModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MAT_SNACK_BAR_DEFAULT_OPTIONS, MatMenuModule, MatRippleModule, MatOptionModule,
+    MAT_SNACK_BAR_DEFAULT_OPTIONS, MatMenuModule, MatRippleModule, MatOptionModule, MatDividerModule,
 } from '@angular/material';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditCotizacionComponent } from './cotizacionmaestro/editcotizacion/editcotizacion.component';
 import { CotizacionmaestroComponent } from './cotizacionmaestro/cotizacionmaestro.component';
 import { CotizaciondetalleComponent } from './cotizaciondetalle/cotizaciondetalle.component';
@@ -32,6 +31,7 @@ import { EditcotizaciondetalleComponent } from './cotizaciondetalle/editcotizaci
 import { FuseSharedModule } from '../../../@fuse/shared.module';
 import { ToolbarTableModule } from '../../shared/components/toolbar-table/toolbar-table.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '../../../@fuse/components';
+import { ActionIconsModule } from '../../shared/components/action-icons/action-icons.module';
 
 const routes: Routes = [
     {
@@ -66,7 +66,9 @@ const routes: Routes = [
         MatChipsModule,
         MatSelectModule,
         MatAutocompleteModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        ActionIconsModule,
+        MatDividerModule
     ],
     declarations: [CotizacionComponent, EditCotizacionComponent, CotizacionmaestroComponent, CotizaciondetalleComponent, EditcotizaciondetalleComponent],
     providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2000}}]

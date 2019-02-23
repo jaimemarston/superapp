@@ -1,50 +1,59 @@
-<form class="mat-card mat-elevation-z4 p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
+<form class="mat-card mat-elevation-z4 p-24" fxLayout="column" fxLayoutAlign="start"
       fxFlex="1 0 auto" [formGroup]="registerForm">
 
     <div class="h2 mb-24">Agregar Articulo</div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
         <mat-form-field fxFlex="25">
+            <mat-label>Código</mat-label>
             <input #inputs matInput placeholder="Código" formControlName="codigo">
         </mat-form-field>
 
         <mat-form-field fxFlex="25">
+            <mat-label>Fecha Documento</mat-label>
             <input #inputs matInput placeholder="Fecha Documento" formControlName="fechadoc">
         </mat-form-field>
 
         <mat-form-field fxFlex="25">
+            <mat-label>Des Ruc</mat-label>
             <input #inputs matInput placeholder="Des Ruc" formControlName="desruc">
         </mat-form-field>
 
         <mat-form-field fxFlex="25">
+            <mat-label>RUC</mat-label>
             <input #inputs matInput placeholder="RUC" formControlName="ruc">
         </mat-form-field>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
         <mat-form-field fxFlex="20">
+            <mat-label>Unidad transporte</mat-label>
             <input #inputs matInput placeholder="Unidad transporte" formControlName="unidadtransporte">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
+            <mat-label>Teléfono RUC</mat-label>
             <input #inputs matInput placeholder="Teléfono Ruc" formControlName="telruc">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
+            <mat-label>Correo RUC</mat-label>
             <input #inputs matInput placeholder="Correo RUC" formControlName="correoruc">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
+            <mat-label>Descripcion moneda</mat-label>
             <input #inputs matInput placeholder="Descripcion moneda" formControlName="desmonepago">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
+            <mat-label>Estado</mat-label>
             <input #inputs matInput placeholder="Estado" formControlName="estado">
         </mat-form-field>
     </div>
-    <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+    <div class="crud-buttons" fxLayout="row" fxLayoutAlign="end center" fxFlex="1 0 auto">
         <button type="button" (click)="onBack()" mat-raised-button class="mat-primary">Volver</button>
         <button (click)="saveCotizacion()" mat-raised-button [disabled]="registerForm.invalid" class="mat-accent">
             Guardar
