@@ -1,5 +1,9 @@
 // Import Fuse core library
 @import "@fuse/scss/core";
-
 // Import app.theme.scss
 @import "app/app.theme";
+
+.mat-header-cell {
+    background-color: #039be5 !important;
+    color: #fff !important;
+}
