@@ -1,5 +1,5 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table [urlPrint]="'generate_pdf/'+idMaster" (inputText)="applyFilter($event)" [hidden]="edit"
+    <toolbar-table [title]="'Detalle'"  [urlPrint]="'generate_pdf/'+idMaster" (inputText)="applyFilter($event)" [hidden]="edit"
                    (add)="addRecord()" (delete)="deleteAllSelecteds()"></toolbar-table>
     <div [hidden]="!edit">
         <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()"
@@ -51,13 +51,7 @@
             <ng-container matColumnDef="options">
                 <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <button (click)="editRecord(row.id)" mat-icon-button color="accent">
-                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Edit">edit</mat-icon>
-                    </button>
-
-                    <button (click)="delete(row.id)" mat-icon-button color="accent">
-                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Delete">delete</mat-icon>
-                    </button>
+                    <app-action-icons (edit)="editRecord(row.id)" (remove)="delete(row.id)"></app-action-icons>
                 </mat-cell>
             </ng-container>
 

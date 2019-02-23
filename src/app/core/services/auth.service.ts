@@ -17,7 +17,7 @@ export class AuthService {
     }
 
     logout(redirect?: boolean): void {
-        localStorage.removeItem('user');
+        localStorage.clear();
         if (redirect) {
             this._router.navigate(['auth/login']);
         }

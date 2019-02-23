@@ -1,5 +1,6 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table [urlPrint]="'generate_pdf'" (inputText)="applyFilter($event)" [hidden]="edit" (add)="addRecord()"
+    <toolbar-table [title]="'Maestro'" [urlPrint]="'generate_pdf'" (inputText)="applyFilter($event)" [hidden]="edit"
+                   (add)="addRecord()"
                    (delete)="deleteAllSelecteds()"></toolbar-table>
     <div fxFlex [hidden]="edit">
         <mat-table #table [dataSource]="dataSource">
@@ -51,8 +52,10 @@
             <ng-container matColumnDef="estado">
                 <mat-header-cell *matHeaderCellDef> ESTADO</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <mat-icon *ngIf="element.estado === 1" class="active-icon green-600 s-16">check</mat-icon>
-                    <mat-icon *ngIf="element.estado !== 1" class="active-icon red-500 s-16">close</mat-icon>
+                    <mat-chip-list>
+                        <mat-chip *ngIf="element.estado === 1" class="green-600" selected>Activo</mat-chip>
+                        <mat-chip *ngIf="element.estado !== 1" class="red-500" selected>Anulado</mat-chip>
+                    </mat-chip-list>
                 </mat-cell>
             </ng-container>
 
@@ -60,13 +63,7 @@
             <ng-container matColumnDef="options">
                 <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <button (click)="editRecord(row.id)" mat-icon-button color="accent">
-                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Edit">edit</mat-icon>
-                    </button>
-
-                    <button (click)="delete(row.id)" mat-icon-button color="accent">
-                        <mat-icon style="color: steelblue;vertical-align:baseline" aria-label="Delete">delete</mat-icon>
-                    </button>
+                    <app-action-icons (edit)="editRecord(row.id)" (remove)="delete(row.id)"></app-action-icons>
                 </mat-cell>
             </ng-container>
 
@@ -85,6 +82,7 @@
         <mat-paginator #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
     </div>
+    <mat-divider></mat-divider>
     <div fxFlex [hidden]="!edit">
         <app-editcotizacion [id]="selectedId" (back)="showDataTable()"
                             (update)="updateDataTable($event)"></app-editcotizacion>

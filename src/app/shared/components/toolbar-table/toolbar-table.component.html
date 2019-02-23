@@ -1,17 +1,16 @@
-<div class="header p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start start"
+<div class="header p-8" fxLayout="column" fxLayoutAlign="start start"
      fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
-
-    <search *ngIf="search" (onKeyup)="inputText.emit($event)" fxFlex fxLayout="row"
-            fxLayoutAlign="start center"></search>
+    <div fxFlex="60" *ngIf="title" class="h2 secondary-text">{{ title }}</div>
     <!-- / APP TITLE -->
 
     <!-- SEARCH -->
-    <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center">
-        <button *ngIf="urlPrint" mat-raised-button color="primary" (click)="print_pdf();printing.emit(true)">
+    <div fxFlex="40" class="crud-buttons" fxLayout="row" fxLayoutAlign="start center">
+        <search *ngIf="search" (onKeyup)="inputText.emit($event)" fxFlex="50"></search>
+        <button fxFlex *ngIf="urlPrint" mat-raised-button color="primary" (click)="print_pdf();printing.emit(true)">
             Imprimir
         </button>
-        <button mat-raised-button color="warn" (click)="add.emit(true)">Nuevo</button>
-        <button mat-raised-button color="accent" (click)="delete.emit(true)">Eliminar</button>
+        <button fxFlex mat-raised-button color="warn" (click)="add.emit(true)">Nuevo</button>
+        <button fxFlex mat-raised-button color="accent" (click)="delete.emit(true)">Eliminar</button>
     </div>
     <!-- / SEARCH -->
 
