@@ -8,42 +8,42 @@
                 <img src="assets/images/logos/fuse.svg">
             </div>
 
-            <div class="title">LOGIN TO YOUR ACCOUNT</div>
+            <div class="title">Registrar Usuario y Password</div>
 
             <form name="loginForm" [formGroup]="loginForm" novalidate>
 
                 <mat-form-field>
-                    <input matInput placeholder="Email" formControlName="username">
+                    <input matInput placeholder="Usuario" formControlName="username">
                     <mat-error *ngIf="loginForm.get('username').hasError('required')">
-                        Email is required
+                        Usuario es requerido
                     </mat-error>
                     <mat-error
                         *ngIf="!loginForm.get('username').hasError('required')">
-                        Please enter a valid email address
+                        Por favor ingrese un correo valido
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
                     <input matInput type="password" placeholder="Password" formControlName="password">
                     <mat-error>
-                        Password is required
+                        Contraseña es requerida
                     </mat-error>
                 </mat-form-field>
 
                 <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
                      fxLayoutAlign="space-between center">
                     <mat-checkbox class="remember-me" aria-label="Remember Me">
-                        Remember Me
+                        Recordarme
                     </mat-checkbox>
 
                     <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password'">
-                        Forgot Password?
+                        Olvido su Contraseña?
                     </a>
                 </div>
 
                 <button (click)="authenticate()" mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
                         [disabled]="loginForm.invalid">
-                    LOGIN
+                    Ingresar
                 </button>
 
             </form>

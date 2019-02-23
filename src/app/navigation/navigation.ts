@@ -3,7 +3,7 @@ import { FuseNavigation } from '@fuse/types';
 export const navigation: FuseNavigation[] = [
     {
         id: 'applications',
-        title: 'Applications',
+        title: 'Opciones',
         translate: 'NAV.APPLICATIONS',
         type: 'group',
         children: [
@@ -11,28 +11,28 @@ export const navigation: FuseNavigation[] = [
                 id: 'users',
                 title: 'Usuarios',
                 type: 'item',
-                icon: 'email',
+                icon: 'directions_walk',
                 url: '/alitour/users',
             },
             {
                 id: 'clientes',
                 title: 'Clientes',
                 type: 'item',
-                icon: 'email',
+                icon: 'local_shipping',
                 url: '/alitour/clientes',
             },
             {
                 id: 'articulos',
                 title: 'Articulos',
                 type: 'item',
-                icon: 'email',
+                icon: 'print',
                 url: '/alitour/articulos',
             },
             {
                 id: 'unidades',
                 title: 'Unidades',
                 type: 'item',
-                icon: 'email',
+                icon: 'local_taxi',
                 url: '/alitour/unidades',
             },
             {
