@@ -79,16 +79,16 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
 
     createForm(): void {
         this.registerForm = this.formBuilder.group({
-            codigo: ['', Validators.required],
             fechaini: [''],
             horaini: [''],
             fechafin: [''],
             horafin: [''],
-            descripcion: [''],          
+            descripcion: ['', Validators.required],          
             desunimed: [''],
             cantidad: [''],
             precio: [''],
             imptotal: [''],
+            codigo: [''],
         });
 
         const descripcionForm = this.registerForm.get('descripcion');

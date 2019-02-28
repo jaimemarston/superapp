@@ -48,7 +48,7 @@ export class CotizaciondetalleComponent implements OnInit {
 
     @Output() updated: EventEmitter<any> = new EventEmitter();
 
-    displayedColumns: string[] = ['select', 'codigo', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'options'];
+    displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'codigo', 'options'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     cotizacion: Array<ICotizaciondetalle>;

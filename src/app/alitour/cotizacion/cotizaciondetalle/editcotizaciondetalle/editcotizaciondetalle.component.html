@@ -3,10 +3,10 @@
 
     <div class="h2 mb-24">Agregar Detalle cotización</div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+    <div fxLayout="row" fxLayoutGap="25px"  fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-        <mat-form-field fxFlex="20">
-            <input #inputCodigo type="text" placeholder="DescripcionNN" aria-label="Number" matInput
+        <mat-form-field fxFlex="50">
+            <input #inputCodigo type="text" placeholder="Descripcion del Servicio" aria-label="Number" matInput
                    formControlName="descripcion" [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredArticulos | async" [value]="option.descripcion">
@@ -16,26 +16,24 @@
             </mat-autocomplete>
         </mat-form-field>
 
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Codigo" formControlName="codigo">
-        </mat-form-field>
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Fechaini" formControlName="fechaini">
+        
+        <mat-form-field fxFlex="15">
+            <input #inputs matInput type="date" placeholder="Fechaini" formControlName="fechaini">
         </mat-form-field>
         <mat-form-field fxFlex="10">
-            <input #inputs matInput placeholder="Horaini" formControlName="horaini">
+            <input #inputs matInput type="time" placeholder="Horaini" formControlName="horaini">
         </mat-form-field>
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Fechafin" formControlName="Fechafin">
+        <mat-form-field fxFlex="15">
+            <input #inputs matInput type="date" placeholder="Fechafin" formControlName="Fechafin">
         </mat-form-field>
         <mat-form-field fxFlex="10">
-            <input #inputs matInput placeholder="horafin" formControlName="horafin">
+            <input #inputs matInput type="time" placeholder="horafin" formControlName="horafin">
         </mat-form-field>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
         <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="desunimed" formControlName="desunimed">
+            <input #inputs matInput placeholder="Transporte" formControlName="desunimed">
         </mat-form-field>
 
         <mat-form-field fxFlex="10">
