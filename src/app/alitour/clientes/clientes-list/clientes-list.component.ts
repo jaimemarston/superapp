@@ -139,6 +139,6 @@ export class ClientesListComponent implements OnInit {
     }
 
     addClient(): void {
-        this.router.navigate(['alitour/users/add']);
+        this.router.navigate(['alitour/clientes/add']);
     }
 }

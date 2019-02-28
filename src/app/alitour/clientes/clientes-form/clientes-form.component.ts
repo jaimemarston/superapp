@@ -104,7 +104,7 @@ export class ClientesFormComponent implements OnInit {
     }
 
     back(): void {
-        this.router.navigate(['alitour/users']);
+        this.router.navigate(['alitour/clientes']);
     }
 
     getBanco(): void {
@@ -185,7 +185,7 @@ export class ClientesFormComponent implements OnInit {
     }
 
     goListClientes(): void {
-        this.router.navigate(['alitour/users']);
+        this.router.navigate(['alitour/clientes']);
     }
 
     saveClient(): void {

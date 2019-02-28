@@ -26,24 +26,41 @@
                 <mat-cell *matCellDef="let element"> {{element.codigo}}</mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="fechaini">
+                <mat-header-cell *matHeaderCellDef> FECHA INI</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.fechaini}}</mat-cell>
+            </ng-container>
+
+              <ng-container matColumnDef="horaini">
+                <mat-header-cell *matHeaderCellDef> HORA INI</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.horaini}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fechafin">
+                <mat-header-cell *matHeaderCellDef> FECHA FIN</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.fechafin}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="horafin">
+                <mat-header-cell *matHeaderCellDef> HORA FIN</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.horafin}}</mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="descripcion">
                 <mat-header-cell *matHeaderCellDef> DESCRIPCIÓN</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.descripcion}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="desunimed">
-                <mat-header-cell *matHeaderCellDef> UNIDAD MEDIDA</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> TRANSPORTE</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.desunimed}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="cantidad">
-                <mat-header-cell *matHeaderCellDef> CANTIDAD</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> PAX</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.cantidad}}</mat-cell>
             </ng-container>
-            <ng-container matColumnDef="precio">
-                <mat-header-cell *matHeaderCellDef> PRECIO</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.precio}}</mat-cell>
-            </ng-container>
+
             <ng-container matColumnDef="imptotal">
                 <mat-header-cell *matHeaderCellDef> IMPORTE TOTAL</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.imptotal}}</mat-cell>

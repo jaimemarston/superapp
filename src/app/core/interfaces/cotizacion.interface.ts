@@ -45,6 +45,8 @@ export interface ICotizacion {
     fechafin: Date;
     correoruc: string;
     estado: number;
+    horaini: string;
+    horafin: string;
     unidadtransporte: string;
     cotizaciones?: Array<ICotizaciondetalle> | null;
 }
@@ -75,6 +77,8 @@ export interface ICotizaciondetalle {
     cc3: string;
     fechaini: Date;
     fechafin: Date;
+    horaini: string;
+    horafin: string;
     master: number | null;
 }
 

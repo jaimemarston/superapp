@@ -80,7 +80,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
     createForm(): void {
         this.registerForm = this.formBuilder.group({
             codigo: ['', Validators.required],
-            descripcion: [''],
+            fechaini: [''],
+            horaini: [''],
+            fechafin: [''],
+            horafin: [''],
+            descripcion: [''],          
             desunimed: [''],
             cantidad: [''],
             precio: [''],
@@ -125,6 +129,10 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
 
     setForm(): void {
         this.registerForm.get('codigo').setValue(this.cotizacion.codigo);
+        this.registerForm.get('fechaini').setValue(this.cotizacion.fechaini);
+        this.registerForm.get('horaini').setValue(this.cotizacion.horaini);
+        this.registerForm.get('fechafin').setValue(this.cotizacion.fechafin);
+        this.registerForm.get('horafin').setValue(this.cotizacion.horafin);
         this.registerForm.get('descripcion').setValue(this.cotizacion.descripcion);
         this.registerForm.get('desunimed').setValue(this.cotizacion.desunimed);
         this.registerForm.get('cantidad').setValue(this.cotizacion.cantidad);

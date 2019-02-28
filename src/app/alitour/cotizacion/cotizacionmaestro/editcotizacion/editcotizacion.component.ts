@@ -67,7 +67,6 @@ export class EditCotizacionComponent implements OnInit {
             fechadoc: [''],
             desruc: [''],
             ruc: [''],
-            unidadtransporte: [''],
             telruc: [''],
             correoruc: [''],
             desmonepago: [''],
@@ -89,7 +88,6 @@ export class EditCotizacionComponent implements OnInit {
         this.registerForm.get('fechadoc').setValue(this.cotizacion.fechadoc);
         this.registerForm.get('ruc').setValue(this.cotizacion.ruc);
         this.registerForm.get('desruc').setValue(this.cotizacion.desruc);
-        this.registerForm.get('unidadtransporte').setValue(this.cotizacion.unidadtransporte);
         this.registerForm.get('telruc').setValue(this.cotizacion.telruc);
         this.registerForm.get('correoruc').setValue(this.cotizacion.correoruc);
         this.registerForm.get('desmonepago').setValue(this.cotizacion.desmonepago);

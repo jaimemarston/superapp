@@ -43,6 +43,8 @@ export class Cotizacion {
   cc1: string;
   cc2: string;
   cc3: string;
+  horaini: string;
+  horafin: string;
   fechaini: Date;
   fechafin: Date;
   estado: number;
@@ -72,6 +74,8 @@ export class Cotizaciondetalle {
   cc1: string;
   cc2: string;
   cc3: string;
+  horaini: string;
+  horafin: string;
   fechaini: Date;
   fechafin: Date;
 }

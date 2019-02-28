@@ -1,5 +1,9 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table (add)="addClient()" (delete)="deleteAllSelecteds()" (printing)="openPrint()"></toolbar-table>
+   
+    <toolbar-table [title]="'Detalle de Clientes'" [urlPrint]="'openPrint()'" (inputText)="applyFilter($event)" [hidden]="edit"
+                   (add)="addClient()"
+                   (delete)="deleteAllSelecteds()"></toolbar-table>
+                   
     <div fxFlex>
         <mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="select">
