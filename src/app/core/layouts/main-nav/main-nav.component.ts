@@ -57,8 +57,7 @@ export class MainNavComponent {
     route: '/unidades',
     title: 'Transporte',
     description: 'Item description',
-
-  }, {
+  },  {
     icon: 'print',
     route: '/articulos',
     title: 'Servicios',

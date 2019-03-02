@@ -1,0 +1,20 @@
+@import "src/@fuse/scss/fuse";
+
+proveedores-list {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+
+    .mat-table {
+        width: 100%;
+        background: transparent;
+        box-shadow: none;
+    }
+    #proveedores {
+        width: 100%;
+    }
+
+    mat-header-cell {
+        color: red !important;
+    }
+}

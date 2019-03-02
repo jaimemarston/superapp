@@ -76,6 +76,9 @@ export class Cotizaciondetalle {
   cc3: string;
   horaini: string;
   horafin: string;
+  lugorigen: string;
+  lugdestino: string;
+  opcviaje: string;
   fechaini: Date;
   fechafin: Date;
 }

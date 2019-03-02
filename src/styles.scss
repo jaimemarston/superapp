@@ -3,6 +3,12 @@
 // Import app.theme.scss
 @import "app/app.theme";
 
+
+.mat-card {
+    background-color: #b9e7bb !important;
+}
+
+
 .mat-header-cell {
     background-color: #039be5 !important;
     color: #fff !important;
@@ -32,3 +38,8 @@
     min-height: 48px;
     margin-bottom: -18px;
 }
+
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    color: rgb(194, 31, 31) !important;
+    // scale or font-size
+  }

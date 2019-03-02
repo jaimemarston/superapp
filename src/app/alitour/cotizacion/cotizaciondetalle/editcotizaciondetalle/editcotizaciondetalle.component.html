@@ -5,7 +5,7 @@
 
     <div fxLayout="row" fxLayoutGap="25px"  fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-        <mat-form-field fxFlex="50">
+        <mat-form-field fxFlex="40">
             <input #inputCodigo type="text" placeholder="Descripcion del Servicio" aria-label="Number" matInput
                    formControlName="descripcion" [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -17,13 +17,13 @@
         </mat-form-field>
 
         
-        <mat-form-field fxFlex="15">
+        <mat-form-field fxFlex="12">
             <input #inputs matInput type="date" placeholder="Fechaini" formControlName="fechaini">
         </mat-form-field>
         <mat-form-field fxFlex="10">
             <input #inputs matInput type="time" placeholder="Horaini" formControlName="horaini">
         </mat-form-field>
-        <mat-form-field fxFlex="15">
+        <mat-form-field fxFlex="12">
             <input #inputs matInput type="date" placeholder="Fechafin" formControlName="Fechafin">
         </mat-form-field>
         <mat-form-field fxFlex="10">
@@ -32,10 +32,16 @@
     </div>
 
     <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
-        <mat-form-field fxFlex="20">
+        <mat-form-field fxFlex="10">
             <input #inputs matInput placeholder="Transporte" formControlName="desunimed">
         </mat-form-field>
 
+        <mat-form-field fxFlex="10">
+            <input #inputs matInput placeholder="Origen" formControlName="lugorigen">
+        </mat-form-field>
+        <mat-form-field fxFlex="10">
+            <input #inputs matInput placeholder="Destino" formControlName="lugdestino">
+        </mat-form-field>
         <mat-form-field fxFlex="10">
             <input #inputs matInput placeholder="Cantidad" formControlName="cantidad">
         </mat-form-field>
@@ -44,9 +50,18 @@
             <input type="number" #inputs matInput placeholder="Precio" formControlName="precio">
         </mat-form-field>
 
-        <mat-form-field fxFlex="20">
+        <mat-form-field fxFlex="10">
             <input type="number" readonly #inputs matInput placeholder="imptotal" formControlName="imptotal">
         </mat-form-field>
+
+        <mat-form-field fxFlex="10">
+            <mat-select formControlName="opcviaje" class="form-control" placeholder="Opc"
+                        [(value)]="selectedopc">
+                <mat-option class="pantallafiltro" *ngFor="let mon of opcviaje" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
     </div>
     <div fxLayout="row" class="crud-buttons" fxLayoutAlign="start center" fxFlex="1 0 auto">
         <button (click)="onBack()" mat-raised-button class="mat-primary">Volver</button>

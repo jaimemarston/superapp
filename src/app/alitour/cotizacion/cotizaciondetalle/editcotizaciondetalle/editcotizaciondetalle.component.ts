@@ -9,6 +9,10 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '../../../../../@fuse/animations';
 
+export interface Opcviaje {
+    codigo: string;
+    descripcion: string;
+}
 
 @Component({
     selector: 'app-editcotizaciondetalle',
@@ -38,8 +42,14 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
     @Input() idMaster: number;
     myControl = new FormControl();
     options: string[] = ['One', 'Two', 'Three'];
+    selectedopc = '0';
     filteredArticulos: Observable<Array<IArticulo>>;
-
+    
+    opcviaje: Opcviaje[] = [
+        {codigo: 'Solo ida', descripcion: 'Solo ida'},
+        {codigo: 'Ida y vuelta', descripcion: 'Ida y vuelta'},
+        {codigo: 'Full Day', descripcion: 'Full Day'},
+    ];
 
     cotizacion: ICotizaciondetalle;
     articulos: Array<IArticulo>;
@@ -85,9 +95,12 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
             horafin: [''],
             descripcion: ['', Validators.required],          
             desunimed: [''],
+            lugorigen: [''],
+            lugdestino: [''],
             cantidad: [''],
             precio: [''],
             imptotal: [''],
+            opcviaje: [''],
             codigo: [''],
         });
 
@@ -135,6 +148,9 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
         this.registerForm.get('horafin').setValue(this.cotizacion.horafin);
         this.registerForm.get('descripcion').setValue(this.cotizacion.descripcion);
         this.registerForm.get('desunimed').setValue(this.cotizacion.desunimed);
+        this.registerForm.get('lugorigen').setValue(this.cotizacion.lugorigen);
+        this.registerForm.get('lugdestino').setValue(this.cotizacion.lugdestino);
+        this.registerForm.get('opcviaje').setValue(this.cotizacion.opcviaje);
         this.registerForm.get('cantidad').setValue(this.cotizacion.cantidad);
         this.registerForm.get('precio').setValue(this.cotizacion.precio);
         this.registerForm.get('imptotal').setValue(this.cotizacion.imptotal);

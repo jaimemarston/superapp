@@ -79,6 +79,9 @@ export interface ICotizaciondetalle {
     fechafin: Date;
     horaini: string;
     horafin: string;
+    lugorigen: string;
+    lugdestino: string;
+    opcviaje: string;
     master: number | null;
 }
 

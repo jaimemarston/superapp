@@ -22,6 +22,13 @@ export const navigation: FuseNavigation[] = [
                 url: '/alitour/clientes',
             },
             {
+                id: 'proveedores',
+                title: 'Proveedores',
+                type: 'item',
+                icon: 'local_shipping',
+                url: '/alitour/proveedores',
+            },
+            {
                 id: 'articulos',
                 title: 'Articulos',
                 type: 'item',

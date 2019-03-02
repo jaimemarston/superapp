@@ -31,6 +31,10 @@ export const routes: Routes = [
                 loadChildren: './alitour/clientes/clientes.module#ClientesModule'
             },
             {
+                path: 'proveedores',
+                loadChildren: './alitour/proveedores/proveedores.module#ProveedoresModule'
+            },
+            {
                 path: 'cotizacion',
                 loadChildren: './alitour/cotizacion/cotizacion.module#CotizacionModule'
             },
