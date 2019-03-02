@@ -61,7 +61,7 @@ export class FuseConfigService
         return this._configSubject.asObservable();
     }
 
-    /**
+    /**config
      * Get default config
      *
      * @returns {any}
