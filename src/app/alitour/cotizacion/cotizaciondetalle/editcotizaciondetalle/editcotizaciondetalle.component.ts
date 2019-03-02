@@ -1,13 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { CotizaciondetalleService } from '../../../../core/services/cotizaciondetalle.service';
-import { ICotizaciondetalle } from '../../../../core/interfaces/cotizacion.interface';
-import { IArticulo } from '../../../../core/interfaces/articulo.interface';
-import { ArticuloService } from '../../../../core/services/articulo.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { map, startWith, takeUntil } from 'rxjs/operators';
-import { fuseAnimations } from '../../../../../@fuse/animations';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {CotizaciondetalleService} from '../../../../core/services/cotizaciondetalle.service';
+import {ICotizaciondetalle} from '../../../../core/interfaces/cotizacion.interface';
+import {IArticulo} from '../../../../core/interfaces/articulo.interface';
+import {ArticuloService} from '../../../../core/services/articulo.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
+import {BehaviorSubject, from, Observable, Subject} from 'rxjs';
+import {map, startWith, takeUntil} from 'rxjs/operators';
+import {fuseAnimations} from '../../../../../@fuse/animations';
 
 export interface Opcviaje {
     codigo: string;
@@ -20,7 +20,7 @@ export interface Opcviaje {
     animations: fuseAnimations
 })
 
-export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
+export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChanges {
     $unsubscribe = new Subject();
     private _id: number;
     get id(): number {
@@ -44,7 +44,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
     options: string[] = ['One', 'Two', 'Three'];
     selectedopc = '0';
     filteredArticulos: Observable<Array<IArticulo>>;
-    
+
     opcviaje: Opcviaje[] = [
         {codigo: 'Solo ida', descripcion: 'Solo ida'},
         {codigo: 'Ida y vuelta', descripcion: 'Ida y vuelta'},
@@ -78,6 +78,14 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
         this.getArticulo();
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.idMaster) {
+            if (this.registerForm) {
+                this.registerForm.get('codigo').setValue(this.idMaster);
+            }
+        }
+    }
+
     private _filter(value: string): IArticulo[] {
         if (value && this.articulos) {
             const filterValue = value.toLowerCase();
@@ -93,7 +101,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
             horaini: [''],
             fechafin: [''],
             horafin: [''],
-            descripcion: ['', Validators.required],          
+            descripcion: ['', Validators.required],
             desunimed: [''],
             lugorigen: [''],
             lugdestino: [''],
@@ -101,7 +109,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
             precio: [''],
             imptotal: [''],
             opcviaje: [''],
-            codigo: [''],
+            codigo: [this.idMaster],
         });
 
         const descripcionForm = this.registerForm.get('descripcion');
@@ -175,6 +183,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy {
     prepareData(): any {
         /** rest spread, paso de parametros REST, este método sirve para clonar objetos. destructuración de datos
          * http://www.etnassoft.com/2016/07/04/desestructuracion-en-javascript-parte-1/ */
+        this.registerForm.get('codigo').setValue(this.idMaster);
         const data: ICotizaciondetalle = {...this.registerForm.getRawValue()};
         data.master = this.idMaster;
 

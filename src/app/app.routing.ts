@@ -27,6 +27,10 @@ export const routes: Routes = [
                 loadChildren: './alitour/users/users.module#UsersModule'
             },
             {
+                path: 'calendario',
+                loadChildren: './alitour/calendar/calendar.module#CalendarModule'
+            },
+            {
                 path: 'clientes',
                 loadChildren: './alitour/clientes/clientes.module#ClientesModule'
             },
