@@ -9,7 +9,7 @@ import {FuseConfirmDialogComponent} from '@fuse/components/confirm-dialog/confir
 import {fuseAnimations} from '@fuse/animations';
 import {CalendarEventFormDialogComponent} from './event-form/event-form.component';
 import {CotizacionService} from '../../core/services/cotizacion.service';
-import {ICotizaciondetalle} from '../../core/interfaces/cotizacion.interface';
+import {ICotizaciondetalle, ICotizacionEstados} from '../../core/interfaces/cotizacion.interface';
 
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
@@ -39,33 +39,9 @@ export class CalendarComponent implements OnInit {
 
     cotizacionesDetail: Array<ICotizaciondetalle> = [];
 
-    legend: Array<ILegendColor> = [
-        {
-            color: 'accent-bg',
-            quantity: 10,
-            status: 1
-        },
-        {
-            color: 'red-bg',
-            quantity: 10,
-            status: 2
-        },
-        {
-            color: 'purple-bg',
-            quantity: 10,
-            status: 3
-        },
-        {
-            color: 'deep-purple-bg',
-            quantity: 10,
-            status: 4
-        },
-        {
-            color: 'orange-bg',
-            quantity: 10,
-            status: 5
-        }
-    ];
+    legend: Array<ILegendColor> = [];
+
+    cotizacionEstados: Array<ICotizacionEstados>;
 
     constructor(
         private _matDialog: MatDialog,
@@ -161,6 +137,7 @@ export class CalendarComponent implements OnInit {
                 meta: c,
             };
         });
+        this.getCotizacionEstados();
         this.refresh.next();
     }
 
@@ -271,34 +248,6 @@ export class CalendarComponent implements OnInit {
                     this.setEvents();
                 }
             });
-
-        // this.dialogRef.afterClosed()
-        //     .subscribe(response => {
-        //         if (!response) {
-        //             return;
-        //         }
-        //         const actionType: string = response[0];
-        //         const formData: FormGroup = response[1];
-        //         switch (actionType) {
-        //             /**
-        //              * Save
-        //              */
-        //             case 'save':
-        //
-        //                 this.events[eventIndex] = Object.assign(this.events[eventIndex], formData.getRawValue());
-        //                 this.refresh.next(true);
-        //
-        //                 break;
-        //             /**
-        //              * Delete
-        //              */
-        //             case 'delete':
-        //
-        //                 this.deleteEvent(event);
-        //
-        //                 break;
-        //         }
-        //     });
     }
 
     /**
@@ -324,13 +273,20 @@ export class CalendarComponent implements OnInit {
             });
     }
 
+    async getCotizacionEstados(): Promise<void> {
+        this.cotizacionEstados = await this.cotizacionService.estadosCotizacion().toPromise();
+        this.legend = this.cotizacionEstados.map(c => {
+            return {
+                status: c.id,
+                color: c.color,
+                quantity: this.cotizacionesDetail.filter(cd => cd.estado === c.id).length
+            };
+        });
+    }
+
     changeByStatus(legendColor: ILegendColor): void {
         const cotizaciones = this.cotizacionesDetail.filter(c => {
-            if (c.status) {
-                return c.status === legendColor.status;
-            } else {
-                return true;
-            }
+            return c.estado === legendColor.status;
         });
         this.cotizacioensDetailToEvents(cotizaciones);
     }
