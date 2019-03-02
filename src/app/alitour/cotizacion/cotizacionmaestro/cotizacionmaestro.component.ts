@@ -86,13 +86,15 @@ export class CotizacionmaestroComponent implements OnInit {
     }
 
     deleteCotizacion(): void {
-        this.cotizacionService.deleteCotizacion(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getCotizacion();
-            });
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+            this.cotizacionService.deleteCotizacion(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getCotizacion();
+                });
+        }
     }
-
+    
     public editRecord(row: any): void {
         this.selectedId = row.id;
         this.edit = true;
