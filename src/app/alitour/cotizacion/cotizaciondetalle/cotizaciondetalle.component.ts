@@ -27,7 +27,7 @@ export class CotizaciondetalleComponent implements OnInit {
         descuento: 0,
         igv: 0,
         total_general: 0
-    };
+    }
 
     get cotizacionesDetalle(): Array<ICotizaciondetalle> {
         return this._cotizacionesDetalle;
@@ -48,7 +48,7 @@ export class CotizaciondetalleComponent implements OnInit {
 
     @Output() updated: EventEmitter<any> = new EventEmitter();
 
-    displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'codigo', 'options'];
+    displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'options']
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     cotizacion: Array<ICotizaciondetalle>;

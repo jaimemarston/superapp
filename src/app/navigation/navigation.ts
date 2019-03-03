@@ -15,6 +15,13 @@ export const navigation: FuseNavigation[] = [
                 url: '/alitour/users',
             },
             {
+                id: 'calendar',
+                title: 'Calendario',
+                type: 'item',
+                icon: 'today',
+                url: '/alitour/calendario',
+            },
+            {
                 id: 'clientes',
                 title: 'Clientes',
                 type: 'item',

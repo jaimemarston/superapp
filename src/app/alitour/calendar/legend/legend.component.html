@@ -1,0 +1,5 @@
+<mat-chip-list>
+    <mat-chip *ngFor="let leg of legend"
+              [ngClass]="leg.color"
+              color="accent" (click)="clicked.emit(leg)">{{ leg.quantity }}</mat-chip>
+</mat-chip-list>

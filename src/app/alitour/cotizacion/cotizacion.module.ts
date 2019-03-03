@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CotizacionComponent } from './cotizacion.component';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {CotizacionComponent} from './cotizacion.component';
+import {RouterModule, Routes} from '@angular/router';
 import {
     MatCardModule,
     MatFormFieldModule,
@@ -24,14 +24,15 @@ import {
     MatAutocompleteModule,
     MAT_SNACK_BAR_DEFAULT_OPTIONS, MatMenuModule, MatRippleModule, MatOptionModule, MatDividerModule,
 } from '@angular/material';
-import { EditCotizacionComponent } from './cotizacionmaestro/editcotizacion/editcotizacion.component';
-import { CotizacionmaestroComponent } from './cotizacionmaestro/cotizacionmaestro.component';
-import { CotizaciondetalleComponent } from './cotizaciondetalle/cotizaciondetalle.component';
-import { EditcotizaciondetalleComponent } from './cotizaciondetalle/editcotizaciondetalle/editcotizaciondetalle.component';
-import { FuseSharedModule } from '../../../@fuse/shared.module';
-import { ToolbarTableModule } from '../../shared/components/toolbar-table/toolbar-table.module';
-import { FuseConfirmDialogModule, FuseSidebarModule } from '../../../@fuse/components';
-import { ActionIconsModule } from '../../shared/components/action-icons/action-icons.module';
+import {EditCotizacionComponent} from './cotizacionmaestro/editcotizacion/editcotizacion.component';
+import {CotizacionmaestroComponent} from './cotizacionmaestro/cotizacionmaestro.component';
+import {CotizaciondetalleComponent} from './cotizaciondetalle/cotizaciondetalle.component';
+import {EditcotizaciondetalleComponent} from './cotizaciondetalle/editcotizaciondetalle/editcotizaciondetalle.component';
+import {FuseSharedModule} from '../../../@fuse/shared.module';
+import {ToolbarTableModule} from '../../shared/components/toolbar-table/toolbar-table.module';
+import {FuseConfirmDialogModule, FuseSidebarModule} from '../../../@fuse/components';
+import {ActionIconsModule} from '../../shared/components/action-icons/action-icons.module';
+import {EditcotizaciondetalleModule} from './cotizaciondetalle/editcotizaciondetalle/editcotizaciondetalle.module';
 
 const routes: Routes = [
     {
@@ -68,9 +69,11 @@ const routes: Routes = [
         MatAutocompleteModule,
         RouterModule.forChild(routes),
         ActionIconsModule,
-        MatDividerModule
+        MatDividerModule,
+
+        EditcotizaciondetalleModule
     ],
-    declarations: [CotizacionComponent, EditCotizacionComponent, CotizacionmaestroComponent, CotizaciondetalleComponent, EditcotizaciondetalleComponent],
+    declarations: [CotizacionComponent, CotizacionmaestroComponent, CotizaciondetalleComponent, EditCotizacionComponent],
     providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2000}}]
 })
 export class CotizacionModule {

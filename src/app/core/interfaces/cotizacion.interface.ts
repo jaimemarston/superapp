@@ -83,6 +83,13 @@ export interface ICotizaciondetalle {
     lugdestino: string;
     opcviaje: string;
     master: number | null;
+    estado?: number;
+}
+
+export interface ICotizacionEstados {
+    id: number;
+    color: string;
+    name: string;
 }
 
 

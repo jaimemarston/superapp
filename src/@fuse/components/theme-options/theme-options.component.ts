@@ -108,6 +108,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
                 // Set the config form values without emitting an event
                 // so that we don't end up with an infinite loop
                 this.form.setValue(config, {emitEvent: false});
+                console.log(config);
             });
 
         // Subscribe to the specific form value changes (layout.style)
