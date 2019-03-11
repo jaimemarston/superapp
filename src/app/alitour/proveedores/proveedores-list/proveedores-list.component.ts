@@ -141,4 +141,9 @@ export class ProveedoresListComponent implements OnInit {
     addProveedor(): void {
         this.router.navigate(['alitour/proveedores/add']);
     }
+
+    applyFilter(filterValue: string): void {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+    
 }

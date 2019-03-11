@@ -82,6 +82,11 @@ export interface ICotizaciondetalle {
     lugorigen: string;
     lugdestino: string;
     opcviaje: string;
+    conductor: string;
+    nvuelo: string;
+    proveedor: string;
+    obs: string;
+    tipodoc: string;
     master: number | null;
     estado?: number;
 }

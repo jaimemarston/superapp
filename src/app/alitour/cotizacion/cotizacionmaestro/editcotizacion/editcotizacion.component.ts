@@ -55,7 +55,7 @@ export class EditCotizacionComponent implements OnInit {
                 public snackBar: MatSnackBar) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.createForm();
     }
 

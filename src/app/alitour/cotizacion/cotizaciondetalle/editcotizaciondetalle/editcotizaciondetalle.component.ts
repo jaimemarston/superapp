@@ -2,7 +2,9 @@ import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit
 import {CotizaciondetalleService} from '../../../../core/services/cotizaciondetalle.service';
 import {ICotizaciondetalle} from '../../../../core/interfaces/cotizacion.interface';
 import {IArticulo} from '../../../../core/interfaces/articulo.interface';
+import {IUnidad} from '../../../../core/interfaces/unidad.interface';
 import {ArticuloService} from '../../../../core/services/articulo.service';
+import {UnidadService} from '../../../../core/services/unidad.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 import {BehaviorSubject, from, Observable, Subject} from 'rxjs';
@@ -44,6 +46,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     options: string[] = ['One', 'Two', 'Three'];
     selectedopc = '0';
     filteredArticulos: Observable<Array<IArticulo>>;
+    filteredUnidades:  Observable<Array<IUnidad>>;
 
     opcviaje: Opcviaje[] = [
         {codigo: 'Solo ida', descripcion: 'Solo ida'},
@@ -53,6 +56,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
     cotizacion: ICotizaciondetalle;
     articulos: Array<IArticulo>;
+    unidades: Array<IUnidad>;
     registerForm: FormGroup;
 
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -63,6 +67,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     constructor(private cotizacionService: CotizaciondetalleService,
                 private formBuilder: FormBuilder,
                 private articuloService: ArticuloService,
+                private unidadService: UnidadService,
                 public snackBar: MatSnackBar) {
     }
 
@@ -70,6 +75,13 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.articuloService.getArticulos()
             .subscribe(response => {
                 this.articulos = response;
+            });
+    }
+
+    getUnidad(): void {
+        this.unidadService.getUnidades()
+            .subscribe(response => {
+                this.unidades = response;
             });
     }
 
@@ -94,6 +106,14 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
         return [];
     }
+    private _filter2(value: string): IUnidad[] {
+        if (value && this.unidades) {
+            const filterValue = value.toLowerCase();
+            return this.unidades.filter(option => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
+        }
+
+        return [];
+    }
 
     createForm(): void {
         this.registerForm = this.formBuilder.group({
@@ -109,6 +129,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             precio: [''],
             imptotal: [''],
             opcviaje: [''],
+            conductor: [''],
+            nvuelo: [''],
+            proveedor: [''],
+            obs: [''],
+            tipodoc: [''],
             codigo: [this.idMaster],
         });
 
@@ -116,6 +141,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.filteredArticulos = descripcionForm.valueChanges.pipe(
             map(value => this._filter(value))
         );
+        
+        this.filteredUnidades = descripcionForm.valueChanges.pipe(
+            map(value => this._filter2(value))
+        );
+
 
         this.valueChanges();
     }
@@ -159,6 +189,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.registerForm.get('lugorigen').setValue(this.cotizacion.lugorigen);
         this.registerForm.get('lugdestino').setValue(this.cotizacion.lugdestino);
         this.registerForm.get('opcviaje').setValue(this.cotizacion.opcviaje);
+        this.registerForm.get('conductor').setValue(this.cotizacion.conductor);
+        this.registerForm.get('nvuelo').setValue(this.cotizacion.nvuelo);
+        this.registerForm.get('proveedor').setValue(this.cotizacion.proveedor);
+        this.registerForm.get('obs').setValue(this.cotizacion.obs);
+        this.registerForm.get('tipodoc').setValue(this.cotizacion.tipodoc);
         this.registerForm.get('cantidad').setValue(this.cotizacion.cantidad);
         this.registerForm.get('precio').setValue(this.cotizacion.precio);
         this.registerForm.get('imptotal').setValue(this.cotizacion.imptotal);

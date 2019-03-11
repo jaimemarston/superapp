@@ -141,4 +141,9 @@ export class ClientesListComponent implements OnInit {
     addClient(): void {
         this.router.navigate(['alitour/clientes/add']);
     }
+
+    applyFilter(filterValue: string): void {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+    
 }

@@ -79,6 +79,11 @@ export class Cotizaciondetalle {
   lugorigen: string;
   lugdestino: string;
   opcviaje: string;
+  conductor: string;
+  nvuelo: string;
+  proveedor: string;
+  obs: string;
+  tipodoc: string;
   fechaini: Date;
   fechafin: Date;
 }
