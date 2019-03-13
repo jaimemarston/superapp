@@ -86,5 +86,6 @@ export class Cotizaciondetalle {
   tipodoc: string;
   fechaini: Date;
   fechafin: Date;
+  estadodoc: number;
 }
 
