@@ -128,8 +128,8 @@ export class CalendarComponent implements OnInit {
         this.events = cotizacionesDetail.map((c, i) => {
             return {
                 id: i,
-                start: moment(`${c.fechaini} ${c.horaini}`, 'yyyy-mm-dd H:mm').toDate(),
-                end: moment(`${c.fechafin} ${c.horafin}`, 'yyyy-mm-dd H:mm').toDate(),
+                start: moment(`${c.fechaini} ${c.horaini}`, 'YYYY-MM-DD HH:mm').toDate(),
+                end: moment(`${c.fechafin} ${c.horafin}`, 'YYYY-MM-DD HH:mm').toDate(),
                 title: c.descripcion,
                 // actions: this.actions,
                 allDay: false,
