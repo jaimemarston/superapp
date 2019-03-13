@@ -88,6 +88,7 @@ export interface ICotizaciondetalle {
     obs: string;
     tipodoc: string;
     master: number | null;
+    estado: number;
     estadodoc?: number;
 }
 
