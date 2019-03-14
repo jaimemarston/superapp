@@ -1,18 +1,22 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {CotizaciondetalleService} from '../../../../core/services/cotizaciondetalle.service';
-import {ICotizaciondetalle} from '../../../../core/interfaces/cotizacion.interface';
-import {IArticulo} from '../../../../core/interfaces/articulo.interface';
-import {IUnidad} from '../../../../core/interfaces/unidad.interface';
-import {ArticuloService} from '../../../../core/services/articulo.service';
-import {UnidadService} from '../../../../core/services/unidad.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material';
-import {BehaviorSubject, from, Observable, Subject} from 'rxjs';
-import {map, startWith, takeUntil} from 'rxjs/operators';
-import {fuseAnimations} from '../../../../../@fuse/animations';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { CotizaciondetalleService } from '../../../../core/services/cotizaciondetalle.service';
+import { ICotizaciondetalle } from '../../../../core/interfaces/cotizacion.interface';
+import { IArticulo } from '../../../../core/interfaces/articulo.interface';
+import { IUnidad } from '../../../../core/interfaces/unidad.interface';
+import { ArticuloService } from '../../../../core/services/articulo.service';
+import { UnidadService } from '../../../../core/services/unidad.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { map, startWith, takeUntil } from 'rxjs/operators';
+import { fuseAnimations } from '../../../../../@fuse/animations';
+
 
 export interface Opcviaje {
     codigo: string;
+    descripcion: string;
+}
+export interface IUnidadopc {
     descripcion: string;
 }
 
@@ -44,19 +48,28 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     @Input() idMaster: number;
     myControl = new FormControl();
     options: string[] = ['One', 'Two', 'Three'];
+
+    optionsUnidades: IUnidadopc[] = [
+        { descripcion: 'Mini Van' },
+        { descripcion: 'Shelley' },
+        { descripcion: 'Igor' }
+    ];
+
     selectedopc = '0';
     filteredArticulos: Observable<Array<IArticulo>>;
-    filteredUnidades:  Observable<Array<IUnidad>>;
+    filteredUnidades: Observable<IUnidadopc[]>;
 
     opcviaje: Opcviaje[] = [
-        {codigo: 'Solo ida', descripcion: 'Solo ida'},
-        {codigo: 'Ida y vuelta', descripcion: 'Ida y vuelta'},
-        {codigo: 'Full Day', descripcion: 'Full Day'},
+        { codigo: 'Solo ida', descripcion: 'Solo ida' },
+        { codigo: 'Ida y vuelta', descripcion: 'Ida y vuelta' },
+        { codigo: 'Full Day', descripcion: 'Full Day' },
     ];
 
     cotizacion: ICotizaciondetalle;
     articulos: Array<IArticulo>;
     unidades: Array<IUnidad>;
+
+
     registerForm: FormGroup;
 
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -65,10 +78,10 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     @ViewChild('inputCodigo') inputCodigo: ElementRef<HTMLInputElement>;
 
     constructor(private cotizacionService: CotizaciondetalleService,
-                private formBuilder: FormBuilder,
-                private articuloService: ArticuloService,
-                private unidadService: UnidadService,
-                public snackBar: MatSnackBar) {
+        private formBuilder: FormBuilder,
+        private articuloService: ArticuloService,
+        private unidadService: UnidadService,
+        public snackBar: MatSnackBar) {
     }
 
     getArticulo(): void {
@@ -85,10 +98,20 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             });
     }
 
+
+
+
     ngOnInit(): void {
         this.createForm();
         this.getArticulo();
+        this.filteredUnidades = this.myControl.valueChanges
+        .pipe(
+            startWith(''),
+            map(name => this._filter3(name))
+          );
     }
+
+
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.idMaster) {
@@ -106,14 +129,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
         return [];
     }
-    private _filter2(value: string): IUnidad[] {
-        if (value && this.unidades) {
-            const filterValue = value.toLowerCase();
-            return this.unidades.filter(option => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
-        }
 
-        return [];
-    }
 
     createForm(): void {
         this.registerForm = this.formBuilder.group({
@@ -140,10 +156,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         const descripcionForm = this.registerForm.get('descripcion');
         this.filteredArticulos = descripcionForm.valueChanges.pipe(
             map(value => this._filter(value))
-        );
-        
-        this.filteredUnidades = descripcionForm.valueChanges.pipe(
-            map(value => this._filter2(value))
         );
 
 
@@ -219,7 +231,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         /** rest spread, paso de parametros REST, este método sirve para clonar objetos. destructuración de datos
          * http://www.etnassoft.com/2016/07/04/desestructuracion-en-javascript-parte-1/ */
         this.registerForm.get('codigo').setValue(this.idMaster);
-        const data: ICotizaciondetalle = {...this.registerForm.getRawValue()};
+        const data: ICotizaciondetalle = { ...this.registerForm.getRawValue() };
         data.master = this.idMaster;
 
         return data;
@@ -251,5 +263,15 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     ngOnDestroy(): void {
         this.$unsubscribe.next();
         this.$unsubscribe.complete();
+    }
+
+    displayFn(user?: IUnidadopc): string | undefined {
+        return user ? user.descripcion : undefined;
+    }
+
+    private _filter3(descripcion: string): IUnidadopc[] {
+        const filterValue = descripcion.toLowerCase();
+        
+        return this.optionsUnidades.filter(option => option.descripcion.toLowerCase().includes(filterValue));
     }
 }

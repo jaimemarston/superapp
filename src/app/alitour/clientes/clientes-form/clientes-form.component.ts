@@ -100,6 +100,7 @@ export class ClientesFormComponent implements OnInit {
             fechanac: [null],
             fechaini: [null],
             fechafin: [null],
+            grupo: [null],
         });
     }
 
@@ -145,6 +146,7 @@ export class ClientesFormComponent implements OnInit {
         this.registerForm.get('fechanac').setValue(this.cliente.fechanac);
         this.registerForm.get('fechaini').setValue(this.cliente.fechaini);
         this.registerForm.get('fechafin').setValue(this.cliente.fechafin);
+        this.registerForm.get('grupo').setValue(this.cliente.grupo);
     }
 
     onBack(): void {

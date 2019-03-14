@@ -16,7 +16,7 @@ import { fuseAnimations } from '../../../../@fuse/animations';
 export class ProveedoresListComponent implements OnInit {
 
     /* displayedColumns: string[] = ['select', 'id', 'codigo', 'ruc' ,'nombre', 'telefono1', 'correo', 'options'];*/
-    displayedColumns: string[] = ['select', 'codigo', 'ruc', 'nombre', 'telefono1', 'correo', 'options'];
+    displayedColumns: string[] = ['select', 'ruc', 'nombre', 'telefono1', 'correo', 'options'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     proveedores: Array<IProveedores>;
@@ -112,7 +112,7 @@ export class ProveedoresListComponent implements OnInit {
         prtContent.innerHTML = `
                          <h1>Relacion de Proveedores</h1>
                         <table border="1">
-                          <thead><th>Codigo</th><th>Ruc</th><th>Nombre</th></thead>
+                          <thead><th>ruc</th><th>Ruc</th><th>Nombre</th></thead>
                           <tbody> ${getTbody()} </tbody>
                         </table>
                         <tfoot><button  onclick='window.print();'>Imprimir</button><button (click)="">Descargar PDF</button></tfoot>`;

@@ -18,6 +18,7 @@ import { FuseSharedModule } from '../../../@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '../../../@fuse/components';
 import { ToolbarTableModule } from '../../shared/components/toolbar-table/toolbar-table.module';
 import { ProveedoresFormComponent } from './proveedores-form/proveedores-form.component';
+import {ActionIconsModule} from '../../shared/components/action-icons/action-icons.module';
 
 const routes: Routes = [
     {
@@ -61,6 +62,7 @@ const routes: Routes = [
         FuseSharedModule,
         ToolbarTableModule,
         FuseConfirmDialogModule,
+        ActionIconsModule,
         FuseSidebarModule
     ],
     declarations: [ProveedoresComponent, ProveedoresListComponent, ProveedoresFormComponent]

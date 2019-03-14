@@ -100,6 +100,8 @@ export class ProveedoresFormComponent implements OnInit {
             fechanac: [null],
             fechaini: [null],
             fechafin: [null],
+            grupo: [null],
+            
         });
     }
 
@@ -145,6 +147,7 @@ export class ProveedoresFormComponent implements OnInit {
         this.registerForm.get('fechanac').setValue(this.proveedor.fechanac);
         this.registerForm.get('fechaini').setValue(this.proveedor.fechaini);
         this.registerForm.get('fechafin').setValue(this.proveedor.fechafin);
+        this.registerForm.get('grupo').setValue(this.proveedor.grupo);
     }
 
     onBack(): void {

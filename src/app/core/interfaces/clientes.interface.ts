@@ -23,6 +23,7 @@ export interface IClientes {
   fechanac: Date;
   fechaini: Date;
   fechafin: Date;
+  grupo: string;
 }
 
 //https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html

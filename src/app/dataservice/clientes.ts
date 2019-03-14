@@ -23,4 +23,5 @@ export class Clientes {
   fechanac: Date;
   fechaini: Date;
   fechafin: Date;
+  grupo: string;
 }

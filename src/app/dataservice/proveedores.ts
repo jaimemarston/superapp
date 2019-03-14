@@ -23,4 +23,5 @@ export class Proveedores {
   fechanac: Date;
   fechaini: Date;
   fechafin: Date;
+  grupo: string;
 }
