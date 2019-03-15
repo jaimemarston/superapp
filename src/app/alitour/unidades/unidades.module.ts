@@ -18,6 +18,8 @@ import { ToolbarTableModule } from '../../shared/components/toolbar-table/toolba
 import { UnidadesComponent } from './unidades.component';
 import { UnidadesListComponent } from './unidades-list/unidades-list.component';
 import { UnidadesFormComponent } from './unidades-form/unidades-form.component';
+import { ActionIconsModule} from '../../shared/components/action-icons/action-icons.module';
+
 
 const routes: Routes = [
     {
@@ -61,6 +63,7 @@ const routes: Routes = [
         FuseSharedModule,
         ToolbarTableModule,
         FuseConfirmDialogModule,
+        ActionIconsModule,
         FuseSidebarModule
     ],
     declarations: [UnidadesComponent, UnidadesListComponent, UnidadesFormComponent]

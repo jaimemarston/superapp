@@ -64,13 +64,8 @@ export class UnidadesFormComponent implements OnInit {
 
     createForm(): void {
         this.registerForm = this.formBuilder.group({
-            codigo: ['', Validators.compose([
-                Validators.required
-            ])],
             descripcion: ['', Validators.compose([
                 Validators.required,
-                Validators.minLength(10),
-                Validators.maxLength(50),
             ])],
             placa: [''],
             npasajeros: [''],
@@ -87,7 +82,6 @@ export class UnidadesFormComponent implements OnInit {
     }
 
     setForm(): void {
-        this.registerForm.get('codigo').setValue(this.unidad.codigo);
         this.registerForm.get('descripcion').setValue(this.unidad.descripcion);
         this.registerForm.get('placa').setValue(this.unidad.placa);
         this.registerForm.get('npasajeros').setValue(this.unidad.npasajeros);

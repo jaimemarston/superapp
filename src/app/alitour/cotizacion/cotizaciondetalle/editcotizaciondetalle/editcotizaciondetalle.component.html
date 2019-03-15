@@ -5,17 +5,23 @@
 
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
-        <mat-form-field>
+        <mat-form-field fxFlex="80">
+            <input #inputs matInput type="text" placeholder="Descripcion del Servicio" formControlName="descripcion">
+        </mat-form-field>
+
+        <!---
+        <mat-form-field fxFlex="80">
             <input #inputCodigo type="text" placeholder="Descripcion del Servicio" aria-label="Number" matInput
-                formControlName="descripcion" [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                formControlName="descripcion"  [matAutocomplete]="auto2">
+            <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
                 <mat-option *ngFor="let option of filteredArticulos | async" [value]="option.descripcion">
                     {{option.descripcion}}
                 </mat-option>
-
             </mat-autocomplete>
-        </mat-form-field>
-
+        </mat-form-field> 
+    -->
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
         <mat-form-field>
             <input #inputs matInput type="date" placeholder="Fechaini" formControlName="fechaini">
         </mat-form-field>
@@ -33,7 +39,7 @@
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
         <mat-form-field>
             <input #inputCodigo type="text" placeholder="Transporte" aria-label="Number" matInput
-                formControlName="desunimed" [formControl]="myControl" [matAutocomplete]="auto">
+                formControlName="desunimed" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let optionu of filteredUnidades | async" [value]="optionu.descripcion">
                     {{optionu.descripcion}}
@@ -88,7 +94,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-       
+
         <mat-form-field>
             <input #inputs matInput placeholder="tipodoc" formControlName="tipodoc">
         </mat-form-field>

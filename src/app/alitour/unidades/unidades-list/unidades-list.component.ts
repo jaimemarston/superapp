@@ -18,7 +18,7 @@ import { UnidadService } from '../../../core/services/unidad.service';
 })
 export class UnidadesListComponent implements OnInit {
     /* displayedColumns: string[] = ['select', 'id', 'codigo', 'ruc' ,'nombre', 'telefono1', 'correo', 'options'];*/
-    displayedColumns: string[] = ['select', 'codigo', 'descripcion', 'placa', 'npasajeros', 'color', 'options'];
+    displayedColumns: string[] = ['select', 'descripcion', 'placa', 'npasajeros', 'color', 'options'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     unidades: Array<IUnidad>;
@@ -119,5 +119,9 @@ export class UnidadesListComponent implements OnInit {
 
     addUnidad(): void {
         this.router.navigate(['alitour/unidades/add']);
+    }
+
+    applyFilter(filterValue: string): void {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 }

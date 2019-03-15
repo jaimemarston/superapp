@@ -16,9 +16,6 @@ export interface Opcviaje {
     codigo: string;
     descripcion: string;
 }
-export interface IUnidadopc {
-    descripcion: string;
-}
 
 @Component({
     selector: 'app-editcotizaciondetalle',
@@ -46,18 +43,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     }
 
     @Input() idMaster: number;
-    myControl = new FormControl();
-    options: string[] = ['One', 'Two', 'Three'];
-
-    optionsUnidades: IUnidadopc[] = [
-        { descripcion: 'Mini Van' },
-        { descripcion: 'Shelley' },
-        { descripcion: 'Igor' }
-    ];
-
+    
+    
     selectedopc = '0';
     filteredArticulos: Observable<Array<IArticulo>>;
-    filteredUnidades: Observable<IUnidadopc[]>;
+    filteredUnidades: Observable<Array<IUnidad>>;
 
     opcviaje: Opcviaje[] = [
         { codigo: 'Solo ida', descripcion: 'Solo ida' },
@@ -104,11 +94,8 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     ngOnInit(): void {
         this.createForm();
         this.getArticulo();
-        this.filteredUnidades = this.myControl.valueChanges
-        .pipe(
-            startWith(''),
-            map(name => this._filter3(name))
-          );
+        this.getUnidad();
+        
     }
 
 
@@ -130,6 +117,13 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         return [];
     }
 
+    private _filter2(value: string): IUnidad[] {
+        if (value && this.unidades) {
+        const filterValue2 = value.toLowerCase();
+        return this.unidades.filter(option => option.descripcion.toLowerCase().includes(filterValue2));
+        }
+        return [];
+    }
 
     createForm(): void {
         this.registerForm = this.formBuilder.group({
@@ -154,12 +148,18 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         });
 
         const descripcionForm = this.registerForm.get('descripcion');
+        const desunimedForm = this.registerForm.get('desunimed');
+
         this.filteredArticulos = descripcionForm.valueChanges.pipe(
             map(value => this._filter(value))
         );
 
+        this.filteredUnidades = desunimedForm.valueChanges.pipe(
+            map(value => this._filter2(value))
+        );
 
         this.valueChanges();
+        
     }
 
     valueChanges(): void {
@@ -265,13 +265,5 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.$unsubscribe.complete();
     }
 
-    displayFn(user?: IUnidadopc): string | undefined {
-        return user ? user.descripcion : undefined;
-    }
-
-    private _filter3(descripcion: string): IUnidadopc[] {
-        const filterValue = descripcion.toLowerCase();
-        
-        return this.optionsUnidades.filter(option => option.descripcion.toLowerCase().includes(filterValue));
-    }
+   
 }
