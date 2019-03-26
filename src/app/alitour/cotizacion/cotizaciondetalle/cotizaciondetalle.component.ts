@@ -145,7 +145,7 @@ export class CotizaciondetalleComponent implements OnInit {
         for (let index = 0; index < selecteds.length; index++) {
             await this.cotizacionService.deleteCotizacion(selecteds[index].id).toPromise();
             if (index === selecteds.length - 1) {
-                this.snackBar.open('ELMINADOS TODOS');
+                this.snackBar.open('ELIMINADOS TODOS');
                 // this.getCotizacion();
                 this.updated.emit(true);
             }
