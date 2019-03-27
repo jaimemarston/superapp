@@ -76,7 +76,8 @@ export class CotizaciondetalleComponent implements OnInit {
         this.cotizacionService.getCotizaciones()
             .pipe(map(cotizaciones => {
                 cotizaciones = cotizaciones.map(c => {
-                    c.imptotal = c.cantidad * c.precio;
+                    /*c.imptotal = c.cantidad * c.precio;*/
+                    c.imptotal = c.precio;
                     return c;
                 });
                 return cotizaciones;
@@ -158,7 +159,8 @@ export class CotizaciondetalleComponent implements OnInit {
 
     calculateTotales(descuento = 0): void {
         this.cotizacionTotales.descuento = descuento;
-        this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal * b.cantidad) + a, 0);
+        /*this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal * b.cantidad) + a, 0);*/
+        this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal), 0);
         this.cotizacionTotales.total_general = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) + this.cotizacionTotales.igv;
         this.cotizacionTotales.igv = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) * 0.18;
     }

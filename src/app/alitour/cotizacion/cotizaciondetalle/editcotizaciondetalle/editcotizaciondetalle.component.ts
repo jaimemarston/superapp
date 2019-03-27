@@ -179,7 +179,8 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     }
 
     setImporteTotal(a, b): void {
-        this.registerForm.get('imptotal').setValue(a * b);
+        /*this.registerForm.get('imptotal').setValue(a * b);*/
+        this.registerForm.get('imptotal').setValue(a);
     }
 
     getCotizacion(): void {
