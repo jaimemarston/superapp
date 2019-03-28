@@ -9,6 +9,12 @@ export interface Estados {
     descripcion: string;
 }
 
+export interface Opcmoneda {
+    codigo: string;
+    descripcion: string;
+}
+
+
 @Component({
     selector: 'app-editcotizacion',
     templateUrl: './editcotizacion.component.html',
@@ -24,10 +30,19 @@ export class EditCotizacionComponent implements OnInit {
     selectedest: 0;
 
     selectedmoneda = 'SOLES';
+    selectedestado = 'Agendado';
+    
+    opcmoneda: Opcmoneda[] = [
+        { codigo: 'SOLES', descripcion: 'SOLES' },
+        { codigo: 'DOLARES', descripcion: 'DOLARES' },
+    ];
+
 
     estados: Estados[] = [
-        {codigo: 0, descripcion: 'Activo'},
-        {codigo: 1, descripcion: 'Anulado'},
+        {codigo: 1, descripcion: 'Agendado'},
+        {codigo: 2, descripcion: 'Atendido'},
+        {codigo: 3, descripcion: 'Pagado'},
+        {codigo: 4, descripcion: 'Anulado'},
     ];
 
 

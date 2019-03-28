@@ -5,13 +5,13 @@
     <div fxFlex [hidden]="edit">
         <mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="select">
-                <mat-header-cell *matHeaderCellDef>
+                <mat-header-cell fxFlex="50px" *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? masterToggle() : null"
                                   [checked]="selection.hasValue() && isAllSelected()"
                                   [indeterminate]="selection.hasValue() && !isAllSelected()">
                     </mat-checkbox>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-cell fxFlex="50px" *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
                                   [checked]="selection.isSelected(row)">
                     </mat-checkbox>
@@ -19,13 +19,13 @@
             </ng-container>
 
             <ng-container matColumnDef="codigo">
-                <mat-header-cell *matHeaderCellDef> CÓDIGO</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.codigo}}</mat-cell>
+                <mat-header-cell fxFlex="80px"*matHeaderCellDef> CÓDIGO</mat-header-cell>
+                <mat-cell fxFlex="80px" *matCellDef="let element"> {{element.codigo}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="fechadoc">
-                <mat-header-cell *matHeaderCellDef> FECHA</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.fechadoc}}</mat-cell>
+                <mat-header-cell fxFlex="80px" *matHeaderCellDef> FECHA</mat-header-cell>
+                <mat-cell fxFlex="80px" *matCellDef="let element"> {{element.fechadoc}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="ruc">
@@ -50,16 +50,18 @@
                 <mat-header-cell *matHeaderCellDef> ESTADO</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <mat-chip-list>
-                        <mat-chip *ngIf="element.estado === 1" class="green-600" selected>Activo</mat-chip>
-                        <mat-chip *ngIf="element.estado !== 1" class="red-500" selected>Anulado</mat-chip>
+                        <mat-chip *ngIf="element.estado === 1" class="green-300" selected>Agendado</mat-chip>
+                        <mat-chip *ngIf="element.estado === 2" class="green-100" selected>Atendido</mat-chip>
+                        <mat-chip *ngIf="element.estado === 3" class="cyan-100"  selected>Pagado</mat-chip>
+                        <mat-chip *ngIf="element.estado === 4" class="red-100"   selected>Anulado</mat-chip>
                     </mat-chip-list>
                 </mat-cell>
             </ng-container>
 
 
             <ng-container matColumnDef="options">
-                <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-header-cell fxFlex="80px" *matHeaderCellDef> Options</mat-header-cell>
+                <mat-cell fxFlex="80px" *matCellDef="let row">
                     <app-action-icons (edit)="editRecord(row.id)" (remove)="delete(row.id)"></app-action-icons>
                 </mat-cell>
             </ng-container>
