@@ -1,5 +1,5 @@
-<form class="mat-card mat-elevation-z4 p-24" fxLayout="column" fxLayoutAlign="start"
-      fxFlex="1 0 auto" name="form" [formGroup]="registerForm">
+<form class="mat-card mat-elevation-z4 p-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form"
+    [formGroup]="registerForm">
 
     <div class="h2 mb-24">Agregar Unidades</div>
 
@@ -20,8 +20,39 @@
             <input #inputs matInput placeholder="COLOR" formControlName="color">
         </mat-form-field>
     </div>
-    <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center" >
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <!--<div class="dropzone dropzone-container avatar contact-avatar hude m-0" [dropzone]-->
+        <!--(error)="uploadError($event)"-->
+        <!--(success)="uploadSuccess($event)"></div>-->
+        <div fxLayout="column">
+            <img #imgAvatar [src]="unidad?.foto1 || 'assets/images/avatars/profile.jpg'"
+                class="avatar contact-avatar huge m-0" [alt]="unidad?.descripcion" />
+            <div class="avatar-upload">
+                <label for="file_input">
+                    <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+                </label>
+                <input type="file" id="file_input" (change)="uploadSuccess($event)">
+            </div>
+        </div>
+
+        
+        <div fxLayout="column">
+            <img #imgAvatar2 [src]="unidad?.foto2 || 'assets/images/avatars/profile.jpg'"
+                class="avatar contact-avatar huge m-0" [alt]="unidad?.descripcion" />
+            <div class="avatar-upload">
+                <label for="file_input">
+                    <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+                </label>
+                <input type="file" id="file_input" (change)="uploadSuccess2($event)">
+            </div>
+        </div>
+        
+
+    </div>
+    <br><br><br>
+    <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center">
         <button (click)="back()" mat-raised-button class="mat-primary">Volver</button>
-        <button (click)="saveClient()" mat-raised-button [disabled]="registerForm.invalid" class="mat-accent">Guardar</button>
+        <button (click)="saveClient()" mat-raised-button [disabled]="registerForm.invalid"
+            class="mat-accent">Guardar</button>
     </div>
 </form>

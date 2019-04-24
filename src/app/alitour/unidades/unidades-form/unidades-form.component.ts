@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { UnidadService } from '../../../core/services/unidad.service';
 import { BancoService } from '../../../core/services/banco.service';
 import { IUnidad } from '../../../core/interfaces/unidad.interface';
@@ -16,6 +16,13 @@ import { fuseAnimations } from '../../../../@fuse/animations';
 })
 
 export class UnidadesFormComponent implements OnInit {
+
+    @ViewChild('imgAvatar') imgAvatar: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar2') imgAvatar2: ElementRef<HTMLImageElement>;
+
+    userPhoto: File;
+    userPhoto2: File;
+
     private _id: number;
     get id(): number {
         return this._id;
@@ -24,7 +31,7 @@ export class UnidadesFormComponent implements OnInit {
     @Input() set id(id: number) {
         this._id = id;
         if (id) {
-            this.getClient();
+            this.getUnidad();
         } else {
             if (this.registerForm) {
                 this.registerForm.reset();
@@ -32,7 +39,7 @@ export class UnidadesFormComponent implements OnInit {
         }
     }
 
-
+    
     unidad: IUnidad;
     registerForm: FormGroup;
     bancos: Array<Ibancos>;
@@ -73,7 +80,7 @@ export class UnidadesFormComponent implements OnInit {
         });
     }
 
-    getClient(): void {
+    getUnidad(): void {
         this.unidadService.getUnidad(this.id)
             .subscribe(response => {
                 this.unidad = response;
@@ -81,10 +88,20 @@ export class UnidadesFormComponent implements OnInit {
             });
     }
 
+/*
+    getUnidad(): void {
+        this.unidadService.getUnidad(this.id)
+            .subscribe(response => {
+                this.unidad = response;
+                this.setForm();
+            });
+    }
+*/
     setForm(): void {
         this.registerForm.get('descripcion').setValue(this.unidad.descripcion);
         this.registerForm.get('placa').setValue(this.unidad.placa);
         this.registerForm.get('npasajeros').setValue(this.unidad.npasajeros);
+        
     }
 
     back(): void {
@@ -103,9 +120,30 @@ export class UnidadesFormComponent implements OnInit {
         }
     }
 
-    updateUnidad(): void {
+    
+    prepareData(): any {
         const data: IUnidad = this.registerForm.getRawValue();
+        delete data.id;
+        const formData = new FormData();
+        for (const k in data) {
+            if (data[k]) {
+                formData.append(k, data[k]);
+            }
+        }
+        if (this.userPhoto) {
+            formData.append('foto1', this.userPhoto);
+        }
 
+        if (this.userPhoto2) {
+            formData.append('foto2', this.userPhoto2);
+        }
+
+        return formData;
+    }
+
+    updateUnidad(): void {
+        /*const data: IUnidad = this.registerForm.getRawValue();*/
+        const data = this.prepareData();
         this.unidadService.updateUnidad(this.id, data)
             .subscribe(response => {
                 this.update.emit(response);
@@ -115,7 +153,8 @@ export class UnidadesFormComponent implements OnInit {
     }
 
     addUnidad(): void {
-        const data: IUnidad = this.registerForm.getRawValue();
+        /* const data: IUnidad = this.registerForm.getRawValue();*/
+        const data = this.prepareData();
         this.unidadService.addUnidad(data)
             .subscribe(response => {
                 this.update.emit(response);
@@ -124,6 +163,32 @@ export class UnidadesFormComponent implements OnInit {
                 this.registerForm.reset();
                 this.createForm();
             });
+    }
+
+    uploadSuccess(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        console.log(file);  
+        const reader = new FileReader();
+        this.imgAvatar.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar.nativeElement.src = (ev.target as any).result;
+            this.userPhoto = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    
+    uploadSuccess2(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        console.log(file);  
+        const reader = new FileReader();
+        this.imgAvatar2.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar2.nativeElement.src = (ev.target as any).result;
+            this.userPhoto2 = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
     }
 
     saveClient(): void {

@@ -14,12 +14,23 @@ export class UnidadService {
   }
 
   getUnidades(): Observable<Array<IUnidad>> {
-    return this.http.get<Array<IUnidad>>(UnidadEndpoint.rest)
+    return this.http.get<Array<IUnidad>>(UnidadEndpoint.rest).pipe(
+      map(unidades => {
+        unidades = unidades.map(u => {
+              if (!u.foto1) {
+                  u.foto1 = 'assets/images/avatars/profile.jpg';
+              }
+              return u;
+          });
+          return unidades;
+      })
+  );
   }
 
-  getUnidad(id: number): Observable<Unidades> {
+  getUnidad(id: number): Observable<IUnidad> {
     const url = `${UnidadEndpoint.rest}/${id}`;
-    return this.http.get<Unidades>(url);
+    return this.http.get<IUnidad>(url);
+
   }
 
 

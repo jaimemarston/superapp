@@ -5,6 +5,8 @@ export interface IUnidad {
   placa: string;
   npasajeros: string;
   color: string;
+  foto1: string;
+  foto2: string;
 }
 
 //https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html
