@@ -99,8 +99,22 @@ export class UnidadesListComponent implements OnInit {
             this.dataSource.data.forEach(row => this.selection.select(row));
     }
 
-    openPrint() {
-        window.print();
+    openPrint(): void {
+               // window.print();
+               const prtContent = document.getElementById('div_print');
+               const getTbody = () => {
+                   const tbody = this.unidades.map(c => `<tr><td>${c.codigo}</td><td>${c.nombre}</td></tr>`).join('');
+                   return tbody;
+               };
+               prtContent.innerHTML = `
+                                <h1>Relacion de Unidades</h1>
+                               <table border="1">
+                                 <thead><th>ruc</th><th>Nombre</th></thead>
+                                 <tbody> ${getTbody()} </tbody>
+                               </table>
+                               <tfoot><button  onclick='window.print();'>Imprimir</button><button (click)="">Descargar PDF</button></tfoot>`;
+               const WinPrint = window.open();
+               WinPrint.document.write(prtContent.innerHTML);
     }
 
     /**
