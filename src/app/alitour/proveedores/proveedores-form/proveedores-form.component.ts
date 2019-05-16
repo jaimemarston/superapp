@@ -106,7 +106,7 @@ export class ProveedoresFormComponent implements OnInit {
     }
 
     back(): void {
-        this.router.navigate(['alitour/proveedores']);
+        this.router.navigate(['proveedores']);
     }
 
     getBanco(): void {
@@ -188,7 +188,7 @@ export class ProveedoresFormComponent implements OnInit {
     }
 
     goListProveedores(): void {
-        this.router.navigate(['alitour/proveedores']);
+        this.router.navigate(['proveedores']);
     }
 
     saveProveedor(): void {

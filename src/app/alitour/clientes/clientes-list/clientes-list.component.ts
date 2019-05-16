@@ -71,7 +71,7 @@ export class ClientesListComponent implements OnInit {
     public editRecord(id: number): void {
         this.selectedId = id;
         // this.edit = true;
-        this.router.navigate([`alitour/clientes/edit/${id}`]);
+        this.router.navigate([`clientes/edit/${id}`]);
     }
 
     public addRecord(): void {
@@ -139,7 +139,7 @@ export class ClientesListComponent implements OnInit {
     }
 
     addClient(): void {
-        this.router.navigate(['alitour/clientes/add']);
+        this.router.navigate(['clientes/add']);
     }
 
     applyFilter(filterValue: string): void {

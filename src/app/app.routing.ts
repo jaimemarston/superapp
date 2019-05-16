@@ -19,7 +19,7 @@ export const routes: Routes = [
         redirectTo: 'auth/login'
     },
     {
-        path: 'alitour',
+        path: '',
         canActivate: [AuthGuard, AlitourGuard],
         children: [
             {

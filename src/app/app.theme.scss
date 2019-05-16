@@ -233,3 +233,12 @@ body.theme-pink-dark {
 .highlight {
     background: rgb(177, 211, 179) !important; /* green */
 }
+/* este de aqui si esta activo */
+.mat-table {
+    .mat-row {
+        .mat-cell {
+            font-size: 11px;
+            // todo en styles.scss
+        }
+    }
+}

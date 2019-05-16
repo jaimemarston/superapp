@@ -71,7 +71,7 @@ export class ProveedoresListComponent implements OnInit {
     public editRecord(id: number): void {
         this.selectedId = id;
         // this.edit = true;
-        this.router.navigate([`alitour/proveedores/edit/${id}`]);
+        this.router.navigate([`proveedores/edit/${id}`]);
     }
 
     public addRecord(): void {
@@ -139,7 +139,7 @@ export class ProveedoresListComponent implements OnInit {
     }
 
     addProveedor(): void {
-        this.router.navigate(['alitour/proveedores/add']);
+        this.router.navigate(['proveedores/add']);
     }
 
     applyFilter(filterValue: string): void {

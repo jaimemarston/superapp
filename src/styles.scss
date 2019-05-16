@@ -13,9 +13,10 @@
     background-color: #039be5 !important;
     color: #fff !important;
 }
-
+// aqui se puede cambiar a 15 lineas el row heigh colocar en 22
 .mat-row {
-    min-height: 33px;
+    min-height: 28px;
+    height: 28px
 }
 
 .mat-checkbox-inner-container {

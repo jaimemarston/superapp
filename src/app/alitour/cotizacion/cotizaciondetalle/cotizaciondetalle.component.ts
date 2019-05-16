@@ -39,6 +39,7 @@ export class CotizaciondetalleComponent implements OnInit {
         this.dataSource.data = this.cotizacionesDetalle;
         if (this.cotizacionesDetalle) {
             this.calculateTotales(0);
+            this.dataSource.paginator = this.paginatordet;
         }
     }
 
@@ -49,8 +50,7 @@ export class CotizaciondetalleComponent implements OnInit {
     @Output() updated: EventEmitter<any> = new EventEmitter();
 
     displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'options']
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-
+    @ViewChild(MatPaginator) paginatordet: MatPaginator;
     cotizacion: Array<ICotizaciondetalle>;
     dataSource = new MatTableDataSource<ICotizaciondetalle>();
     errorMessage: String;
@@ -85,7 +85,8 @@ export class CotizaciondetalleComponent implements OnInit {
             .subscribe(response => {
                 this.cotizacion = response;
                 this.dataSource.data = this.cotizacion;
-                this.dataSource.paginator = this.paginator;
+                this.dataSource.paginator = this.paginatordet;
+                this.paginatordet._intl.itemsPerPageLabel = 'Item por Pagina:';
             });
     }
 
@@ -117,6 +118,7 @@ export class CotizaciondetalleComponent implements OnInit {
 
     updateDataTable(data: ICotizaciondetalle): void {
         this.updated.emit(data);
+        this.paginatordet.lastPage();
     }
 
     /** Whether the number of selected elements matches the total number of rows. */

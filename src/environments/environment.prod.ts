@@ -3,7 +3,7 @@
 export const BASEURL = 'http://188.166.63.89:8000/'; 
 
 
-export const DEFAULT_ROUTE = 'alitour/clientes';
+export const DEFAULT_ROUTE = 'clientes';
 
 export const ALITOUR = {
     logo: 'assets/images/logos/fuse.svg',

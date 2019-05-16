@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatSnackBarModule} from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 
@@ -20,6 +20,7 @@ import { SampleModule } from 'app/alitour/sample/sample.module';
 import { routes } from './app.routing';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from './fake-db/fake-db.service';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -50,11 +51,13 @@ import { FakeDbService } from './fake-db/fake-db.service';
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
+		MatSnackBarModule,
 
         // App modules
         LayoutModule,
         SampleModule
     ],
+	providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},],
     bootstrap: [
         AppComponent
     ]

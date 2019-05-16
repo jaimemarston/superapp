@@ -105,7 +105,7 @@ export class UnidadesFormComponent implements OnInit {
     }
 
     back(): void {
-        this.router.navigate(['alitour/unidades']);
+        this.router.navigate(['unidades']);
     }
 
     saveForm(clear?: boolean): void {

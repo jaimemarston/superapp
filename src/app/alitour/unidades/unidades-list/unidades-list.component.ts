@@ -69,7 +69,7 @@ export class UnidadesListComponent implements OnInit {
 
     public editRecord(id: number): void {
         this.selectedId = id;
-        this.router.navigate([`alitour/unidades/edit/${id}`]);
+        this.router.navigate([`unidades/edit/${id}`]);
     }
 
     public addRecord(): void {
@@ -103,7 +103,7 @@ export class UnidadesListComponent implements OnInit {
                // window.print();
                const prtContent = document.getElementById('div_print');
                const getTbody = () => {
-                   const tbody = this.unidades.map(c => `<tr><td>${c.codigo}</td><td>${c.nombre}</td></tr>`).join('');
+                   const tbody = this.unidades.map(c => `<tr><td>${c.codigo}</td><td>${c.descripcion}</td></tr>`).join('');
                    return tbody;
                };
                prtContent.innerHTML = `
@@ -132,7 +132,7 @@ export class UnidadesListComponent implements OnInit {
     }
 
     addUnidad(): void {
-        this.router.navigate(['alitour/unidades/add']);
+        this.router.navigate(['unidades/add']);
     }
 
     applyFilter(filterValue: string): void {

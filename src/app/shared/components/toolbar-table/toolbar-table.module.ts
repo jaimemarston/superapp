@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ToolbarTableComponent } from './toolbar-table.component';
-import { FuseSharedModule } from '../../../../@fuse/shared.module';
-import { SearchModule } from '../search/search.module';
-import { MatButtonModule } from '@angular/material';
-import { FuseSearchBarModule } from '../../../../@fuse/components';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ToolbarTableComponent} from './toolbar-table.component';
+import {FuseSharedModule} from '../../../../@fuse/shared.module';
+import {SearchModule} from '../search/search.module';
+import {MatButtonModule, MatIconModule, MatMenuModule} from '@angular/material';
+import {FuseSearchBarModule} from '../../../../@fuse/components';
 
 @NgModule({
     imports: [
@@ -12,7 +12,9 @@ import { FuseSearchBarModule } from '../../../../@fuse/components';
         FuseSharedModule,
         SearchModule,
         MatButtonModule,
-        FuseSearchBarModule
+        MatIconModule,
+        FuseSearchBarModule,
+        MatMenuModule
     ],
     declarations: [ToolbarTableComponent],
     exports: [ToolbarTableComponent]

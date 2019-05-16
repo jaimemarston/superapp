@@ -69,7 +69,7 @@ export class UserListComponent implements OnInit {
     public editRecord(id: number): void {
         this.selectedId = id;
         // this.edit = true;
-        this.router.navigate([`alitour/users/edit/${id}`]);
+        this.router.navigate([`users/edit/${id}`]);
     }
 
     public addRecord(): void {
@@ -133,7 +133,7 @@ export class UserListComponent implements OnInit {
     }
 
     addUser(): void {
-        this.router.navigate(['alitour/users/add']);
+        this.router.navigate(['users/add']);
     }
 
 }

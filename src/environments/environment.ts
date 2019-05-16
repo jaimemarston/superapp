@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 export const BASEURL = 'http://localhost:8000/';
 
-export const DEFAULT_ROUTE = 'alitour/clientes';
+export const DEFAULT_ROUTE = 'clientes';
 
 export const ALITOUR = {
     logo: 'assets/images/logos/fuse.svg',

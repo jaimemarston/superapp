@@ -154,7 +154,7 @@ export class ArticulosFormComponent implements OnInit {
     }
 
     back(): void {
-        this.router.navigate(['alitour/articulos']);
+        this.router.navigate(['articulos']);
     }
 }
 

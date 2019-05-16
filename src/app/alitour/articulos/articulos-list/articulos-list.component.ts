@@ -117,6 +117,6 @@ export class ArticulosListComponent implements OnInit {
     }
 
     addArticulo(): void {
-        this.router.navigate(['alitour/articulos/add']);
+        this.router.navigate(['articulos/add']);
     }
 }

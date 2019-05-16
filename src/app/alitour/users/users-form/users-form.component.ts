@@ -86,7 +86,7 @@ export class UsersFormComponent implements OnInit {
     }
 
     back(): void {
-        this.router.navigate(['alitour/users']);
+        this.router.navigate(['users']);
     }
 
     saveForm(clear?: boolean): void {
