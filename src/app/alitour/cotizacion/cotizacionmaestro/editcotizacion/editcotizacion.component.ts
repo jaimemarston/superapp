@@ -6,6 +6,7 @@ import { MatSnackBar, MatSelectModule, MatFormFieldModule, MatListModule } from 
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 
+
 export interface Estados {
     codigo: number;
     descripcion: string;
@@ -61,7 +62,6 @@ export class EditCotizacionComponent implements OnInit {
     }
 
     cotizacion: ICotizacion;
-
     registerForm: FormGroup;
 
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -100,7 +100,6 @@ export class EditCotizacionComponent implements OnInit {
     }
 
     setForm(): void {
-
         this.registerForm.get('codigo').setValue(this.cotizacion.codigo);
         this.registerForm.get('fechadoc').setValue(this.cotizacion.fechadoc);
         this.registerForm.get('ruc').setValue(this.cotizacion.ruc);

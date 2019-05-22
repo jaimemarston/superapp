@@ -14,7 +14,7 @@ export class CotizaciondetalleService {
   }
 
   getCotizaciones(): Observable<Array<ICotizaciondetalle>> {
-    return this.http.get<Array<ICotizaciondetalle>>(CotizaciondetalleEndpoint.rest)
+    return this.http.get<Array<ICotizaciondetalle>>(CotizaciondetalleEndpoint.rest);
   }
 
 

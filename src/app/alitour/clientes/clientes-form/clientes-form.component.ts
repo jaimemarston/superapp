@@ -79,14 +79,22 @@ export class ClientesFormComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(1),
             ])],
-            ruc: [null],
-            telefono1: [null],
+            ruc: [null, Validators.compose([
+                Validators.required
+            ])],
+            telefono1: [null, Validators.compose([
+                Validators.required
+            ])],
             telefono2: [null],
             telefono3: [null],
-            contacto: [null],
+            contacto: [null, Validators.compose([
+                Validators.required
+            ])],
             telcontacto: [null],
             direccion: [null],
-            correo: [null],
+            correo: [null, Validators.compose([
+                Validators.required
+            ])],
             paginaweb: [null],
             tipocc: [null],
             destipocc: [null],

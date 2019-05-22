@@ -1,11 +1,8 @@
 <div id="clientes" fxLayout="column">
-    <toolbar-table [title]="'Detalle'"  [urlPrint]="'generate_pdf/'+idMaster" (inputText)="applyFilter($event)" [hidden]="edit"
-                   (add)="addRecord()" (delete)="deleteAllSelecteds()"></toolbar-table>
-    <div [hidden]="!edit">
-        <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()"
-                                   (update)="updateDataTable($event)"></app-editcotizaciondetalle>
-    </div>
-    <div fxFlex>
+    <toolbar-table [title]="'Maestro'" [urlPrint]="'generate_pdf'" (inputText)="applyFilter($event)" [hidden]="edit"
+                   (add)="addRecord()"
+                   (delete)="deleteAllSelecteds()"></toolbar-table>
+    <div fxFlex [hidden]="edit">
         <mat-table #table [dataSource]="dataSource">
             <ng-container  matColumnDef="select">
                 <mat-header-cell fxFlex="50px" *matHeaderCellDef>
@@ -84,48 +81,24 @@
                     <app-action-icons (edit)="editRecord(row.id)" (remove)="delete(row.id)"></app-action-icons>
                 </mat-cell>
             </ng-container>
-
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
             <mat-row
-                (click)="selectedId = row.id"
-                *matRowDef="let row; columns: displayedColumns;"
-                [ngClass]="{ 'highlight': row.id === selectedId }">
+                (click)="viewRecorddetail(row)"
+                class="element-row"
+                [ngClass]="{ 'highlight': row.id === liquidacionSelected?.id }"
+                *matRowDef="let row; columns: displayedColumns;">
             </mat-row>
 
         </mat-table>
     </div>
-    <div fxFlex>
+    <div fxFlex [hidden]="edit">
         <mat-paginator [showFirstLastButtons]="true" #paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
         </mat-paginator>
     </div>
-    <div>
-        <div fxFlex="50"></div>
-        <div fxFlex="50" fxFlexAlign="end center">
-            <table class="simple mat-elevation">
-                <tbody>
-                <tr>
-                    <td><span class="text-truncate">Sub Total</span></td>
-                    <td><span class="text-truncate">{{ cotizacionTotales.subtotal }}</span></td>
-                    <td><span class="text-truncate"></span></td>
-                </tr>
-                <tr>
-                    <td><span class="text-truncate">Descuento</span></td>
-                    <td><span class="text-truncate"><input type="number" (keyup)="onChangeDscto($event)"></span></td>
-                    <td><span class="text-truncate"></span></td>
-                </tr>
-                <tr>
-                    <td><span class="text-truncate">IGV 18%</span></td>
-                    <td><span class="text-truncate">{{ cotizacionTotales.igv }}</span></td>
-                    <td><span class="text-truncate"></span></td>
-                </tr>
-                <tr>
-                    <td><span class="text-truncate">Total General</span></td>
-                    <td><span class="text-truncate">{{ cotizacionTotales.total_general }}</span></td>
-                    <td><span class="text-truncate"></span></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <mat-divider></mat-divider>
+    <div fxFlex [hidden]="!edit">
+        <app-editliquidacion [id]="selectedId" (back)="showDataTable()"
+                            (update)="updateDataTable($event)"></app-editliquidacion>
     </div>
 </div>

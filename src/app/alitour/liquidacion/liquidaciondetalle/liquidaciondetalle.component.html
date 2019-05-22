@@ -1,0 +1,73 @@
+<div id="clientes" fxLayout="column">
+    <toolbar-table [title]="'Detalle'"  [urlPrint]="'generatemat_pdf/'+idMaster" (inputText)="applyFilter($event)" [hidden]="edit"
+                   (add)="addRecord()" (delete)="deleteAllSelecteds()"></toolbar-table>
+    <div [hidden]="!edit">
+        <app-editliquidaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()"
+                                   (update)="updateDataTable($event)"></app-editliquidaciondetalle>
+    </div>
+    <div fxFlex>
+        <mat-table #table [dataSource]="dataSource">
+            <ng-container  matColumnDef="select">
+                <mat-header-cell fxFlex="50px" *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell fxFlex="50px" *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container  matColumnDef="descripcion">
+                <mat-header-cell fxFlex="450px" *matHeaderCellDef> DESCRIPCIÓN</mat-header-cell>
+                <mat-cell fxFlex="450px" *matCellDef="let element"> {{element.descripcion}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="desunimed">
+                <mat-header-cell fxFlex="100px" *matHeaderCellDef> MEDIDA</mat-header-cell>
+                <mat-cell fxFlex="100px" *matCellDef="let element"> {{element.desunimed}}</mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="cantidad">
+                <mat-header-cell fxFlex="100px" *matHeaderCellDef> CANT</mat-header-cell>
+                <mat-cell fxFlex="100px" *matCellDef="let element"> {{element.cantidad}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="imptotal">
+                <mat-header-cell  fxFlex="200px" *matHeaderCellDef> IMPORTE TOTAL</mat-header-cell>
+                <mat-cell fxFlex="200px" *matCellDef="let element"> {{element.imptotal}}</mat-cell>
+            </ng-container>
+            <!--<ng-container matColumnDef="codigo">-->
+                    <!--<mat-header-cell *matHeaderCellDef> codigo</mat-header-cell>-->
+                    <!--<mat-cell *matCellDef="let element"> {{element.codigo}}</mat-cell>-->
+            <!--</ng-container>-->
+
+            <ng-container matColumnDef="options">
+                <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <app-action-icons (edit)="editRecord(row.id)" (remove)="delete(row.id)"></app-action-icons>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row
+                (click)="selectedId = row.id"
+                *matRowDef="let row; columns: displayedColumns;"
+                [ngClass]="{ 'highlight': row.id === selectedId }">
+            </mat-row>
+
+        </mat-table>
+    </div>
+    <div fxFlex>
+        <mat-paginator [showFirstLastButtons]="true" #paginatordet [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100, 500]">
+        </mat-paginator>
+    </div>
+    <div>
+        <div fxFlex="50"></div>
+        
+    </div>
+</div>

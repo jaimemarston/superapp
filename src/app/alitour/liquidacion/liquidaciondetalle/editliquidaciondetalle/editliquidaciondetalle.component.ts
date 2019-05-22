@@ -1,9 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { CotizaciondetalleService } from '../../../../core/services/cotizaciondetalle.service';
-import { ICotizaciondetalle } from '../../../../core/interfaces/cotizacion.interface';
-import { IArticulo } from '../../../../core/interfaces/articulo.interface';
+import { LiquidaciondetalleService } from '../../../../core/services/liquidaciondetalle.service';
+import { ILiquidaciondetalle } from '../../../../core/interfaces/liquidacion.interface';
 import { IUnidad } from '../../../../core/interfaces/unidad.interface';
-import { ArticuloService } from '../../../../core/services/articulo.service';
 import { UnidadService } from '../../../../core/services/unidad.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
@@ -12,34 +10,31 @@ import { map, startWith, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '../../../../../@fuse/animations';
 
 
-export interface Estados {
-    codigo: number;
-    descripcion: string;
-}
-
 export interface Opcviaje {
     codigo: string;
     descripcion: string;
 }
 
 @Component({
-    selector: 'app-editcotizaciondetalle',
-    templateUrl: './editcotizaciondetalle.component.html',
+    selector: 'app-editliquidaciondetalle',
+    templateUrl: './editliquidaciondetalle.component.html',
     animations: fuseAnimations
 })
 
-export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChanges {
+export class EditliquidaciondetalleComponent implements OnInit, OnDestroy, OnChanges {
     $unsubscribe = new Subject();
     private _id: number;
     get id(): number {
         return this._id;
     }
 
+    
+
     @Input() set id(id: number) {
         this._id = id;
 
         if (id) {
-            this.getCotizacion();
+            this.getLiquidacion();
         } else {
             if (this.registerForm) {
                 this.registerForm.reset();
@@ -49,9 +44,9 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
     @Input() idMaster: number;
     
-    selectedestado = 'Agendado';
+    
     selectedopc = '0';
-    filteredArticulos: Observable<Array<IArticulo>>;
+    filteredMateriales: any;
     filteredUnidades: Observable<Array<IUnidad>>;
 
     opcviaje: Opcviaje[] = [
@@ -60,38 +55,25 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         { codigo: 'Full Day', descripcion: 'Full Day' },
     ];
 
-    estados: Estados[] = [
-        { codigo: 1, descripcion: 'Confirmado'},
-        { codigo: 2, descripcion: 'Programado'},
-        { codigo: 3, descripcion: 'Atendido'},
-        { codigo: 4, descripcion: 'Anulado'},
-    ];
-
-    cotizacion: ICotizaciondetalle;
-    articulos: Array<IArticulo>;
+    liquidacion: ILiquidaciondetalle;
+    materiales: Array<any>;
     unidades: Array<IUnidad>;
 
 
     registerForm: FormGroup;
 
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() update: EventEmitter<ICotizaciondetalle> = new EventEmitter<ICotizaciondetalle>();
+    @Output() update: EventEmitter<ILiquidaciondetalle> = new EventEmitter<ILiquidaciondetalle>();
 
     @ViewChild('inputCodigo') inputCodigo: ElementRef<HTMLInputElement>;
 
-    constructor(private cotizacionService: CotizaciondetalleService,
+    constructor(private liquidacionService: LiquidaciondetalleService,
         private formBuilder: FormBuilder,
-        private articuloService: ArticuloService,
         private unidadService: UnidadService,
         public snackBar: MatSnackBar) {
     }
+    
 
-    getArticulo(): void {
-        this.articuloService.getArticulos()
-            .subscribe(response => {
-                this.articulos = response;
-            });
-    }
 
     getUnidad(): void {
         this.unidadService.getUnidades()
@@ -105,7 +87,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
     ngOnInit(): void {
         this.createForm();
-        this.getArticulo();
         this.getUnidad();
         
     }
@@ -120,14 +101,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         }
     }
 
-    private _filter(value: string): IArticulo[] {
-        if (value && this.articulos) {
-            const filterValue = value.toLowerCase();
-            return this.articulos.filter(option => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
-        }
 
-        return [];
-    }
 
     private _filter2(value: string): IUnidad[] {
         if (value && this.unidades) {
@@ -139,33 +113,18 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
     createForm(): void {
         this.registerForm = this.formBuilder.group({
-            fechaini: [''],
-            horaini: [''],
-            fechafin: [''],
-            horafin: [''],
             descripcion: ['', Validators.required],
             desunimed: [''],
-            lugorigen: [''],
-            lugdestino: [''],
             cantidad: [''],
             precio: [''],
             imptotal: [''],
-            opcviaje: [''],
-            conductor: [''],
-            nvuelo: [''],
-            proveedor: [''],
-            obs: [''],
-            estado: [0],
-            tipodoc: [''],
+            codpro: [''],
             codigo: [this.idMaster],
         });
 
         const descripcionForm = this.registerForm.get('descripcion');
         const desunimedForm = this.registerForm.get('desunimed');
 
-        this.filteredArticulos = descripcionForm.valueChanges.pipe(
-            map(value => this._filter(value))
-        );
 
         this.filteredUnidades = desunimedForm.valueChanges.pipe(
             map(value => this._filter2(value))
@@ -192,38 +151,34 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     }
 
     setImporteTotal(a, b): void {
-        /*this.registerForm.get('imptotal').setValue(a * b);*/
-        this.registerForm.get('imptotal').setValue(a);
+        this.registerForm.get('imptotal').setValue((a * b).toFixed(2));
     }
 
-    getCotizacion(): void {
-        this.cotizacionService.getCotizacion(this.id)
+    getcodigo(a): void {
+        console.log(a);
+        this.registerForm.get('codpro').setValue(a.codigo);
+        this.registerForm.get('desunimed').setValue(a.unimed);
+        //  if (a.talla != null) {
+        //      this.registerForm.get('talla').setValue(a.talla);
+        //   }
+        this.registerForm.get('precio').setValue(a.precioventa);
+    }
+    getLiquidacion(): void {
+        this.liquidacionService.getLiquidacion(this.id)
             .subscribe(response => {
-                this.cotizacion = response;
+                this.liquidacion = response;
                 this.setForm();
             });
     }
 
     setForm(): void {
-        this.registerForm.get('codigo').setValue(this.cotizacion.codigo);
-        this.registerForm.get('fechaini').setValue(this.cotizacion.fechaini);
-        this.registerForm.get('horaini').setValue(this.cotizacion.horaini);
-        this.registerForm.get('fechafin').setValue(this.cotizacion.fechafin);
-        this.registerForm.get('horafin').setValue(this.cotizacion.horafin);
-        this.registerForm.get('descripcion').setValue(this.cotizacion.descripcion);
-        this.registerForm.get('desunimed').setValue(this.cotizacion.desunimed);
-        this.registerForm.get('lugorigen').setValue(this.cotizacion.lugorigen);
-        this.registerForm.get('lugdestino').setValue(this.cotizacion.lugdestino);
-        this.registerForm.get('opcviaje').setValue(this.cotizacion.opcviaje);
-        this.registerForm.get('conductor').setValue(this.cotizacion.conductor);
-        this.registerForm.get('nvuelo').setValue(this.cotizacion.nvuelo);
-        this.registerForm.get('proveedor').setValue(this.cotizacion.proveedor);
-        this.registerForm.get('obs').setValue(this.cotizacion.obs);
-        this.registerForm.get('tipodoc').setValue(this.cotizacion.tipodoc);
-        this.registerForm.get('cantidad').setValue(this.cotizacion.cantidad);
-        this.registerForm.get('precio').setValue(this.cotizacion.precio);
-        this.registerForm.get('imptotal').setValue(this.cotizacion.imptotal);
-        this.registerForm.get('estado').setValue(this.cotizacion.estado);
+        this.registerForm.get('codigo').setValue(this.liquidacion.codigo);
+        this.registerForm.get('descripcion').setValue(this.liquidacion.descripcion);
+        this.registerForm.get('desunimed').setValue(this.liquidacion.desunimed);
+        this.registerForm.get('cantidad').setValue(this.liquidacion.cantidad);
+        this.registerForm.get('precio').setValue(this.liquidacion.precio);
+        this.registerForm.get('imptotal').setValue(this.liquidacion.imptotal);
+        this.registerForm.get('codpro').setValue(this.liquidacion.codpro);
     }
 
     onBack(): void {
@@ -232,7 +187,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
     saveForm(clear?: boolean): void {
         if (this.registerForm.valid) {
-            this.saveCotizacion();
+            this.saveliquidacion();
             if (clear) {
                 this.registerForm.reset();
                 this.inputCodigo.nativeElement.focus();
@@ -242,37 +197,44 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         }
     }
 
+
+   
+
+
     prepareData(): any {
         /** rest spread, paso de parametros REST, este método sirve para clonar objetos. destructuración de datos
          * http://www.etnassoft.com/2016/07/04/desestructuracion-en-javascript-parte-1/ */
+
+         
         this.registerForm.get('codigo').setValue(this.idMaster);
-        const data: ICotizaciondetalle = { ...this.registerForm.getRawValue() };
+        
+        const data: ILiquidaciondetalle = { ...this.registerForm.getRawValue() };
         data.master = this.idMaster;
 
         return data;
     }
 
-    updateCotizacion(): void {
+    updateLiquidacion(): void {
         const data = this.prepareData();
-        this.cotizacionService.updateCotizacion(this.id, data)
+        this.liquidacionService.updateLiquidacion(this.id, data)
             .subscribe(response => {
                 this.update.emit(response);
                 this.snackBar.open('Registro agregado satisfactoriamente...!');
             });
     }
 
-    addCotizacion(): void {
+    addliquidacion(): void {
         const data = this.prepareData();
 
-        this.cotizacionService.addCotizacion(data)
+        this.liquidacionService.addLiquidacion(data)
             .subscribe(response => {
                 this.update.emit(response);
                 this.snackBar.open('Registro agregado satisfactoriamente...!');
             });
     }
 
-    saveCotizacion(): void {
-        this.id ? this.updateCotizacion() : this.addCotizacion();
+    saveliquidacion(): void {
+        this.id ? this.updateLiquidacion() : this.addliquidacion();
     }
 
     ngOnDestroy(): void {

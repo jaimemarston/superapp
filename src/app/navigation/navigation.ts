@@ -51,10 +51,17 @@ export const navigation: FuseNavigation[] = [
             },
             {
                 id: 'cotizacion',
-                title: 'Cotizacion',
+                title: 'Cotizaciones',
                 type: 'item',
                 icon: 'email',
                 url: '/cotizacion',
+            },
+            {
+                id: 'liquidacion',
+                title: 'Liquidaciones',
+                type: 'item',
+                icon: 'email',
+                url: '/liquidacion',
             },
             {
                 id: 'dashboard',

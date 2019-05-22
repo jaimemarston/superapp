@@ -43,6 +43,10 @@ export const routes: Routes = [
                 loadChildren: './alitour/cotizacion/cotizacion.module#CotizacionModule'
             },
             {
+                path: 'liquidacion',
+                loadChildren: './alitour/liquidacion/liquidacion.module#LiquidacionModule'
+            },
+            {
                 path: 'unidades',
                 loadChildren: './alitour/unidades/unidades.module#UnidadesModule'
             },
