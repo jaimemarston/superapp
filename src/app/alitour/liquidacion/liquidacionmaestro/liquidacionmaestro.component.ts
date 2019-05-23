@@ -20,9 +20,9 @@ export class LiquidacionmaestroComponent implements OnInit {
     displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'estado', 'options']
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    cotizacion: Array<ILiquidacion>;
+    liquidacion: Array<ILiquidacion>;
     liquidaciondetalle: Array<ILiquidaciondetalle>;
-    cotizacionSelected: ILiquidacion;
+    liquidacionSelected: ILiquidacion;
     dataSource = new MatTableDataSource<ILiquidacion>();
     dataSourceDetalle = new MatTableDataSource<ILiquidaciondetalle>();
     errorMessage: String;
@@ -48,33 +48,31 @@ export class LiquidacionmaestroComponent implements OnInit {
     }
 
     getliquidacion(): void {
-
-        this.liquidacionService.getCotizaciones()
+        this.liquidacionService.getLiquidaciones()
             .subscribe(response => {
-                this.cotizacion = response;
-                this.dataSource.data = this.cotizacion;
+                this.liquidacion = response;
+                this.dataSource.data = this.liquidacion;
                 this.dataSource.paginator = this.paginator;
                 this.paginator._intl.itemsPerPageLabel = 'Item por Pagina:';
-                
-                this.updateCotizacionSelected(true);
+                this.updateLiquidacionSelected(true);
             });
     }
 
-    updateCotizacionSelected(emit?: boolean) {
-        if (this.cotizacionSelected) {
-            this.cotizacionSelected = this.cotizacion.find((v, i) => v.id === this.cotizacionSelected.id);
+    updateLiquidacionSelected(emit?: boolean) {
+        if (this.liquidacionSelected) {
+            this.liquidacionSelected = this.liquidacion.find((v, i) => v.id === this.liquidacionSelected.id);
         } else {
-            this.cotizacionSelected = this.cotizacion[0];
+            this.liquidacionSelected = this.liquidacion[0];
         }
         if (emit) {
-            this.detalle.emit(this.cotizacionSelected ? this.cotizacionSelected.liquidaciones : []);
+            this.detalle.emit(this.liquidacionSelected ? this.liquidacionSelected.liquidaciones : []);
         }
     }
 
-    viewRecorddetail(liquidacion: LiquidacionService): void {
-        // this.selectedId = liquidacion.id;
-        // this.cotizacionSelected = liquidacion;
-        this.detalle.emit(this.cotizacionSelected.liquidaciones);
+    viewRecorddetail(liquidacion: ILiquidacion): void {
+        this.selectedId = liquidacion.id;
+        this.liquidacionSelected = liquidacion;
+        this.detalle.emit(this.liquidacionSelected.liquidaciones);
     }
 
     delete(id: number): void {
@@ -84,7 +82,7 @@ export class LiquidacionmaestroComponent implements OnInit {
 
     deleteliquidacion(): void {
         if (confirm('Esta seguro que desea borrar este registro?')) {
-            this.liquidacionService.deleteCotizacion(this.selectedId)
+            this.liquidacionService.deleteLiquidacion(this.selectedId)
                 .subscribe(response => {
                     /* console.log(response); */
                     this.getliquidacion();
@@ -135,7 +133,7 @@ export class LiquidacionmaestroComponent implements OnInit {
     async deleteAllSelecteds() {
         const selecteds = this.selection.selected;
         for (let index = 0; index < selecteds.length; index++) {
-            await this.liquidacionService.deleteCotizacion(selecteds[index].id).toPromise();
+            await this.liquidacionService.deleteLiquidacion(selecteds[index].id).toPromise();
             if (index === selecteds.length - 1) {
                 this.snackBar.open('ELMINADOS TODOS');
                 this.getliquidacion();

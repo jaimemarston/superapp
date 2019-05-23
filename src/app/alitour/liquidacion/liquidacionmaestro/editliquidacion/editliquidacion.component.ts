@@ -43,9 +43,9 @@ export class EditLiquidacionComponent implements OnInit {
 
 
     estados: Estados[] = [
-        {codigo: 1, descripcion: 'Inventario Inicial'},
-        {codigo: 2, descripcion: 'Ingreso Producto'},
-        {codigo: 3, descripcion: 'Salida Producto'},
+        {codigo: 1, descripcion: 'Agendado'},
+        {codigo: 2, descripcion: 'Atendido'},
+        {codigo: 3, descripcion: 'Pagado'},
         {codigo: 4, descripcion: 'Anulado'},
     ];
 
@@ -115,7 +115,7 @@ export class EditLiquidacionComponent implements OnInit {
             map(value => this._filter(value))
         );
     }
-
+    
     getcodigo(a): void {
         console.log(a);
         this.registerForm.get('ruc').setValue(a.ruc);
@@ -127,9 +127,9 @@ export class EditLiquidacionComponent implements OnInit {
     }
 
     getLiquidacion(): void {
-        this.liquidacionService.getCotizacion(this.id)
+        this.liquidacionService.getLiquidacion(this.id)
             .subscribe(response => {
-                // this.liquidacion = response;
+                this.liquidacion = response;
                 this.setForm();
             });
     }
@@ -166,7 +166,7 @@ export class EditLiquidacionComponent implements OnInit {
 
     updateLiquidacion(): void {
         const data: ILiquidacion = this.registerForm.getRawValue();
-        this.liquidacionService.updateCotizacion(this.id, data)
+        this.liquidacionService.updateLiquidacion(this.id, data)
             .subscribe(response => {
                 this.update.emit(response);
                 console.log('graba Maestro');
@@ -177,7 +177,7 @@ export class EditLiquidacionComponent implements OnInit {
 
     addliquidacion(): void {
         const data: ILiquidacion = this.registerForm.getRawValue();
-        this.liquidacionService.addCotizacion(data)
+        this.liquidacionService.addLiquidacion(data)
             .subscribe(response => {
                 this.update.emit(response);
                 this.snackBar.open('Registro agregado satisfactoriamente...!');

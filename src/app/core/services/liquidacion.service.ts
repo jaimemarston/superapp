@@ -13,7 +13,7 @@ export class LiquidacionService {
     constructor(private http: HttpClient) {
     }
 
-    getCotizaciones(): Observable<Array<ILiquidacion>> {
+    getLiquidaciones(): Observable<Array<ILiquidacion>> {
         return this.http.get<Array<ILiquidacion>>(LiquidacionEndpoint.rest);
     }
 
@@ -21,29 +21,29 @@ export class LiquidacionService {
         return this.http.get<Array<any>>(ClientesdirecciondetailEndpoint.rest);
     }
 
-    getCotizacion(id: number): Observable<Liquidacion> {
+    getLiquidacion(id: number): Observable<Liquidacion> {
         const url = `${LiquidacionEndpoint.rest}/${id}/`;
         return this.http.get<Liquidacion>(url);
     }
 
-    addCotizacion(data: ILiquidacion): Observable<ILiquidacion> {
+    addLiquidacion(data: ILiquidacion): Observable<ILiquidacion> {
         const url = `${LiquidacionEndpoint.rest}/`;
         return this.http.post<ILiquidacion>(url, data);
     }
 
-    updateCotizacion(id: number, data: ILiquidacion): Observable<ILiquidacion> {
+    updateLiquidacion(id: number, data: ILiquidacion): Observable<ILiquidacion> {
         const url = `${LiquidacionEndpoint.rest}/${id}/`;
         console.log('envio update put url');
         console.log(url);
         return this.http.put<ILiquidacion>(url, data);
     }
 
-    deleteCotizacion(id: number): Observable<any | null> {
+    deleteLiquidacion(id: number): Observable<any | null> {
         const url = `${LiquidacionEndpoint.rest}/${id}/`;
         return this.http.delete(url);
     }
 
-    estadosCotizacion(): Observable<Array<ICotizacionEstados>> {
+    estadosLiquidacion(): Observable<Array<ICotizacionEstados>> {
         return this.http.get<Array<ICotizacionEstados>>(LiquidacionEndpoint.estados);
     }
 
