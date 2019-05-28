@@ -3,13 +3,13 @@
     <div fxFlex>
         <mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="select">
-                <mat-header-cell *matHeaderCellDef>
+                <mat-header-cell fxFlex="50px" *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? masterToggle() : null"
                                   [checked]="selection.hasValue() && isAllSelected()"
                                   [indeterminate]="selection.hasValue() && !isAllSelected()">
                     </mat-checkbox>
                 </mat-header-cell>
-                <mat-cell *matCellDef="let row">
+                <mat-cell fxFlex="50px" *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
                                   [checked]="selection.isSelected(row)">
                     </mat-checkbox>
@@ -45,10 +45,13 @@
             </ng-container>
 
             <ng-container matColumnDef="sexo">
-                <mat-header-cell *matHeaderCellDef>sexo</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>GENERO</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{ element.sexo === 1 ? 'M' : 'F'}}</mat-cell>
             </ng-container>
-
+            <ng-container matColumnDef="telefono1">
+                <mat-header-cell *matHeaderCellDef>TELEFONO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.telefono1}}</mat-cell>
+            </ng-container>
             <ng-container matColumnDef="options">
                 <mat-header-cell *matHeaderCellDef> Options</mat-header-cell>
                 <mat-cell *matCellDef="let row">

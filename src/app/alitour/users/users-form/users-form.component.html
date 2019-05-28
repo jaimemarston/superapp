@@ -1,21 +1,21 @@
-<form class="mat-card mat-elevation-z4 p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
-      fxFlex="1 0 auto" [formGroup]="registerForm">
+<form class="mat-card mat-elevation-z4 p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto"
+    [formGroup]="registerForm">
 
     <div class="h2 mb-24">Agregar Usuario</div>
     <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
         <!--<div class="dropzone dropzone-container avatar contact-avatar hude m-0" [dropzone]-->
         <!--(error)="uploadError($event)"-->
         <!--(success)="uploadSuccess($event)"></div>-->
-        <img #imgAvatar [src]="user?.foto || 'assets/images/avatars/profile.jpg'"
-             class="avatar contact-avatar huge m-0"
-             [alt]="user?.nombre"/>
+        <img #imgAvatar [src]="user?.foto || 'assets/images/avatars/profile.jpg'" class="avatar contact-avatar huge m-0"
+            [alt]="user?.nombre" />
         <div class="avatar-upload">
             <label for="file_input">
                 <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
             </label>
             <input type="file" id="file_input" (change)="uploadSuccess($event)">
         </div>
-        <div *ngIf="user?.nombre" class="contact-name mt-8">{{user?.nombre}} {{user?.apellido_paterno}} {{user?.apellido_materno}}</div>
+        <div *ngIf="user?.nombre" class="contact-name mt-8">{{user?.nombre}} {{user?.apellido_paterno}}
+            {{user?.apellido_materno}}</div>
     </mat-toolbar-row>
 
     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
@@ -31,10 +31,27 @@
         <mat-form-field fxFlex="20">
             <input #inputs matInput placeholder="APELLIDO MATERNO" formControlName="apellido_materno">
         </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+    <!-- <mat-form-field fxFlex="20">
+        <input #inputs matInput placeholder="SEXO" formControlName="sexo">
+    </mat-form-field>
+     -->
+    <mat-form-field fxFlex="20">
+        <mat-select formControlName="sexo" class="form-control" placeholder="Genero"
+                    [(value)]="selectedgen">
+            <mat-option class="pantallafiltro" *ngFor="let ban of generos" [value]="ban.codigo">
+                {{ban.descripcion}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="SEXO" formControlName="sexo">
-        </mat-form-field>
+    <mat-form-field fxFlex="20">
+        <input #inputs matInput placeholder="Telefono" formControlName="telefono1">
+    </mat-form-field>
+    <mat-form-field fxFlex="20">
+        <input #inputs matInput placeholder="correo" formControlName="correo">
+    </mat-form-field>
     </div>
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
         <button (click)="back()" mat-raised-button class="mat-primary">Volver</button>

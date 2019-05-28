@@ -5,6 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { IUser } from '../../../core/interfaces/user.interface';
 
+export interface Genero {
+    codigo: string;
+    descripcion: string;
+}
+
 @Component({
     selector: 'app-users-form',
     templateUrl: './users-form.component.html',
@@ -13,7 +18,7 @@ import { IUser } from '../../../core/interfaces/user.interface';
 export class UsersFormComponent implements OnInit {
 
     @ViewChild('imgAvatar') imgAvatar: ElementRef<HTMLImageElement>;
-
+    selectedgen = '0';
     userPhoto: File;
 
     private _id: number;
@@ -32,6 +37,10 @@ export class UsersFormComponent implements OnInit {
         }
     }
 
+    generos: Genero[] = [
+        {codigo: '1', descripcion: 'Masculino'},
+        {codigo: '2', descripcion: 'Femenino'},
+    ];
 
     user: IUser;
     registerForm: FormGroup;
@@ -66,6 +75,8 @@ export class UsersFormComponent implements OnInit {
                 Validators.required,
             ])],
             sexo: [''],
+            telefono1: [''],
+            correo: [''],
         });
     }
 
@@ -83,6 +94,8 @@ export class UsersFormComponent implements OnInit {
         this.registerForm.get('apellido_paterno').setValue(this.user.apellido_paterno);
         this.registerForm.get('apellido_materno').setValue(this.user.apellido_materno);
         this.registerForm.get('sexo').setValue(this.user.sexo);
+        this.registerForm.get('telefono1').setValue(this.user.telefono1);
+        this.registerForm.get('correo').setValue(this.user.correo);
     }
 
     back(): void {

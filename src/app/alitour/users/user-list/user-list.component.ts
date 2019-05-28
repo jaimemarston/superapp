@@ -14,7 +14,7 @@ import { UserService } from '../../../core/services/user.service';
 })
 export class UserListComponent implements OnInit {
 
-    displayedColumns: string[] = ['select', 'foto', 'nombre', 'apellido_paterno', 'apellido_materno', 'id', 'sexo', 'options'];
+    displayedColumns: string[] = ['select', 'foto', 'nombre', 'apellido_paterno', 'apellido_materno', 'id', 'sexo', 'telefono1', 'options'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     users: Array<IUser>;

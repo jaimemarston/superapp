@@ -5,4 +5,6 @@ export interface IUser {
     apellido_materno: string;
     foto: string;
     sexo: number;
+    telefono1: string;
+    correo: string;
 }
