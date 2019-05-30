@@ -61,3 +61,19 @@ app-user-list {
         bottom: auto;
     }
 }
+.highlight {
+    background: rgb(177, 211, 179) !important; /* green */
+}
+
+
+.mat-table {
+    margin-top: 10px;
+    max-height: 300px;
+    overflow: auto;
+    .mat-row {
+        height: 50px;
+        .mat-cell {
+            font-size: 15px;
+        }
+    }
+}

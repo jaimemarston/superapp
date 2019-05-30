@@ -6,7 +6,7 @@ import { UserService } from '../../../core/services/user.service';
 import { IUser } from '../../../core/interfaces/user.interface';
 
 export interface Genero {
-    codigo: string;
+    codigo: number;
     descripcion: string;
 }
 
@@ -38,8 +38,8 @@ export class UsersFormComponent implements OnInit {
     }
 
     generos: Genero[] = [
-        {codigo: '1', descripcion: 'Masculino'},
-        {codigo: '2', descripcion: 'Femenino'},
+        {codigo: 1, descripcion: 'Masculino'},
+        {codigo: 2, descripcion: 'Femenino'},
     ];
 
     user: IUser;
@@ -78,6 +78,9 @@ export class UsersFormComponent implements OnInit {
             telefono1: [''],
             correo: [''],
         });
+
+    this.generos.find(c => c.codigo === this.user.sexo);
+      
     }
 
     getUser(): void {
