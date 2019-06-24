@@ -2,9 +2,11 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnIni
 import { CotizaciondetalleService } from '../../../../core/services/cotizaciondetalle.service';
 import { ICotizaciondetalle } from '../../../../core/interfaces/cotizacion.interface';
 import { IArticulo } from '../../../../core/interfaces/articulo.interface';
+import { IUser } from '../../../../core/interfaces/user.interface';
 import { IUnidad } from '../../../../core/interfaces/unidad.interface';
 import { ArticuloService } from '../../../../core/services/articulo.service';
 import { UnidadService } from '../../../../core/services/unidad.service';
+import { UserService } from '../../../../core/services/user.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
@@ -51,8 +53,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     
     selectedestado = 'Agendado';
     selectedopc = '0';
+    selectedconductor = '';
     filteredArticulos: Observable<Array<IArticulo>>;
     filteredUnidades: Observable<Array<IUnidad>>;
+    filteredUsuarios: Observable<Array<IUser>>;
+
 
     opcviaje: Opcviaje[] = [
         { codigo: 'Solo ida', descripcion: 'Solo ida' },
@@ -70,6 +75,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     cotizacion: ICotizaciondetalle;
     articulos: Array<IArticulo>;
     unidades: Array<IUnidad>;
+    usuarios: Array<IUser>;
 
 
     registerForm: FormGroup;
@@ -83,6 +89,8 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         private formBuilder: FormBuilder,
         private articuloService: ArticuloService,
         private unidadService: UnidadService,
+        private userService: UserService,
+        
         public snackBar: MatSnackBar) {
     }
 
@@ -100,6 +108,13 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             });
     }
 
+    getUsuario(): void {
+        this.userService.getUsers()
+            .subscribe(response => {
+                this.usuarios = response;
+                
+            });
+    }
 
 
 
@@ -107,6 +122,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.createForm();
         this.getArticulo();
         this.getUnidad();
+        this.getUsuario();
         
     }
 
@@ -137,6 +153,17 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         return [];
     }
 
+    private _filter3(value: number): IUser[] {
+        if (value && this.usuarios) {
+        const filterValue3 = value;
+        const result = this.usuarios.filter(option => option.id = filterValue3);
+        console.log(result);
+        return result ;
+       
+        }
+        return [];
+    }
+
     createForm(): void {
         this.registerForm = this.formBuilder.group({
             fechaini: [''],
@@ -162,6 +189,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
         const descripcionForm = this.registerForm.get('descripcion');
         const desunimedForm = this.registerForm.get('desunimed');
+        const desconductor = this.registerForm.get('conductor');
 
         this.filteredArticulos = descripcionForm.valueChanges.pipe(
             map(value => this._filter(value))
@@ -169,6 +197,10 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
         this.filteredUnidades = desunimedForm.valueChanges.pipe(
             map(value => this._filter2(value))
+        );
+        
+        this.filteredUsuarios = desconductor.valueChanges.pipe(
+            map(value => this._filter3(value))
         );
 
         this.valueChanges();

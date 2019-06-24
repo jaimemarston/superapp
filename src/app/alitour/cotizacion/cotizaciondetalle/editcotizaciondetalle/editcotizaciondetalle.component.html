@@ -54,22 +54,29 @@
             <input #inputs matInput placeholder="Destino" formControlName="lugdestino">
         </mat-form-field>
         <mat-form-field fxFlex="20">
-           
-            <mat-select formControlName="estado" class="form-control" placeholder="Estado"
-            [(value)]="selectedestado">
-            <mat-option class="pantallafiltro" *ngFor="let mon of estados" [value]="mon.codigo">
-                {{mon.descripcion}}
-            </mat-option>
-        </mat-select>
 
-    </mat-form-field>
+            <mat-select formControlName="estado" class="form-control" placeholder="Estado" [(value)]="selectedestado">
+                <mat-option class="pantallafiltro" *ngFor="let mon of estados" [value]="mon.codigo">
+                    {{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+
+        </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
-        <mat-form-field>
+        <!-- <mat-form-field>
             <input #inputs matInput placeholder="conductor" formControlName="conductor">
+        </mat-form-field> -->
+        <mat-form-field>
+
+            <mat-select formControlName="conductor" class="form-control" placeholder="Conductor" [(value)]="selectedconductor">
+                <mat-option class="pantallafiltro" *ngFor="let mon of filteredUsuarios | async" [value]="mon.id">{{mon.nombre}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
+
 
         <mat-form-field>
             <input #inputs matInput placeholder="N° Vuelo" formControlName="nvuelo">
