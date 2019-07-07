@@ -1,6 +1,6 @@
-/* export const BASEURL = 'http://localhost:8000/'; */
-
-export const BASEURL = 'http://188.166.63.89:8000/'; 
+/*export const BASEURL = 'http://localhost:8000/';*/
+export const BASEURL = '/alitourbe/'; 
+/*export const BASEURL = 'https://migthy-ocean-98328.herokuapp.com/'; */
 
 
 export const DEFAULT_ROUTE = 'clientes';
