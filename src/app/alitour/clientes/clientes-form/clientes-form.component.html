@@ -1,5 +1,5 @@
-<form class="mat-card mat-elevation-z4 p-24" fxLayout="column" fxLayoutAlign="start"
-      fxFlex="1 0 auto" name="form" [formGroup]="registerForm">
+<form class="mat-card mat-elevation-z4 p-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form"
+    [formGroup]="registerForm">
 
     <div class="h2 mb-24">Agregar Clientes</div>
 
@@ -22,7 +22,11 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
-            <input matInput placeholder="Grupo" formControlName="grupo">
+            <!-- <input matInput placeholder="Grupo" formControlName="grupo"> -->
+            <mat-select formControlName="grupo" class="form-control" placeholder="Tipo" [(value)]="selectedtip">
+                <mat-option class="pantallafiltro" *ngFor="let mon of tipoprov" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
@@ -32,7 +36,7 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="50">
-            <input matInput placeholder="Correo" formControlName="correo">
+            <input matInput placeholder="Pagina Web" formControlName="paginaweb">
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
@@ -46,14 +50,43 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="34">
-            <input matInput placeholder="Pagina Web" formControlName="paginaweb">
+            <input matInput placeholder="Correo" formControlName="correo">
         </mat-form-field>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center"fxLayoutGap="15px">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Contacto2" formControlName="contacto2">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Teléfono Contacto2" formControlName="telcontacto2">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="34">
+            <input matInput placeholder="Correo2" formControlName="correo2">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Contacto3" formControlName="contacto3">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Teléfono Contacto3" formControlName="telcontacto3">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="34">
+            <input matInput placeholder="Correo3" formControlName="correo3">
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
         <mat-form-field fxFlex="33">
             <mat-select formControlName="banco_nombre1" class="form-control" placeholder="Banco"
-                        [(value)]="selectedban">
+                [(value)]="selectedban">
                 <mat-option class="pantallafiltro" *ngFor="let ban of bancos" [value]="ban.codigo">
                     {{ban.descripcion}}
                 </mat-option>
@@ -66,17 +99,17 @@
 
         <mat-form-field fxFlex="34">
             <mat-select formControlName="banco_moneda1" class="form-control" placeholder="Moneda"
-                        [(value)]="selectedmon">
+                [(value)]="selectedmon">
                 <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
         <mat-form-field fxFlex="33">
             <mat-select formControlName="banco_nombre2" class="form-control" placeholder="Banco"
-                        [(value)]="selectedban2">
+                [(value)]="selectedban2">
                 <mat-option class="pantallafiltro" *ngFor="let ban of bancos" [value]="ban.codigo">
                     {{ban.descripcion}}
                 </mat-option>
@@ -89,31 +122,32 @@
 
         <mat-form-field fxFlex="34">
             <mat-select formControlName="banco_moneda2" class="form-control" placeholder="Moneda"
-                        [(value)]="selectedmon2">
+                [(value)]="selectedmon2">
                 <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-    </div>
+    </div> -->
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
         <mat-form-field fxFlex="33">
             <input #inputs matInput type="date" formControlName="fechanac" class="form-control"
-                   placeholder="Fecha Nacimiento"/>
+                placeholder="Fecha Nacimiento" />
         </mat-form-field>
 
         <mat-form-field fxFlex="33">
             <input #inputs matInput type="date" formControlName="fechaini" class="form-control"
-                   placeholder="Fecha Inicial"/>
+                placeholder="Fecha Inicial" />
         </mat-form-field>
 
         <mat-form-field fxFlex="34">
             <input #inputs matInput type="date" formControlName="fechafin" class="form-control"
-                   placeholder="Fecha Fin"/>
+                placeholder="Fecha Fin" />
         </mat-form-field>
     </div>
-    <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center" >
+    <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center">
         <button (click)="back()" mat-raised-button class="mat-primary">Volver</button>
-        <button (click)="saveClient()" mat-raised-button [disabled]="registerForm.invalid" class="mat-accent">Guardar</button>
+        <button (click)="saveClient()" mat-raised-button [disabled]="registerForm.invalid"
+            class="mat-accent">Guardar</button>
     </div>
 </form>

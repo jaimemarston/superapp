@@ -4,7 +4,6 @@
     <div class="h2 mb-24">Agregar Proveedor</div>
 
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-
         <mat-form-field fxFlex="25">
             <input matInput placeholder="Nombre" formControlName="nombre">
         </mat-form-field>
@@ -20,10 +19,17 @@
         <mat-form-field fxFlex="15">
             <input matInput placeholder="Teléfono 2" formControlName="telefono2">
         </mat-form-field>
-
-        <mat-form-field fxFlex="20">
-            <input matInput placeholder="Grupo" formControlName="grupo">
+         <mat-form-field fxFlex="20">
+            
+            <mat-select formControlName="categprov" class="form-control" placeholder="Categoria"
+                        [(value)]="selectedCat" multiple>
+                <mat-option class="pantallafiltro" *ngFor="let moncat of categoprov" [value]="moncat.codigo">{{moncat.descripcion}}
+                </mat-option>
+               
+            </mat-select>
+           
         </mat-form-field>
+       
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
@@ -32,23 +38,46 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="50">
+            <input matInput placeholder="Pagina Web" formControlName="paginaweb">
+            
+        </mat-form-field>
+        <mat-form-field fxFlex="20">
+            <!-- <input matInput placeholder="Grupo" formControlName="grupo"> -->
+            <mat-select formControlName="grupo" class="form-control" placeholder="Tipo"
+                        [(value)]="selectedtip">
+                <mat-option class="pantallafiltro" *ngFor="let mon of tipoprov" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="28">
+            <input matInput placeholder="Contacto" formControlName="contacto">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="28">
+            <input matInput placeholder="Teléfono Contacto" formControlName="telcontacto">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="34">
             <input matInput placeholder="Correo" formControlName="correo">
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
-        <mat-form-field fxFlex="33">
-            <input matInput placeholder="Contacto" formControlName="contacto">
-        </mat-form-field>
-
-        <mat-form-field fxFlex="33">
-            <input matInput placeholder="Teléfono Contacto" formControlName="telcontacto">
-        </mat-form-field>
-
-        <mat-form-field fxFlex="34">
-            <input matInput placeholder="Pagina Web" formControlName="paginaweb">
-        </mat-form-field>
-    </div>
+            <mat-form-field fxFlex="28">
+                <input matInput placeholder="Contacto2" formControlName="contacto2">
+            </mat-form-field>
+    
+            <mat-form-field fxFlex="28">
+                <input matInput placeholder="Teléfono Contacto2" formControlName="telcontacto2">
+            </mat-form-field>
+    
+            <mat-form-field fxFlex="34">
+                <input matInput placeholder="Correo2" formControlName="correo2">
+            </mat-form-field>
+        </div>
     <div fxLayout="row" fxLayoutAlign="start center"fxLayoutGap="15px">
 
         <mat-form-field fxFlex="33">
@@ -64,7 +93,11 @@
             <input matInput placeholder="Número de cuenta" formControlName="banco_cuenta1">
         </mat-form-field>
 
-        <mat-form-field fxFlex="34">
+        <mat-form-field fxFlex="33">
+                <input matInput placeholder="Nombre Destino" formControlName="banco_nomdest1">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="14">
             <mat-select formControlName="banco_moneda1" class="form-control" placeholder="Moneda"
                         [(value)]="selectedmon">
                 <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
@@ -84,10 +117,14 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="33">
-            <input matInput placeholder="Número de cuenta" formControlName="banco_cuenta2">
+                <input matInput placeholder="Número de cuenta2" formControlName="banco_cuenta2">
+            </mat-form-field>
+        
+            <mat-form-field fxFlex="33">
+                <input matInput placeholder="Nombre Destino2" formControlName="banco_nomdest2">
         </mat-form-field>
 
-        <mat-form-field fxFlex="34">
+        <mat-form-field fxFlex="14">
             <mat-select formControlName="banco_moneda2" class="form-control" placeholder="Moneda"
                         [(value)]="selectedmon2">
                 <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
@@ -95,7 +132,7 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
         <mat-form-field fxFlex="33">
             <input #inputs matInput type="date" formControlName="fechanac" class="form-control"
@@ -111,7 +148,7 @@
             <input #inputs matInput type="date" formControlName="fechafin" class="form-control"
                    placeholder="Fecha Fin"/>
         </mat-form-field>
-    </div>
+    </div> -->
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center" >
         <button (click)="back()" mat-raised-button class="mat-primary">Volver</button>
         <button (click)="saveProveedor()" mat-raised-button [disabled]="registerForm.invalid" class="mat-accent">Guardar</button>

@@ -8,6 +8,16 @@ import { IProveedores } from '../../../core/interfaces/proveedores.interface';
 import { Ibancos } from '../../../core/interfaces/varios.interface';
 
 
+export interface Categoprov {
+    codigo: string;
+    descripcion: string;
+}
+
+export interface Tipoprov {
+    codigo: string;
+    descripcion: string;
+}
+
 export interface Monedas {
     codigo: string;
     descripcion: string;
@@ -25,7 +35,9 @@ export class ProveedoresFormComponent implements OnInit {
     /* moneda por defecto */
     selectedban = '';
     selectedban2 = '';
-
+    selectedtip = '';
+    selectedCat: string[] = [];
+    
     private _id: number;
     get id(): number {
         return this._id;
@@ -45,6 +57,24 @@ export class ProveedoresFormComponent implements OnInit {
     monedas: Monedas[] = [
         {codigo: 'Soles', descripcion: 'Soles'},
         {codigo: 'Dolares', descripcion: 'Dolares'},
+    ];
+
+    tipoprov: Tipoprov[] = [
+        {codigo: 'SEDAN-AUTO', descripcion: 'SEDAN-AUTO'},
+        {codigo: '4x4', descripcion: '4x4'},
+        {codigo: 'SUV', descripcion: 'SUV'},
+        {codigo: 'VAN', descripcion: 'VAN'},
+        {codigo: 'SPRINTER', descripcion: 'SPRINTER'},
+        {codigo: 'MINIBUS', descripcion: 'MINIBUS'},
+        {codigo: 'BUS', descripcion: 'BUS'},
+        {codigo: 'OTROS', descripcion: 'OTROS'},
+    ];
+
+    categoprov: Categoprov[] = [
+        {codigo: 'CHOFER', descripcion: 'CHOFER'},
+        {codigo: 'GUIA', descripcion: 'GUIA'},
+        {codigo: 'TRADUCTOR', descripcion: 'TRADUCTOR'},
+        {codigo: 'OTROS', descripcion: 'OTROS'},
     ];
 
 
@@ -101,7 +131,16 @@ export class ProveedoresFormComponent implements OnInit {
             fechaini: [null],
             fechafin: [null],
             grupo: [null],
-            
+            contacto2: [null],
+            telcontacto2: [null],
+            correo2: [null],
+            contacto3: [null],
+            telcontacto3: [null],
+            correo3: [null],
+            banco_nomdest1: [null],
+            banco_nomdest2: [null],
+            idioma: [null],
+            categprov: [null],
         });
     }
 
@@ -120,6 +159,7 @@ export class ProveedoresFormComponent implements OnInit {
         this.proveedorService.getProveedor(this.id)
             .subscribe(response => {
                 this.proveedor = response;
+               
                 this.setForm();
             });
     }
@@ -132,8 +172,8 @@ export class ProveedoresFormComponent implements OnInit {
         this.registerForm.get('telefono3').setValue(this.proveedor.telefono3);
         this.registerForm.get('contacto').setValue(this.proveedor.contacto);
         this.registerForm.get('telcontacto').setValue(this.proveedor.telcontacto);
-        this.registerForm.get('direccion').setValue(this.proveedor.direccion);
         this.registerForm.get('correo').setValue(this.proveedor.correo);
+        this.registerForm.get('direccion').setValue(this.proveedor.direccion);
         this.registerForm.get('paginaweb').setValue(this.proveedor.paginaweb);
         this.registerForm.get('tipocc').setValue(this.proveedor.tipocc);
         this.registerForm.get('destipocc').setValue(this.proveedor.tipocc);
@@ -148,6 +188,18 @@ export class ProveedoresFormComponent implements OnInit {
         this.registerForm.get('fechaini').setValue(this.proveedor.fechaini);
         this.registerForm.get('fechafin').setValue(this.proveedor.fechafin);
         this.registerForm.get('grupo').setValue(this.proveedor.grupo);
+        this.registerForm.get('contacto2').setValue(this.proveedor.contacto2);
+        this.registerForm.get('telcontacto2').setValue(this.proveedor.telcontacto2);
+        this.registerForm.get('correo2').setValue(this.proveedor.correo2);
+        this.registerForm.get('contacto3').setValue(this.proveedor.contacto3);
+        this.registerForm.get('telcontacto3').setValue(this.proveedor.telcontacto3);
+        this.registerForm.get('correo3').setValue(this.proveedor.correo3);
+        this.registerForm.get('banco_nomdest1').setValue(this.proveedor.banco_nomdest1);
+        this.registerForm.get('banco_nomdest2').setValue(this.proveedor.banco_nomdest2);
+        this.registerForm.get('idioma').setValue(this.proveedor.idioma);
+        this.registerForm.get('categprov').setValue(this.proveedor.categprov);
+        
+        
     }
 
     onBack(): void {
@@ -155,6 +207,7 @@ export class ProveedoresFormComponent implements OnInit {
     }
 
     saveForm(clear?: boolean): void {
+        
         if (this.registerForm.valid) {
             this.saveProveedor();
             if (clear) {
@@ -192,6 +245,7 @@ export class ProveedoresFormComponent implements OnInit {
     }
 
     saveProveedor(): void {
+        console.log(this.proveedor.categprov);
         this.id ? this.updateProveedor() : this.addProveedor();
     }
 

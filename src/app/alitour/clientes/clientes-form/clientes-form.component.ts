@@ -7,6 +7,10 @@ import { MatSnackBar } from '@angular/material';
 import { IClientes } from '../../../core/interfaces/clientes.interface';
 import { Ibancos } from '../../../core/interfaces/varios.interface';
 
+export interface Tipoprov {
+    codigo: string;
+    descripcion: string;
+}
 
 export interface Monedas {
     codigo: string;
@@ -25,6 +29,7 @@ export class ClientesFormComponent implements OnInit {
     /* moneda por defecto */
     selectedban = '';
     selectedban2 = '';
+    selectedtip = '';
 
     private _id: number;
     get id(): number {
@@ -47,6 +52,13 @@ export class ClientesFormComponent implements OnInit {
         {codigo: 'Dolares', descripcion: 'Dolares'},
     ];
 
+    tipoprov: Tipoprov[] = [
+        {codigo: 'EMBAJADA', descripcion: 'EMBAJADA'},
+        {codigo: 'HOTEL', descripcion: 'HOTEL'},
+        {codigo: 'AGENCIA', descripcion: 'AGENCIA'},
+        {codigo: 'EJECUTIVO', descripcion: 'EJECUTIVO'},
+        {codigo: 'OTROS', descripcion: 'OTROS'},
+    ];
 
     cliente: IClientes;
     registerForm: FormGroup;
@@ -109,6 +121,12 @@ export class ClientesFormComponent implements OnInit {
             fechaini: [null],
             fechafin: [null],
             grupo: [null],
+            contacto2: [null],
+            telcontacto2: [null],
+            correo2: [null],
+            contacto3: [null],
+            telcontacto3: [null],
+            correo3: [null],
         });
     }
 
@@ -155,6 +173,12 @@ export class ClientesFormComponent implements OnInit {
         this.registerForm.get('fechaini').setValue(this.cliente.fechaini);
         this.registerForm.get('fechafin').setValue(this.cliente.fechafin);
         this.registerForm.get('grupo').setValue(this.cliente.grupo);
+        this.registerForm.get('contacto2').setValue(this.cliente.contacto2);
+        this.registerForm.get('telcontacto2').setValue(this.cliente.telcontacto2);
+        this.registerForm.get('correo2').setValue(this.cliente.correo2);
+        this.registerForm.get('contacto3').setValue(this.cliente.contacto3);
+        this.registerForm.get('telcontacto3').setValue(this.cliente.telcontacto3);
+        this.registerForm.get('correo3').setValue(this.cliente.correo3);
     }
 
     onBack(): void {

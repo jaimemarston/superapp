@@ -24,6 +24,14 @@ export interface IClientes {
   fechaini: Date;
   fechafin: Date;
   grupo: string;
+  contacto2: string;
+  telcontacto2: string;
+  correo2: string;
+  contacto3: string;
+  telcontacto3: string;
+  correo3: string;
+  banco_nomdest1: string;
+  banco_nomdest2: string;
 }
 
 //https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html
