@@ -8,6 +8,11 @@ import { IProveedores } from '../../../core/interfaces/proveedores.interface';
 import { Ibancos } from '../../../core/interfaces/varios.interface';
 
 
+export interface Idiomaprov {
+    codigo: string;
+    descripcion: string;
+}
+
 export interface Categoprov {
     codigo: string;
     descripcion: string;
@@ -37,7 +42,8 @@ export class ProveedoresFormComponent implements OnInit {
     selectedban2 = '';
     selectedtip = '';
     selectedCat: string[] = [];
-    
+    selectedIdi: string[] = [];
+
     private _id: number;
     get id(): number {
         return this._id;
@@ -53,6 +59,16 @@ export class ProveedoresFormComponent implements OnInit {
             }
         }
     }
+
+    Idiomaprov: Idiomaprov[] = [
+        {codigo: 'Ingles', descripcion: 'Ingles'},
+        {codigo: 'Chino', descripcion: 'Chino'},
+        {codigo: 'Portugues', descripcion: 'Portugues'},
+        {codigo: 'Frances', descripcion: 'Frances'},
+        {codigo: 'Mandarin', descripcion: 'Mandarin'},
+        {codigo: 'Italiano', descripcion: 'Italiano'},
+        {codigo: 'Ruso', descripcion: 'Ruso'},
+    ];
 
     monedas: Monedas[] = [
         {codigo: 'Soles', descripcion: 'Soles'},
@@ -196,10 +212,26 @@ export class ProveedoresFormComponent implements OnInit {
         this.registerForm.get('correo3').setValue(this.proveedor.correo3);
         this.registerForm.get('banco_nomdest1').setValue(this.proveedor.banco_nomdest1);
         this.registerForm.get('banco_nomdest2').setValue(this.proveedor.banco_nomdest2);
-        this.registerForm.get('idioma').setValue(this.proveedor.idioma);
-        this.registerForm.get('categprov').setValue(this.proveedor.categprov);
         
-        
+        // const array = this.proveedor.idioma.split(',');
+        // console.log('idioma', array);
+        // this.registerForm.get('idioma').setValue(array);
+        // Idioma 
+        let array: string[] = [];
+        if (this.proveedor.idioma !== null) {
+            array = this.proveedor.idioma.split(',');
+        }
+        this.selectedIdi = array;
+        this.registerForm.get('idioma').setValue(array);
+
+        // Categoria 
+        let array1: string[] = [];
+        if (this.proveedor.categprov !== null) {
+            array1 = this.proveedor.categprov.split(',');
+        }
+
+        this.selectedCat = array1;
+        this.registerForm.get('categprov').setValue(array1);
     }
 
     onBack(): void {
@@ -219,8 +251,20 @@ export class ProveedoresFormComponent implements OnInit {
         }
     }
 
-    updateProveedor(): void {
+    updateProveedor(): void {     
+        // Ajuste Jaime
         const data: IProveedores = this.registerForm.getRawValue();
+        
+        data.idioma = this.selectedIdi.join(',');      
+        data.categprov = this.selectedCat.join(',');
+        
+
+        // for ( let i = 0; i < this.selectedCat.length; i++)
+        // { 
+        //     console.log(this.selectedCat[i]); 
+        //     data.categprov = this.selectedCat[i];
+        // }
+       
         this.proveedorService.updateProveedor(this.id, data)
             .subscribe(response => {
                 this.update.emit(response);
@@ -231,6 +275,8 @@ export class ProveedoresFormComponent implements OnInit {
 
     addProveedor(): void {
         const data: IProveedores = this.registerForm.getRawValue();
+        data.categprov = this.selectedCat.join(',');
+        // data.idioma = this.selectIdioma.join(',');
         this.proveedorService.addProveedor(data)
             .subscribe(response => {
                 this.update.emit(response);
@@ -245,7 +291,7 @@ export class ProveedoresFormComponent implements OnInit {
     }
 
     saveProveedor(): void {
-        console.log(this.proveedor.categprov);
+      
         this.id ? this.updateProveedor() : this.addProveedor();
     }
 

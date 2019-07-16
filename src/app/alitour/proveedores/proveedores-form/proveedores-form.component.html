@@ -60,9 +60,20 @@
             <input matInput placeholder="Teléfono Contacto" formControlName="telcontacto">
         </mat-form-field>
 
-        <mat-form-field fxFlex="34">
+        <mat-form-field fxFlex="28">
             <input matInput placeholder="Correo" formControlName="correo">
         </mat-form-field>
+
+        <mat-form-field fxFlex="20">
+            
+            <mat-select formControlName="idioma" class="form-control" placeholder="Idioma"
+                        [(value)]="selectedIdi" multiple>
+                <mat-option class="pantallafiltro" *ngFor="let idi of Idiomaprov" [value]="idi.codigo">{{idi.descripcion}}
+                </mat-option>
+            </mat-select>
+
+        </mat-form-field>
+
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
 
