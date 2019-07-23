@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ClientesEndpoint } from '../endpoints/clientes.endpoint';
 import { Observable } from 'rxjs';
 import { Clientes } from '../../dataservice/clientes';
 import { IClientes } from '../interfaces/clientes.interface';
 import { filter, map } from 'rxjs/operators';
+import { RequestOptions } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,17 @@ export class ClienteService {
     return this.http.delete(url);
   }
 
+  uploadFile(file: File): Observable<any>{
+    const url = `${ClientesEndpoint.rest}/uploadfiles`;
+    const data = new FormData();
+    data.append('file', file);
+    let params = new HttpParams();
+
+    const options = {
+      params: params,
+      reportProgress: true,
+    };
+    return this.http.post(url, data, options);
+  }
 
 }

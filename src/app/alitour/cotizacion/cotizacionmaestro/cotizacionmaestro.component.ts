@@ -42,7 +42,7 @@ export class CotizacionmaestroComponent implements OnInit {
         private router: Router,
         public dialog: MatDialog,
         private snackBar: MatSnackBar,
-        private cotizacionServicedetalle: CotizaciondetalleService,
+        private cotizacionDetalleService: CotizaciondetalleService,
     ) {
     }
 
@@ -148,5 +148,24 @@ export class CotizacionmaestroComponent implements OnInit {
 
     applyFilter(filterValue: string): void {
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    duplicarRecord(): void {
+        this.cotizacionSelected.codigo = this.cotizacionSelected.codigo != null ? this.cotizacionSelected.codigo + 1 : 1;
+        this.cotizacionSelected.id = this.cotizacionSelected.id + 1;
+        this.cotizacionService.addCotizacion(this.cotizacionSelected)
+            .subscribe(response => {
+                if (this.cotizacionSelected.cotizaciones != null) {
+                    this.cotizacionSelected.cotizaciones.forEach(cotizacion => {
+                        cotizacion.master = response.id;
+                        // Insertar detalle
+                        this.cotizacionDetalleService.addCotizacion(cotizacion)
+                            .subscribe(resp => {
+                                this.snackBar.open('Registro agregado satisfactoriamente...!');
+                            });
+                    });
+                }
+                this.getCotizacion();
+            });
     }
 }

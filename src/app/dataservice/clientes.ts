@@ -24,6 +24,7 @@ export class Clientes {
   fechaini: Date;
   fechafin: Date;
   grupo: string;
+  categprov: string;
   contacto2: string;
   telcontacto2: string;
   correo2: string;

@@ -37,12 +37,15 @@ export class ProveedoresFormComponent implements OnInit {
     selectedmon = '0';
     /* moneda por defecto */
     selectedmon2 = '0';
+    selectedmon3 = '0';
     /* moneda por defecto */
     selectedban = '';
     selectedban2 = '';
+    selectedban3 = '';
     selectedtip = '';
     selectedCat: string[] = [];
     selectedIdi: string[] = [];
+    selectedGru: string[] = [];
 
     private _id: number;
     get id(): number {
@@ -143,6 +146,9 @@ export class ProveedoresFormComponent implements OnInit {
             banco_nombre2: [null],
             banco_cuenta2: [null],
             banco_moneda2: [null],
+            banco_nombre3: [null],
+            banco_cuenta3: [null],
+            banco_moneda3: [null],
             fechanac: [null],
             fechaini: [null],
             fechafin: [null],
@@ -155,6 +161,7 @@ export class ProveedoresFormComponent implements OnInit {
             correo3: [null],
             banco_nomdest1: [null],
             banco_nomdest2: [null],
+            banco_nomdest3: [null],
             idioma: [null],
             categprov: [null],
         });
@@ -200,10 +207,13 @@ export class ProveedoresFormComponent implements OnInit {
         this.registerForm.get('banco_nombre2').setValue(this.proveedor.banco_nombre2);
         this.registerForm.get('banco_cuenta2').setValue(this.proveedor.banco_cuenta2);
         this.registerForm.get('banco_moneda2').setValue(this.proveedor.banco_moneda2);
+        this.registerForm.get('banco_nombre3').setValue(this.proveedor.banco_nombre3);
+        this.registerForm.get('banco_cuenta3').setValue(this.proveedor.banco_cuenta3);
+        this.registerForm.get('banco_moneda3').setValue(this.proveedor.banco_moneda3);
         this.registerForm.get('fechanac').setValue(this.proveedor.fechanac);
         this.registerForm.get('fechaini').setValue(this.proveedor.fechaini);
         this.registerForm.get('fechafin').setValue(this.proveedor.fechafin);
-        this.registerForm.get('grupo').setValue(this.proveedor.grupo);
+        
         this.registerForm.get('contacto2').setValue(this.proveedor.contacto2);
         this.registerForm.get('telcontacto2').setValue(this.proveedor.telcontacto2);
         this.registerForm.get('correo2').setValue(this.proveedor.correo2);
@@ -212,23 +222,27 @@ export class ProveedoresFormComponent implements OnInit {
         this.registerForm.get('correo3').setValue(this.proveedor.correo3);
         this.registerForm.get('banco_nomdest1').setValue(this.proveedor.banco_nomdest1);
         this.registerForm.get('banco_nomdest2').setValue(this.proveedor.banco_nomdest2);
+        this.registerForm.get('banco_nomdest3').setValue(this.proveedor.banco_nomdest3);
         
         // const array = this.proveedor.idioma.split(',');
         // console.log('idioma', array);
         // this.registerForm.get('idioma').setValue(array);
         // Idioma 
-        let array: string[] = [];
-        if (this.proveedor.idioma !== null) {
-            array = this.proveedor.idioma.split(',');
-        }
+        // let array: string[] = [];
+        // if (this.proveedor.idioma !== null) {
+        //     array = this.proveedor.idioma.split(',');
+        // }
+        let arrayg = this.proveedor && this.proveedor.grupo ? this.proveedor.grupo.split(',') : []; 
+        this.selectedGru = arrayg;
+        this.registerForm.get('grupo').setValue(arrayg);
+
+
+        let array = this.proveedor && this.proveedor.idioma ? this.proveedor.idioma.split(',') : [];
         this.selectedIdi = array;
         this.registerForm.get('idioma').setValue(array);
 
         // Categoria 
-        let array1: string[] = [];
-        if (this.proveedor.categprov !== null) {
-            array1 = this.proveedor.categprov.split(',');
-        }
+        let array1 = this.proveedor && this.proveedor.categprov ? this.proveedor.categprov.split(',') : [];
 
         this.selectedCat = array1;
         this.registerForm.get('categprov').setValue(array1);
@@ -257,6 +271,7 @@ export class ProveedoresFormComponent implements OnInit {
         
         data.idioma = this.selectedIdi.join(',');      
         data.categprov = this.selectedCat.join(',');
+        data.grupo = this.selectedGru.join(',');
         
 
         // for ( let i = 0; i < this.selectedCat.length; i++)

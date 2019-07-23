@@ -20,6 +20,9 @@ export class Proveedores {
   banco_nombre2: string;
   banco_cuenta2: string;
   banco_moneda2: string;
+  banco_nombre3: string;
+  banco_cuenta3: string;
+  banco_moneda3: string;
   fechanac: Date;
   fechaini: Date;
   fechafin: Date;
@@ -32,6 +35,7 @@ export class Proveedores {
   correo3: string;
   banco_nomdest1: string;
   banco_nomdest2: string;
+  banco_nomdest3: string;
   idioma: string;
   categprov: string;
 }

@@ -5,6 +5,7 @@ import { ClienteService } from '../../../core/services/cliente.service';
 import { BancoService } from '../../../core/services/banco.service';
 import { MatSnackBar } from '@angular/material';
 import { IClientes } from '../../../core/interfaces/clientes.interface';
+import { IRelcli } from '../../../core/interfaces/clientes.interface';
 import { Ibancos } from '../../../core/interfaces/varios.interface';
 
 export interface Tipoprov {
@@ -30,6 +31,7 @@ export class ClientesFormComponent implements OnInit {
     selectedban = '';
     selectedban2 = '';
     selectedtip = '';
+    selectedcli = '';
 
     private _id: number;
     get id(): number {
@@ -60,6 +62,7 @@ export class ClientesFormComponent implements OnInit {
         {codigo: 'OTROS', descripcion: 'OTROS'},
     ];
 
+    relcli: any;
     cliente: IClientes;
     registerForm: FormGroup;
     bancos: Array<Ibancos>;
@@ -83,6 +86,7 @@ export class ClientesFormComponent implements OnInit {
     ngOnInit(): void {
         this.createForm();
         this.getBanco();
+        this.getRelclie();
     }
 
     createForm(): void {
@@ -127,6 +131,7 @@ export class ClientesFormComponent implements OnInit {
             contacto3: [null],
             telcontacto3: [null],
             correo3: [null],
+            categprov: [null],
         });
     }
 
@@ -140,7 +145,20 @@ export class ClientesFormComponent implements OnInit {
                 this.bancos = response;
             });
     }
+    
+    getRelclie(): void {
+        let relcli1 = [];
+        
+        this.clienteService.getClientes()
+        .subscribe(response => {
+            relcli1 = response;
+            // const result = relcli1.map(v => v.nombre);
+            const result = relcli1.map(v => <Object>{'nombre' : v.nombre});
+            // console.log('relclimap', result) ;     
+            this.relcli = result;     
+         });
 
+    }
     getClient(): void {
         this.clienteService.getCliente(this.id)
             .subscribe(response => {
@@ -173,6 +191,7 @@ export class ClientesFormComponent implements OnInit {
         this.registerForm.get('fechaini').setValue(this.cliente.fechaini);
         this.registerForm.get('fechafin').setValue(this.cliente.fechafin);
         this.registerForm.get('grupo').setValue(this.cliente.grupo);
+        this.registerForm.get('categprov').setValue(this.cliente.categprov);
         this.registerForm.get('contacto2').setValue(this.cliente.contacto2);
         this.registerForm.get('telcontacto2').setValue(this.cliente.telcontacto2);
         this.registerForm.get('correo2').setValue(this.cliente.correo2);

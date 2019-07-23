@@ -43,8 +43,8 @@
         </mat-form-field>
         <mat-form-field fxFlex="20">
             <!-- <input matInput placeholder="Grupo" formControlName="grupo"> -->
-            <mat-select formControlName="grupo" class="form-control" placeholder="Tipo"
-                        [(value)]="selectedtip">
+            <mat-select formControlName="grupo" class="form-control" placeholder="Vehiculo"
+                        [(value)]="selectedGru" multiple>
                 <mat-option class="pantallafiltro" *ngFor="let mon of tipoprov" [value]="mon.codigo">{{mon.descripcion}}
                 </mat-option>
             </mat-select>
@@ -138,6 +138,33 @@
         <mat-form-field fxFlex="14">
             <mat-select formControlName="banco_moneda2" class="form-control" placeholder="Moneda"
                         [(value)]="selectedmon2">
+                <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="33">
+            <mat-select formControlName="banco_nombre3" class="form-control" placeholder="Banco"
+                        [(value)]="selectedban3">
+                <mat-option class="pantallafiltro" *ngFor="let ban of bancos" [value]="ban.codigo">
+                    {{ban.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+                <input matInput placeholder="Número de cuenta3" formControlName="banco_cuenta3">
+            </mat-form-field>
+        
+            <mat-form-field fxFlex="33">
+                <input matInput placeholder="Nombre Destino3" formControlName="banco_nomdest3">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="14">
+            <mat-select formControlName="banco_moneda3" class="form-control" placeholder="Moneda"
+                        [(value)]="selectedmon3">
                 <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
                 </mat-option>
             </mat-select>

@@ -24,6 +24,7 @@ export interface IClientes {
   fechaini: Date;
   fechafin: Date;
   grupo: string;
+  categprov: string;
   contacto2: string;
   telcontacto2: string;
   correo2: string;
@@ -33,5 +34,9 @@ export interface IClientes {
   banco_nomdest1: string;
   banco_nomdest2: string;
 }
+
+export interface IRelcli {
+  nombre: string;
+ 
 
 //https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html

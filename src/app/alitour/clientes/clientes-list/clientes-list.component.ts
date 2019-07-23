@@ -145,5 +145,15 @@ export class ClientesListComponent implements OnInit {
     applyFilter(filterValue: string): void {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+
+    setFileSelected(event): void {
+        console.log(event);
+        if (event != null) {
+            this.clienteService.uploadFile(event)
+                .subscribe(response => {
+                    console.log(response);
+                });
+        }
+    }
     
 }

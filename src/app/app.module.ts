@@ -51,13 +51,13 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
-		MatSnackBarModule,
+        MatSnackBarModule,
 
         // App modules
         LayoutModule,
         SampleModule
     ],
-	providers: [{provide: LocationStrategy, useClass: HashLocationStrategy},],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
     bootstrap: [
         AppComponent
     ]

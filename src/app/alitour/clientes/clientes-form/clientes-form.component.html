@@ -35,8 +35,18 @@
             <input matInput placeholder="Dirección" formControlName="direccion">
         </mat-form-field>
 
-        <mat-form-field fxFlex="50">
+        <mat-form-field fxFlex="40">
             <input matInput placeholder="Pagina Web" formControlName="paginaweb">
+        </mat-form-field>
+        <mat-form-field fxFlex="20">
+            
+            <mat-select formControlName="categprov" class="form-control" placeholder="Grupo Cliente"
+                        [(value)]="selectedcli">
+                <mat-option class="pantallafiltro" *ngFor="let moncat of relcli" [value]="moncat.nombre">{{moncat.nombre}}
+                </mat-option>
+               
+            </mat-select>
+           
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">

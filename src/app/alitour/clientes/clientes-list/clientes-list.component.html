@@ -1,6 +1,8 @@
 <div id="clientes" fxLayout="column">
    
-    <toolbar-table [title]="'Detalle de Clientes'" [urlPrint]="'openPrint()'" (inputText)="applyFilter($event)" 
+    <toolbar-table [title]="'Detalle de Clientes'" [urlPrint]="'openPrint()'" 
+    (inputText)="applyFilter($event)" 
+    (fileSelected)="setFileSelected($event)"
     [hidden]="edit" (add)="addClient()"  (delete)="deleteAllSelecteds()"></toolbar-table>
                    
     <div fxFlex>

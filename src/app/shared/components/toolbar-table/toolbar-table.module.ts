@@ -3,8 +3,10 @@ import {CommonModule} from '@angular/common';
 import {ToolbarTableComponent} from './toolbar-table.component';
 import {FuseSharedModule} from '../../../../@fuse/shared.module';
 import {SearchModule} from '../search/search.module';
-import {MatButtonModule, MatIconModule, MatMenuModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatMenuModule, MatDialogModule, MatFormFieldModule} from '@angular/material';
 import {FuseSearchBarModule} from '../../../../@fuse/components';
+import { ConfirmarComponent } from './confirmar/confirmar.component';
+import { UploadFileComponent } from './upload-file/upload-file.component';
 
 @NgModule({
     imports: [
@@ -13,10 +15,20 @@ import {FuseSearchBarModule} from '../../../../@fuse/components';
         SearchModule,
         MatButtonModule,
         MatIconModule,
+        MatDialogModule,
+        MatFormFieldModule,
         FuseSearchBarModule,
         MatMenuModule
     ],
-    declarations: [ToolbarTableComponent],
+    declarations: [
+        ToolbarTableComponent,
+        ConfirmarComponent,
+        UploadFileComponent
+    ],
+    entryComponents: [
+        ConfirmarComponent,
+        UploadFileComponent
+    ],
     exports: [ToolbarTableComponent]
 })
 export class ToolbarTableModule {

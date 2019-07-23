@@ -73,7 +73,14 @@ const routes: Routes = [
 
         EditcotizaciondetalleModule
     ],
-    declarations: [CotizacionComponent, CotizacionmaestroComponent, CotizaciondetalleComponent, EditCotizacionComponent],
+    declarations: [
+        CotizacionComponent,
+        CotizacionmaestroComponent,
+        CotizaciondetalleComponent,
+        EditCotizacionComponent
+    ],
+    entryComponents: [
+    ],
     providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2000}}]
 })
 export class CotizacionModule {

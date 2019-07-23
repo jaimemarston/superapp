@@ -25,8 +25,11 @@
         <button mat-mini-fab [matMenuTriggerFor]="menu" color="accent">
             <mat-icon>print</mat-icon>
         </button>
-        <button mat-mini-fab color="accent">
-            <mat-icon>settings</mat-icon>
+        <button mat-mini-fab color="accent"  (click)="confirmar()">
+            <mat-icon>plus_one</mat-icon>
+        </button>
+        <button mat-mini-fab color="accent"  (click)="uploadFile()">
+            <mat-icon>cloud_upload</mat-icon>
         </button>
     </div>
     <!-- / SEARCH -->

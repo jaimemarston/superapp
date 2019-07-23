@@ -51,6 +51,14 @@ export const routes: Routes = [
                 loadChildren: './alitour/unidades/unidades.module#UnidadesModule'
             },
             {
+                path: 'choferes',
+                loadChildren: './alitour/choferes/choferes.module#ChoferesModule'
+            },
+            {
+                path: 'guias',
+                loadChildren: './alitour/guias/guias.module#GuiasModule'
+            },
+            {
                 path: 'articulos',
                 loadChildren: './alitour/articulos/articulos.module#ArticulosModule'
             },

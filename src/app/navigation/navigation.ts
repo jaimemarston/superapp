@@ -15,6 +15,35 @@ export const navigation: FuseNavigation[] = [
                 url: '/users',
             },
             {
+                id: 'amaestros',
+                title: 'Maestros',
+                type: 'collapsable',
+                icon: 'email',
+                children: [
+                    {
+                        id: 'choferes',
+                        title: 'Conductores',
+                        type: 'item',
+                        icon: 'email',
+                        url: '/choferes',
+                    },
+                    {
+                        id: 'guias',
+                        title: 'Guias',
+                        type: 'item',
+                        icon: 'email',
+                        url: '/guias',
+                    },
+                    {
+                        id: 'unidades',
+                        title: 'Unidades',
+                        type: 'item',
+                        icon: 'local_taxi',
+                        url: '/unidades',
+                    },
+                ]
+            },
+            {
                 id: 'calendar',
                 title: 'Calendario',
                 type: 'item',
@@ -41,13 +70,6 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: 'print',
                 url: '/articulos',
-            },
-            {
-                id: 'unidades',
-                title: 'Unidades',
-                type: 'item',
-                icon: 'local_taxi',
-                url: '/unidades',
             },
             {
                 id: 'cotizacion',
