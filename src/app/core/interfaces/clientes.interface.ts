@@ -37,6 +37,7 @@ export interface IClientes {
 
 export interface IRelcli {
   nombre: string;
+}
  
 
-//https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html
+// https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html

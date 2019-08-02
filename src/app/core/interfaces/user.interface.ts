@@ -7,4 +7,6 @@ export interface IUser {
     sexo: number;
     telefono1: string;
     correo: string;
+    dni: string;
+    cargo: string;
 }

@@ -77,6 +77,9 @@ export class UsersFormComponent implements OnInit {
             sexo: [''],
             telefono1: [''],
             correo: [''],
+            dni: [''],
+            cargo: [''],
+
         });
 
     this.generos.find(c => c.codigo === this.user.sexo);
@@ -99,6 +102,8 @@ export class UsersFormComponent implements OnInit {
         this.registerForm.get('sexo').setValue(this.user.sexo);
         this.registerForm.get('telefono1').setValue(this.user.telefono1);
         this.registerForm.get('correo').setValue(this.user.correo);
+        this.registerForm.get('dni').setValue(this.user.dni);
+        this.registerForm.get('cargo').setValue(this.user.cargo);
     }
 
     back(): void {

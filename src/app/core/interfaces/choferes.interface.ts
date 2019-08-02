@@ -1,5 +1,5 @@
-export class Choferes {
-  id: number;
+export interface IChoferes{
+  id?: number;
   codigo: number;
   ruc: string;
   nombre: string;
@@ -47,3 +47,5 @@ export class Choferes {
   docdni: string;
   docpasaporte: string;
 }
+
+// https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html

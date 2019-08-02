@@ -1,40 +1,42 @@
-<div id="clientes" fxLayout="column">
-    <toolbar-table [title]="'Registro de Unidades Moviles'" [urlPrint]="'openPrint()'" (inputText)="applyFilter($event)"
-     (add)="addUnidad()" (delete)="deleteAllSelecteds()" (printing)="openPrint()"></toolbar-table>
+<div id="guias" fxLayout="column">
+
+    <toolbar-table [title]="'Detalle de guias'" [urlPrint]="'openPrint()'" (inputText)="applyFilter($event)"
+        [hidden]="edit" (add)="addGuia()" (delete)="deleteAllSelecteds()"></toolbar-table>
+
     <div fxFlex>
         <mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="select">
                 <mat-header-cell fxFlex="50px" *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? masterToggle() : null"
-                                  [checked]="selection.hasValue() && isAllSelected()"
-                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
                     </mat-checkbox>
                 </mat-header-cell>
                 <mat-cell fxFlex="50px" *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                                  [checked]="selection.isSelected(row)">
+                        [checked]="selection.isSelected(row)">
                     </mat-checkbox>
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="descripcion">
-                <mat-header-cell *matHeaderCellDef> DESCRIPCIÓN</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.descripcion}}</mat-cell>
+            <ng-container matColumnDef="ruc">
+                <mat-header-cell *matHeaderCellDef> RUC</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.ruc}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="placa">
-                <mat-header-cell *matHeaderCellDef> PLACA</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.placa}}</mat-cell>
+            <ng-container matColumnDef="nombre">
+                <mat-header-cell *matHeaderCellDef> NOMBRE</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.nombre}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="npasajeros">
-                <mat-header-cell *matHeaderCellDef>N° PASAJEROS</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.npasajeros}}</mat-cell>
+            <ng-container matColumnDef="telefono1">
+                <mat-header-cell *matHeaderCellDef>TELEFONO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.telefono1}}</mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="color">
-                <mat-header-cell *matHeaderCellDef>COLOR</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.color}}</mat-cell>
+            <ng-container matColumnDef="correo">
+                <mat-header-cell *matHeaderCellDef>CORREO</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.correo}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="options">
@@ -46,12 +48,9 @@
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-            <mat-row
-                (click)="selectedId = row.id"
-                *matRowDef="let row; columns: displayedColumns;"
+            <mat-row (click)="selectedId = row.id" *matRowDef="let row; columns: displayedColumns;"
                 [ngClass]="{ 'highlight': row.id === selectedId }">
             </mat-row>
-
 
         </mat-table>
     </div>

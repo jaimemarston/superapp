@@ -6,6 +6,8 @@
         <!--<div class="dropzone dropzone-container avatar contact-avatar hude m-0" [dropzone]-->
         <!--(error)="uploadError($event)"-->
         <!--(success)="uploadSuccess($event)"></div>-->
+
+
         <img #imgAvatar [src]="user?.foto || 'assets/images/avatars/profile.jpg'" class="avatar contact-avatar huge m-0"
             [alt]="user?.nombre" />
         <div class="avatar-upload">
@@ -31,6 +33,9 @@
         <mat-form-field fxFlex="20">
             <input #inputs matInput placeholder="APELLIDO MATERNO" formControlName="apellido_materno">
         </mat-form-field>
+        <mat-form-field fxFlex="20">
+            <input #inputs matInput placeholder="DNI" formControlName="dni">
+        </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
     <!-- <mat-form-field fxFlex="20">
@@ -51,6 +56,9 @@
     </mat-form-field>
     <mat-form-field fxFlex="20">
         <input #inputs matInput placeholder="correo" formControlName="correo">
+    </mat-form-field>
+    <mat-form-field fxFlex="20">
+        <input #inputs matInput placeholder="cargo" formControlName="cargo">
     </mat-form-field>
     </div>
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">

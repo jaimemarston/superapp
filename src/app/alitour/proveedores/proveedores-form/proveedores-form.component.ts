@@ -182,7 +182,6 @@ export class ProveedoresFormComponent implements OnInit {
         this.proveedorService.getProveedor(this.id)
             .subscribe(response => {
                 this.proveedor = response;
-               
                 this.setForm();
             });
     }

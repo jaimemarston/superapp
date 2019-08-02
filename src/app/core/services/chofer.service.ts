@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ChoferEndpoint } from '../endpoints/chofer.endpoint';
+import { ChoferesEndpoint } from '../endpoints/choferes.endpoint';
 import { Observable } from 'rxjs';
 import { Choferes } from '../../dataservice/choferes';
-import { IChofer } from '../interfaces/chofer.interface';
+import { IChoferes } from '../interfaces/choferes.interface';
 import { filter, map } from 'rxjs/operators';
 
 @Injectable({
@@ -13,38 +13,27 @@ export class ChoferService {
   constructor(private http: HttpClient) {
   }
 
-  getChoferes(): Observable<Array<IChofer>> {
-    return this.http.get<Array<IChofer>>(ChoferEndpoint.rest).pipe(
-      map(choferes => {
-        choferes = choferes.map(u => {
-              if (!u.foto1) {
-                  u.foto1 = 'assets/images/avatars/profile.jpg';
-              }
-              return u;
-          });
-          return choferes;
-      })
-  );
+  getChoferes(): Observable<Array<IChoferes>> {
+    return this.http.get<Array<IChoferes>>(ChoferesEndpoint.rest)
   }
 
-  getChofer(id: number): Observable<IChofer> {
-    const url = `${ChoferEndpoint.rest}/${id}`;
-    return this.http.get<IChofer>(url);
-
+  getChofer(id: number): Observable<Choferes> {
+    const url = `${ChoferesEndpoint.rest}/${id}`;
+    return this.http.get<Choferes>(url);
   }
 
 
-  addChofer(data: IChofer): Observable<IChofer> {
-    return this.http.post<IChofer>(ChoferEndpoint.rest, data);
+  addChofer(data: IChoferes): Observable<IChoferes> {
+    return this.http.post<IChoferes>(ChoferesEndpoint.rest, data);
   }
 
-  updateChofer(id: number, data: IChofer): Observable<IChofer> {
-    const url = `${ChoferEndpoint.rest}/${id}`;
-    return this.http.put<IChofer>(url, data);
+  updateChofer(id: number, data: IChoferes): Observable<IChoferes> {
+    const url = `${ChoferesEndpoint.rest}/${id}`;
+    return this.http.put<IChoferes>(url, data);
   }
 
   deleteChofer(id: number): Observable<any | null> {
-    const url = `${ChoferEndpoint.rest}/${id}`;
+    const url = `${ChoferesEndpoint.rest}/${id}`;
     return this.http.delete(url);
   }
 

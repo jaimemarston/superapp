@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '../../../@fuse/animations';
 
 @Component({
-    selector: 'app-choferes',
+    selector: 'users',
     templateUrl: './choferes.component.html',
     styleUrls: ['./choferes.component.scss'],
     encapsulation: ViewEncapsulation.None,

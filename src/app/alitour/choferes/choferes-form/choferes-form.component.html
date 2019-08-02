@@ -1,58 +1,263 @@
 <form class="mat-card mat-elevation-z4 p-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto" name="form"
     [formGroup]="registerForm">
 
-    <div class="h2 mb-24">Agregar Choferes</div>
+    <div class="h2 mb-24">Agregar Conductor</div>
 
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-        <mat-form-field fxFlex="40">
-            <input #inputs matInput placeholder="DESCRIPCION" formControlName="descripcion">
+        <mat-form-field fxFlex="25">
+            <input matInput placeholder="Nombre" formControlName="nombre">
         </mat-form-field>
 
+        <mat-form-field fxFlex="25">
+            <input matInput placeholder="DNI" formControlName="ruc">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input #inputs matInput type="date" formControlName="dnivence" class="form-control"
+                placeholder="DNI Vence" />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="15">
+            <input matInput placeholder="Telefono 1" formControlName="telefono1">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="15">
+            <input matInput placeholder="Teléfono 2" formControlName="telefono2">
+        </mat-form-field>
         <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="PLACA" formControlName="placa">
-        </mat-form-field>
 
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="N° PASAJEROS" formControlName="npasajeros">
-        </mat-form-field>
+            <mat-select formControlName="categprov" class="form-control" placeholder="Documento" [(value)]="selectedCat"
+                multiple>
+                <mat-option class="pantallafiltro" *ngFor="let moncat of categoprov" [value]="moncat.codigo">
+                    {{moncat.descripcion}}
+                </mat-option>
 
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="COLOR" formControlName="color">
-        </mat-form-field>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <!--<div class="dropzone dropzone-container avatar contact-avatar hude m-0" [dropzone]-->
-        <!--(error)="uploadError($event)"-->
-        <!--(success)="uploadSuccess($event)"></div>-->
-        <div fxLayout="column">
-            <img #imgAvatar [src]="unidad?.foto1 || 'assets/images/avatars/profile.jpg'"
-                class="avatar contact-avatar huge m-0" [alt]="unidad?.descripcion" />
-            <div class="avatar-upload">
-                <label for="file_input">
-                    <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
-                </label>
-                <input type="file" id="file_input" (change)="uploadSuccess($event)">
-            </div>
-        </div>
+            </mat-select>
 
-        
-        <div fxLayout="column">
-            <img #imgAvatar2 [src]="unidad?.foto2 || 'assets/images/avatars/profile.jpg'"
-                class="avatar contact-avatar huge m-0" [alt]="unidad?.descripcion" />
-            <div class="avatar-upload">
-                <label for="file_input">
-                    <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
-                </label>
-                <input type="file" id="file_input" (change)="uploadSuccess2($event)">
-            </div>
-        </div>
-        
+        </mat-form-field>
 
     </div>
-    <br><br><br>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="50">
+            <input matInput placeholder="Dirección" formControlName="direccion">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="50">
+            <input matInput placeholder="Pagina Web" formControlName="paginaweb">
+
+        </mat-form-field>
+        <mat-form-field fxFlex="20">
+            <!-- <input matInput placeholder="Grupo" formControlName="grupo"> -->
+            <mat-select formControlName="grupo" class="form-control" placeholder="Vehiculo" [(value)]="selectedGru"
+                multiple>
+                <mat-option class="pantallafiltro" *ngFor="let mon of tipoprov" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="28">
+            <input matInput placeholder="Contacto" formControlName="contacto">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="28">
+            <input matInput placeholder="Teléfono Contacto" formControlName="telcontacto">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="28">
+            <input matInput placeholder="Correo" formControlName="correo">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="20">
+
+            <mat-select formControlName="idioma" class="form-control" placeholder="Tipo" [(value)]="selectedIdi"
+                multiple>
+                <mat-option class="pantallafiltro" *ngFor="let idi of Idiomaprov" [value]="idi.codigo">
+                    {{idi.descripcion}}
+                </mat-option>
+            </mat-select>
+
+        </mat-form-field>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="28">
+            <input matInput placeholder="Contacto2" formControlName="contacto2">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="28">
+            <input matInput placeholder="Teléfono Contacto2" formControlName="telcontacto2">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="34">
+            <input matInput placeholder="Correo2" formControlName="correo2">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="33">
+            <mat-select formControlName="banco_nombre1" class="form-control" placeholder="Banco"
+                [(value)]="selectedban">
+                <mat-option class="pantallafiltro" *ngFor="let ban of bancos" [value]="ban.codigo">
+                    {{ban.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Número de cuenta" formControlName="banco_cuenta1">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Nombre Destino" formControlName="banco_nomdest1">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="14">
+            <mat-select formControlName="banco_moneda1" class="form-control" placeholder="Moneda"
+                [(value)]="selectedmon">
+                <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="33">
+            <mat-select formControlName="banco_nombre2" class="form-control" placeholder="Banco"
+                [(value)]="selectedban2">
+                <mat-option class="pantallafiltro" *ngFor="let ban of bancos" [value]="ban.codigo">
+                    {{ban.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Número de cuenta2" formControlName="banco_cuenta2">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Nombre Destino2" formControlName="banco_nomdest2">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="14">
+            <mat-select formControlName="banco_moneda2" class="form-control" placeholder="Moneda"
+                [(value)]="selectedmon2">
+                <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="33">
+            <mat-select formControlName="banco_nombre3" class="form-control" placeholder="Banco"
+                [(value)]="selectedban3">
+                <mat-option class="pantallafiltro" *ngFor="let ban of bancos" [value]="ban.codigo">
+                    {{ban.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Número de cuenta3" formControlName="banco_cuenta3">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input matInput placeholder="Nombre Destino3" formControlName="banco_nomdest3">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="14">
+            <mat-select formControlName="banco_moneda3" class="form-control" placeholder="Moneda"
+                [(value)]="selectedmon3">
+                <mat-option class="pantallafiltro" *ngFor="let mon of monedas" [value]="mon.codigo">{{mon.descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="33">
+            <input #inputs matInput formControlName="cursos" class="form-control"
+                placeholder="Cursos" />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input #inputs matInput formControlName="brevete" class="form-control"
+                placeholder="Numero y Categoria Brevete" />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="33">
+            <input #inputs matInput type="date" formControlName="brevetevence" class="form-control"
+                placeholder="Brevete Vence" />
+        </mat-form-field>
+
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="60px">
+        <mat-card>
+        <h3>Brevete</h3>
+        <img #imgAvatar [src]="chofer?.docbrevete || 'assets/images/avatars/brevete.jpg'" [alt]="chofer?.docbrevete" />
+        <div class="avatar-upload">
+            <label for="file_input">
+                <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+            </label>
+            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+        </div>
+        </mat-card>
+        <mat-card>
+        <h3>Foto Pasaporte</h3>
+        <img #imgAvatar [src]="chofer?.foto1 || 'assets/images/avatars/profile.jpg'" [alt]="chofer?.foto1" />
+        <div class="avatar-upload">
+            <label for="file_input">
+                <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+            </label>
+            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+        </div>
+        </mat-card>
+        <mat-card>
+        <h3>Pasaporte</h3>
+        <img #imgAvatar [src]="chofer?.docpasaporte || 'assets/images/avatars/pasaporte.jpg'"
+            [alt]="chofer?.docpasaporte" />
+        <div class="avatar-upload">
+            <label for="file_input">
+                <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+            </label>
+            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+        </div>
+        </mat-card>
+        <mat-card>
+        <h3>DNI</h3>
+        <img #imgAvatar [src]="chofer?.docdni || 'assets/images/avatars/dni.jpg'" [alt]="chofer?.docdni" />
+        <div class="avatar-upload">
+            <label for="file_input">
+                <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+            </label>
+            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+        </div>
+        </mat-card>
+        <!-- <mat-form-field fxFlex="34">
+            <input #inputs matInput formControlName="foto1" class="form-control"
+                   placeholder="foto Carnet"/>
+        </mat-form-field>
+        
+        <mat-form-field fxFlex="34">
+            <input #inputs matInput formControlName="docdni" class="form-control"
+                   placeholder="docdni"/>
+        </mat-form-field> -->
+        <!-- <mat-form-field fxFlex="34">
+            <input #inputs matInput formControlName="docpasaporte" class="form-control" placeholder="docpasaporte" />
+        </mat-form-field> -->
+
+
+
+    </div>
+
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center">
         <button (click)="back()" mat-raised-button class="mat-primary">Volver</button>
-        <button (click)="saveClient()" mat-raised-button [disabled]="registerForm.invalid"
+        <button (click)="saveChofer()" mat-raised-button [disabled]="registerForm.invalid"
             class="mat-accent">Guardar</button>
     </div>
 </form>

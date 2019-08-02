@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { ChoferesComponent } from './choferes.component';
+import { ChoferesListComponent } from './choferes-list/choferes-list.component';
 import {
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
+    MatCardModule,
     MatInputModule,
     MatMenuModule, MatOptionModule, MatPaginatorModule,
     MatRippleModule, MatSelectModule, MatSnackBarModule,
@@ -15,11 +18,8 @@ import {
 import { FuseSharedModule } from '../../../@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '../../../@fuse/components';
 import { ToolbarTableModule } from '../../shared/components/toolbar-table/toolbar-table.module';
-import { ChoferesComponent } from './choferes.component';
-import { ChoferesListComponent } from './choferes-list/choferes-list.component';
 import { ChoferesFormComponent } from './choferes-form/choferes-form.component';
-import { ActionIconsModule} from '../../shared/components/action-icons/action-icons.module';
-
+import {ActionIconsModule} from '../../shared/components/action-icons/action-icons.module';
 
 const routes: Routes = [
     {
@@ -53,6 +53,7 @@ const routes: Routes = [
         MatIconModule,
         MatInputModule,
         MatMenuModule,
+        MatCardModule,
         MatRippleModule,
         MatTableModule,
         MatToolbarModule,

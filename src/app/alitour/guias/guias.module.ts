@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { GuiasComponent } from './guias.component';
+import { GuiasListComponent } from './guias-list/guias-list.component';
 import {
     MatButtonModule,
     MatCheckboxModule,
@@ -15,11 +17,8 @@ import {
 import { FuseSharedModule } from '../../../@fuse/shared.module';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '../../../@fuse/components';
 import { ToolbarTableModule } from '../../shared/components/toolbar-table/toolbar-table.module';
-import { GuiasComponent } from './guias.component';
-import { GuiasListComponent } from './guias-list/guias-list.component';
 import { GuiasFormComponent } from './guias-form/guias-form.component';
-import { ActionIconsModule} from '../../shared/components/action-icons/action-icons.module';
-
+import {ActionIconsModule} from '../../shared/components/action-icons/action-icons.module';
 
 const routes: Routes = [
     {

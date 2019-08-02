@@ -1,40 +1,38 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatSnackBar, MatTabChangeEvent, MatTableDataSource, MatPaginator } from '@angular/material';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { fuseAnimations } from '../../../../@fuse/animations';
-import { IChofer } from '../../../core/interfaces/chofer.interface';
+import { Router } from '@angular/router';
+import { IChoferes } from '../../../core/interfaces/choferes.interface';
 import { ChoferService } from '../../../core/services/chofer.service';
-
-/**
- * @title Basic use of `<table mat-table>`
- */
+import { fuseAnimations } from '../../../../@fuse/animations';
 
 @Component({
     selector: 'choferes-list',
     templateUrl: './choferes-list.component.html',
     styleUrls: ['./choferes-list.component.scss'],
-    animations: fuseAnimations
+    encapsulation: ViewEncapsulation.None,
+    animations: fuseAnimations,
 })
 export class ChoferesListComponent implements OnInit {
+
     /* displayedColumns: string[] = ['select', 'id', 'codigo', 'ruc' ,'nombre', 'telefono1', 'correo', 'options'];*/
-    displayedColumns: string[] = ['select', 'descripcion', 'placa', 'npasajeros', 'color', 'options'];
+    displayedColumns: string[] = ['select', 'ruc', 'nombre', 'telefono1', 'correo', 'options'];
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    choferes: Array<IChofer>;
-    dataSource = new MatTableDataSource<IChofer>();
-    errorMessage: String;
+    choferes: Array<IChoferes>;
+    dataSource = new MatTableDataSource<IChoferes>();
     selectedId: number;
     edit: boolean;
 
+
     /** checkbox datatable */
-    selection = new SelectionModel<IChofer>(true, []);
+    selection = new SelectionModel<IChoferes>(true, []);
 
     constructor(
         private choferService: ChoferService,
         private router: Router,
         public dialog: MatDialog,
-        private snackBar: MatSnackBar,
+        private snackBar: MatSnackBar
     ) {
     }
 
@@ -47,6 +45,9 @@ export class ChoferesListComponent implements OnInit {
             .subscribe(response => {
                 this.choferes = response;
                 this.dataSource.data = this.choferes;
+
+                // this.users = response.filter(v => v.id < 93) filtrando el array;
+                /* console.log(this.users); */
                 this.dataSource.paginator = this.paginator;
                 this.paginator._intl.itemsPerPageLabel = 'Item por Pagina:';
             });
@@ -55,11 +56,11 @@ export class ChoferesListComponent implements OnInit {
     delete(id: number): void {
         this.selectedId = id;
 
-        this.deleteClient();
+        this.deleteChofer();
 
     }
 
-    deleteClient(): void {
+    deleteChofer(): void {
         this.choferService.deleteChofer(this.selectedId)
             .subscribe(response => {
                 /* console.log(response); */
@@ -69,11 +70,12 @@ export class ChoferesListComponent implements OnInit {
 
     public editRecord(id: number): void {
         this.selectedId = id;
+        // this.edit = true;
         this.router.navigate([`choferes/edit/${id}`]);
     }
 
     public addRecord(): void {
-        this.edit = true;
+        // this.edit = true;
         this.selectedId = null;
     }
 
@@ -81,7 +83,7 @@ export class ChoferesListComponent implements OnInit {
         this.edit = false;
     }
 
-    updateDataTable(data: IChofer): void {
+    updateDataTable(data: IChoferes): void {
         this.getChoferes();
     }
 
@@ -99,28 +101,33 @@ export class ChoferesListComponent implements OnInit {
             this.dataSource.data.forEach(row => this.selection.select(row));
     }
 
+
     openPrint(): void {
-               // window.print();
-               const prtContent = document.getElementById('div_print');
-               const getTbody = () => {
-                   const tbody = this.choferes.map(c => `<tr><td>${c.codigo}</td><td>${c.descripcion}</td></tr>`).join('');
-                   return tbody;
-               };
-               prtContent.innerHTML = `
-                                <h1>Relacion de Choferes</h1>
-                               <table border="1">
-                                 <thead><th>ruc</th><th>Nombre</th></thead>
-                                 <tbody> ${getTbody()} </tbody>
-                               </table>
-                               <tfoot><button  onclick='window.print();'>Imprimir</button><button (click)="">Descargar PDF</button></tfoot>`;
-               const WinPrint = window.open();
-               WinPrint.document.write(prtContent.innerHTML);
+        // window.print();
+        const prtContent = document.getElementById('div_print');
+        const getTbody = () => {
+            const tbody = this.choferes.map(c => `<tr><td>${c.codigo}</td><td>${c.ruc}</td><td>${c.nombre}</td></tr>`).join('');
+            return tbody;
+        };
+        prtContent.innerHTML = `
+                         <h1>Relacion de Choferes</h1>
+                        <table border="1">
+                          <thead><th>ruc</th><th>Ruc</th><th>Nombre</th></thead>
+                          <tbody> ${getTbody()} </tbody>
+                        </table>
+                        <tfoot><button  onclick='window.print();'>Imprimir</button><button (click)="">Descargar PDF</button></tfoot>`;
+        const WinPrint = window.open();
+        WinPrint.document.write(prtContent.innerHTML);
+        /*  WinPrint.document.close();
+         WinPrint.focus();
+         WinPrint.print();
+         WinPrint.close(); */
     }
 
     /**
      * async await sirve para esperar que una promesa sea cumplida
      * */
-    async deleteAllSelecteds() {
+    async deleteAllSelecteds(): Promise<void> {
         const selecteds = this.selection.selected;
         for (let index = 0; index < selecteds.length; index++) {
             await this.choferService.deleteChofer(selecteds[index].id).toPromise();
@@ -138,4 +145,5 @@ export class ChoferesListComponent implements OnInit {
     applyFilter(filterValue: string): void {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+    
 }
