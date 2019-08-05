@@ -82,8 +82,9 @@ export class UsersFormComponent implements OnInit {
 
         });
 
+    console.log('this.user', this.user);
     this.generos.find(c => c.codigo === this.user.sexo);
-      
+    
     }
 
     getUser(): void {

@@ -35,8 +35,14 @@ export interface Monedas {
 })
 export class ChoferesFormComponent implements OnInit {
 
-    @ViewChild('imgAvatar') imgAvatar: ElementRef<HTMLImageElement>;
-    userPhoto: File;
+    @ViewChild('imgAvatar1') imgAvatar1: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar2') imgAvatar2: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar3') imgAvatar3: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar4') imgAvatar4: ElementRef<HTMLImageElement>;
+    userPhoto1: File;
+    userPhoto2: File;
+    userPhoto3: File;
+    userPhoto4: File;
     
     selectedmon = '0';
     /* moneda por defecto */
@@ -163,6 +169,14 @@ export class ChoferesFormComponent implements OnInit {
             banco_nomdest3: [null],
             idioma: [null],
             categprov: [null],
+            foto1: [null],
+            dnivence: [null],
+            cursos: [null],
+            docbrevete: [null],
+            brevete: [null],
+            brevetevence: [null],
+            docdni: [null],
+            docpasaporte: [null],
         });
     }
 
@@ -222,7 +236,11 @@ export class ChoferesFormComponent implements OnInit {
         this.registerForm.get('banco_nomdest2').setValue(this.chofer.banco_nomdest2);
         this.registerForm.get('banco_nomdest3').setValue(this.chofer.banco_nomdest3);
         
-        this.registerForm.get('cursos').setValue(this.chofer.cursos);
+        this.registerForm.get('cursos').setValue(this.chofer.cursos);      
+        this.registerForm.get('dnivence').setValue(this.chofer.cursos);
+        this.registerForm.get('brevete').setValue(this.chofer.cursos);
+        this.registerForm.get('brevetevence').setValue(this.chofer.cursos);
+        
         // const array = this.chofer.idioma.split(',');
         // console.log('idioma', array);
         // this.registerForm.get('idioma').setValue(array);
@@ -264,9 +282,34 @@ export class ChoferesFormComponent implements OnInit {
         }
     }
 
+    prepareData(): any {
+        const data: IChoferes = this.registerForm.getRawValue();
+        delete data.id;
+        const formData = new FormData();
+        for (const k in data) {
+            if (data[k]) {
+                formData.append(k, data[k]);
+            }
+        }
+        if (this.userPhoto1) {
+            formData.append('docbrevete', this.userPhoto1);
+        }
+        if (this.userPhoto2) {
+            formData.append('foto1', this.userPhoto2);
+        }
+        if (this.userPhoto3) {
+            formData.append('docpasaporte', this.userPhoto3);
+        }
+        if (this.userPhoto4) {
+            formData.append('docdni', this.userPhoto4;
+        }
+        return formData;
+    }
+
     updateChofer(): void {     
         // Ajuste Jaime
-        const data: IChoferes = this.registerForm.getRawValue();
+        const data = this.prepareData();
+        
         
         data.idioma = this.selectedIdi.join(',');      
         data.categprov = this.selectedCat.join(',');
@@ -309,14 +352,48 @@ export class ChoferesFormComponent implements OnInit {
         this.id ? this.updateChofer() : this.addChofer();
     }
 
-    uploadSuccess(event): void {
+    uploadSuccess1(event): void {
         const files: FileList = event.target.files;
         const file = files.item(0);
         const reader = new FileReader();
-        this.imgAvatar.nativeElement.name = file.name;
+        this.imgAvatar1.nativeElement.name = file.name;
         reader.onload = ((ev: Event) => {
-            this.imgAvatar.nativeElement.src = (ev.target as any).result;
-            this.userPhoto = file;
+            this.imgAvatar1.nativeElement.src = (ev.target as any).result;
+            this.userPhoto1 = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    uploadSuccess2(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        const reader = new FileReader();
+        this.imgAvatar1.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar2.nativeElement.src = (ev.target as any).result;
+            this.userPhoto2 = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    uploadSuccess3(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        const reader = new FileReader();
+        this.imgAvatar1.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar3.nativeElement.src = (ev.target as any).result;
+            this.userPhoto3 = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    uploadSuccess4(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        const reader = new FileReader();
+        this.imgAvatar1.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar4.nativeElement.src = (ev.target as any).result;
+            this.userPhoto4 = file;
         });
         reader.readAsDataURL(event.target.files[0]);
     }

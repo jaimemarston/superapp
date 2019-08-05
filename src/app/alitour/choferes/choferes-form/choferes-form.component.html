@@ -199,43 +199,43 @@
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="60px">
         <mat-card>
         <h3>Brevete</h3>
-        <img #imgAvatar [src]="chofer?.docbrevete || 'assets/images/avatars/brevete.jpg'" [alt]="chofer?.docbrevete" />
+        <img #imgAvatar1 [src]="chofer?.docbrevete || 'assets/images/avatars/brevete.jpg'" [alt]="chofer?.docbrevete" />
         <div class="avatar-upload">
-            <label for="file_input">
+            <label for="file_input1">
                 <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
             </label>
-            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+            <input type="file" id="file_input1" (change)="uploadSuccess1($event)">
         </div>
         </mat-card>
         <mat-card>
         <h3>Foto Pasaporte</h3>
-        <img #imgAvatar [src]="chofer?.foto1 || 'assets/images/avatars/profile.jpg'" [alt]="chofer?.foto1" />
+        <img #imgAvatar2 [src]="chofer?.foto1 || 'assets/images/avatars/profile.jpg'" [alt]="chofer?.foto1" />
         <div class="avatar-upload">
-            <label for="file_input">
+            <label for="file_input2">
                 <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
             </label>
-            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+            <input type="file" id="file_input2" (change)="uploadSuccess2($event)">
         </div>
         </mat-card>
         <mat-card>
         <h3>Pasaporte</h3>
-        <img #imgAvatar [src]="chofer?.docpasaporte || 'assets/images/avatars/pasaporte.jpg'"
+        <img #imgAvatar3 [src]="chofer?.docpasaporte || 'assets/images/avatars/pasaporte.jpg'"
             [alt]="chofer?.docpasaporte" />
         <div class="avatar-upload">
-            <label for="file_input">
+            <label for="file_input3">
                 <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
             </label>
-            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+            <input type="file" id="file_input3" (change)="uploadSuccess3($event)">
         </div>
         </mat-card>
         <mat-card>
         <h3>DNI</h3>
-        <img #imgAvatar [src]="chofer?.docdni || 'assets/images/avatars/dni.jpg'" [alt]="chofer?.docdni" />
+        <img #imgAvatar4 [src]="chofer?.docdni || 'assets/images/avatars/dni.jpg'" [alt]="chofer?.docdni" />
         <div class="avatar-upload">
-            <label for="file_input">
+            <label for="file_input4">
                 <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
             </label>
-            <input type="file" id="file_input" (change)="uploadSuccess($event)">
+            <input type="file" id="file_input4" (change)="uploadSuccess4($event)">
         </div>
         </mat-card>
         <!-- <mat-form-field fxFlex="34">

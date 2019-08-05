@@ -20,6 +20,7 @@ export class UserService {
                     if (!u.foto) {
                         u.foto = 'assets/images/avatars/profile.jpg';
                     }
+                    console.log('foto', u);
                     return u;
                 });
                 return users;
