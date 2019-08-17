@@ -30,7 +30,7 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Anio fab" formControlName="aniofab">
+            <input #inputs matInput type="number" placeholder="Anio fab" formControlName="aniofab">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
@@ -39,67 +39,73 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
         <mat-form-field fxFlex="40">
-            <input #inputs matInput placeholder="Soat" formControlName="cadsoat">
+            <input #inputs matInput type="date" placeholder="Soat" formControlName="cadsoat">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="RevTec" formControlName="revtec">
+            <input #inputs matInput type="date" placeholder="RevTec" formControlName="revtec">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="SegVeh" formControlName="segveh">
+            <input #inputs matInput type="date" placeholder="SegVeh" formControlName="segveh">
         </mat-form-field>
 
         <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Mant. GLP" formControlName="mantglp">
+            <input #inputs matInput type="date" placeholder="Mant. GLP" formControlName="mantglp">
         </mat-form-field>
 
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-        <mat-form-field fxFlex="40">
-            <input #inputs matInput placeholder="Brevete" formControlName="docbrevete">
-        </mat-form-field>
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="DNI" formControlName="docdni">
-        </mat-form-field>
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Cursos" formControlName="doccursos">
-        </mat-form-field>
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Policiales" formControlName="docantepoli">
-        </mat-form-field>
-        <mat-form-field fxFlex="20">
-            <input #inputs matInput placeholder="Penales" formControlName="docantepena">
-        </mat-form-field>
 
+        <mat-form-field fxFlex="20">
+
+            <mat-select formControlName="empresa" class="form-control" placeholder="Empresas" [(value)]="selectedCat"
+                multiple>
+                <mat-option class="pantallafiltro" *ngFor="let moncat of categoprov" [value]="moncat.codigo">
+                    {{moncat.descripcion}}
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="60px">
         <!--<div class="dropzone dropzone-container avatar contact-avatar hude m-0" [dropzone]-->
         <!--(error)="uploadError($event)"-->
         <!--(success)="uploadSuccess($event)"></div>-->
-        <div fxLayout="column">
-            <img #imgAvatar [src]="unidad?.foto1 || 'assets/images/avatars/profile.jpg'"
-                class="avatar contact-avatar huge m-0" [alt]="unidad?.descripcion" />
-            <div class="avatar-upload">
-                <label for="file_input">
-                    <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
-                </label>
-                <input type="file" id="file_input" (change)="uploadSuccess($event)">
-            </div>
-        </div>
 
-        
-        <div fxLayout="column">
-            <img #imgAvatar2 [src]="unidad?.foto2 || 'assets/images/avatars/profile.jpg'"
-                class="avatar contact-avatar huge m-0" [alt]="unidad?.descripcion" />
+
+        <mat-card>
+            <h3>IMG1</h3>
+            <a [href]="unidad?.foto1 || 'assets/images/avatars/profile.jpg'" target="_blank">
+                <img #imgAvatar class="img80" [src]="unidad?.foto1 || 'assets/images/avatars/profile.jpg'"
+                    [alt]="unidad?.foto1" />
+            </a>
             <div class="avatar-upload">
-                <label for="file_input">
+                <label for="file_input1">
                     <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
                 </label>
-                <input type="file" id="file_input" (change)="uploadSuccess2($event)">
+                <input type="file" id="file_input1" (change)="uploadSuccess1($event)">
             </div>
-        </div>
+        </mat-card>
+
+        <mat-card>
+            <h3>IMG2</h3>
+            <a [href]="unidad?.foto2 || 'assets/images/avatars/profile.jpg'" target="_blank">
+                <img #imgAvatar2 class="img80" [src]="unidad?.foto2 || 'assets/images/avatars/profile.jpg'"
+                    [alt]="unidad?.foto2" />
+            </a>
+            <div class="avatar-upload">
+                <label for="file_input2">
+                    <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+                </label>
+                <input type="file" id="file_input2" (change)="uploadSuccess2($event)">
+            </div>
+        </mat-card>
+
+
+
         
 
     </div>

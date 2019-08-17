@@ -231,6 +231,7 @@ export class GuiasFormComponent implements OnInit {
         // if (this.guia.idioma !== null) {
         //     array = this.guia.idioma.split(',');
         // }
+        
         let arrayg = this.guia && this.guia.grupo ? this.guia.grupo.split(',') : []; 
         this.selectedGru = arrayg;
         this.registerForm.get('grupo').setValue(arrayg);

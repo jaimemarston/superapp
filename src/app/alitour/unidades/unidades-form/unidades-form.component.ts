@@ -8,10 +8,15 @@ import { Ibancos } from '../../../core/interfaces/varios.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '../../../../@fuse/animations';
 
+export interface Categoprov {
+    codigo: string;
+    descripcion: string;
+}
 
 @Component({
     selector: 'app-unidades-form',
     templateUrl: './unidades-form.component.html',
+    styleUrls: ['./unidades-form.component.scss'],
     animations: fuseAnimations
 })
 
@@ -22,7 +27,8 @@ export class UnidadesFormComponent implements OnInit {
 
     userPhoto: File;
     userPhoto2: File;
-
+    selectedCat: string[] = [];
+    
     private _id: number;
     get id(): number {
         return this._id;
@@ -39,7 +45,12 @@ export class UnidadesFormComponent implements OnInit {
         }
     }
 
-    
+    categoprov: Categoprov[] = [
+        {codigo: 'Aliperu', descripcion: 'Aliperu'},
+        {codigo: 'Alited', descripcion: 'Alited'},
+        {codigo: 'Aliservicios', descripcion: 'Aliservicios'},
+    ];
+
     unidad: IUnidad;
     registerForm: FormGroup;
     bancos: Array<Ibancos>;
@@ -120,13 +131,17 @@ export class UnidadesFormComponent implements OnInit {
         this.registerForm.get('modelo').setValue(this.unidad.modelo);
         this.registerForm.get('aniofab').setValue(this.unidad.aniofab);
         this.registerForm.get('combustible').setValue(this.unidad.combustible);
-        this.registerForm.get('empresa').setValue(this.unidad.empresa);
+       // this.registerForm.get('empresa').setValue(this.unidad.empresa);
         this.registerForm.get('cadsoat').setValue(this.unidad.cadsoat);
         this.registerForm.get('revtec').setValue(this.unidad.revtec);
         this.registerForm.get('segveh').setValue(this.unidad.segveh);
         this.registerForm.get('mantglp').setValue(this.unidad.mantglp);
         
+        // Categoria 
+        let array1 = this.unidad && this.unidad.empresa ? this.unidad.empresa.split(',') : [];
 
+        this.selectedCat = array1;
+        this.registerForm.get('empresa').setValue(array1);
     }
 
     back(): void {
@@ -163,24 +178,7 @@ export class UnidadesFormComponent implements OnInit {
             formData.append('foto2', this.userPhoto2);
         }
 
-        if (this.userPhoto2) {
-            formData.append('foto2', this.userPhoto2);
-        }
-        if (this.userPhoto2) {
-            formData.append('docbrevete', this.userPhoto2);
-        }
-        if (this.userPhoto2) {
-            formData.append('docdni', this.userPhoto2);
-        }
-        if (this.userPhoto2) {
-            formData.append('doccursos', this.userPhoto2);
-        }
-        if (this.userPhoto2) {
-            formData.append('docantepoli', this.userPhoto2);
-        }
-        if (this.userPhoto2) {
-            formData.append('docantepena', this.userPhoto2);
-        }
+        
 
         return formData;
     }
@@ -209,7 +207,7 @@ export class UnidadesFormComponent implements OnInit {
             });
     }
 
-    uploadSuccess(event): void {
+    uploadSuccess1(event): void {
         const files: FileList = event.target.files;
         const file = files.item(0);
         console.log(file);  

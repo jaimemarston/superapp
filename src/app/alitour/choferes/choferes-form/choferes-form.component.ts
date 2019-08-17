@@ -211,8 +211,8 @@ export class ChoferesFormComponent implements OnInit {
         this.registerForm.get('direccion').setValue(this.chofer.direccion);
         this.registerForm.get('paginaweb').setValue(this.chofer.paginaweb);
         this.registerForm.get('tipocc').setValue(this.chofer.tipocc);
-        this.registerForm.get('destipocc').setValue(this.chofer.tipocc);
-        this.registerForm.get('condcompvent').setValue(this.chofer.tipocc);
+        this.registerForm.get('destipocc').setValue(this.chofer.destipocc);
+        this.registerForm.get('condcompvent').setValue(this.chofer.condcompvent);
         this.registerForm.get('banco_nombre1').setValue(this.chofer.banco_nombre1);
         this.registerForm.get('banco_cuenta1').setValue(this.chofer.banco_cuenta1);
         this.registerForm.get('banco_moneda1').setValue(this.chofer.banco_moneda1);
@@ -237,9 +237,9 @@ export class ChoferesFormComponent implements OnInit {
         this.registerForm.get('banco_nomdest3').setValue(this.chofer.banco_nomdest3);
         
         this.registerForm.get('cursos').setValue(this.chofer.cursos);      
-        this.registerForm.get('dnivence').setValue(this.chofer.cursos);
-        this.registerForm.get('brevete').setValue(this.chofer.cursos);
-        this.registerForm.get('brevetevence').setValue(this.chofer.cursos);
+        this.registerForm.get('dnivence').setValue(this.chofer.dnivence);
+        this.registerForm.get('brevete').setValue(this.chofer.brevete);
+        this.registerForm.get('brevetevence').setValue(this.chofer.brevetevence);
         
         // const array = this.chofer.idioma.split(',');
         // console.log('idioma', array);
@@ -301,7 +301,7 @@ export class ChoferesFormComponent implements OnInit {
             formData.append('docpasaporte', this.userPhoto3);
         }
         if (this.userPhoto4) {
-            formData.append('docdni', this.userPhoto4;
+            formData.append('docdni', this.userPhoto4);
         }
         return formData;
     }

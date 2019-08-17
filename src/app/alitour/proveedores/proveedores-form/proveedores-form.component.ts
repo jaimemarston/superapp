@@ -290,7 +290,7 @@ export class ProveedoresFormComponent implements OnInit {
     addProveedor(): void {
         const data: IProveedores = this.registerForm.getRawValue();
         data.categprov = this.selectedCat.join(',');
-        // data.idioma = this.selectIdioma.join(',');
+        data.grupo  = this.selectedGru.join(',');
         this.proveedorService.addProveedor(data)
             .subscribe(response => {
                 this.update.emit(response);
