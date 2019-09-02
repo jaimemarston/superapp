@@ -21,10 +21,12 @@ import { routes } from './app.routing';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from './fake-db/fake-db.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { FormsearchComponent } from './shared/components/formsearch/formsearch.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        FormsearchComponent
     ],
     imports: [
         BrowserModule,

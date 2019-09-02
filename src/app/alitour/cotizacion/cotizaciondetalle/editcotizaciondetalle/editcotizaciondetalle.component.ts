@@ -58,10 +58,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     filteredUnidades: Observable<Array<IUnidad>>;
     filteredUsuarios: Observable<Array<IUser>>;
 
-
     opcviaje: Opcviaje[] = [
+        { codigo: 'A disposición', descripcion: 'A disposición' },
+        { codigo: 'Alquiler', descripcion: 'Alquiler' },
         { codigo: 'Solo ida', descripcion: 'Solo ida' },
-        { codigo: 'Ida y vuelta', descripcion: 'Ida y vuelta' },
+        { codigo: 'Ida y vuelta', descripcion: 'Ida y retorno' },
         { codigo: 'Full Day', descripcion: 'Full Day' },
     ];
 

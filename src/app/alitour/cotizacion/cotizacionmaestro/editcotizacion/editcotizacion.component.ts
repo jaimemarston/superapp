@@ -5,7 +5,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar, MatSelectModule, MatFormFieldModule, MatListModule } from '@angular/material';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
-
+import { ClienteService } from '../../../../core/services/cliente.service';
+import { IClientes } from '../../../../core/interfaces/clientes.interface';
 
 export interface Estados {
     codigo: number;
@@ -34,7 +35,9 @@ export class EditCotizacionComponent implements OnInit {
 
     selectedmoneda = 'SOLES';
     selectedestado = 'Agendado';
-    
+    filteredClientes: Observable<Array<IClientes>>;
+
+
     opcmoneda: Opcmoneda[] = [
         { codigo: 'SOLES', descripcion: 'SOLES' },
         { codigo: 'DOLARES', descripcion: 'DOLARES' },
@@ -64,16 +67,29 @@ export class EditCotizacionComponent implements OnInit {
     cotizacion: ICotizacion;
     registerForm: FormGroup;
 
+    clientes: Array<IClientes>;
+
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() update: EventEmitter<ICotizacion> = new EventEmitter<ICotizacion>();
 
     constructor(private cotizacionService: CotizacionService,
+                private clienteService: ClienteService,
                 private formBuilder: FormBuilder,
                 public snackBar: MatSnackBar) {
     }
 
     ngOnInit(): void {
         this.createForm();
+        this.getCliente();
+    }
+
+    private _filter(value: string): IClientes[] {
+        if (value && this.clientes) {
+            const filterValue = value.toLowerCase();
+            return this.clientes.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
+        }
+
+        return [];
     }
 
     createForm(): void {
@@ -86,9 +102,36 @@ export class EditCotizacionComponent implements OnInit {
             ruc: [''],
             telruc: [''],
             correoruc: [''],
+            dirruc: [''],
+            desconpag: [''],
             desmonepago: [''],
             estado: [0],
         });
+
+        const descripcionForm = this.registerForm.get('desruc');
+
+        this.filteredClientes = descripcionForm.valueChanges.pipe(
+            map(value => this._filter(value))
+        );
+
+    }
+
+  
+    getcodigo(a): void {
+        console.log(a);
+        this.registerForm.get('ruc').setValue(a.ruc);
+        this.registerForm.get('desruc').setValue(a.nombre);
+        this.registerForm.get('telruc').setValue(a.telefono1);
+        this.registerForm.get('correoruc').setValue(a.correo);
+        this.registerForm.get('dirruc').setValue(a.direccion);
+        
+    }
+
+    getCliente(): void {
+        this.clienteService.getClientes()
+            .subscribe(response => {
+                this.clientes = response;
+            });
     }
 
     getCotizacion(): void {
@@ -99,16 +142,21 @@ export class EditCotizacionComponent implements OnInit {
             });
     }
 
+    
+    
     setForm(): void {
         this.registerForm.get('codigo').setValue(this.cotizacion.codigo);
         this.registerForm.get('fechadoc').setValue(this.cotizacion.fechadoc);
         this.registerForm.get('ruc').setValue(this.cotizacion.ruc);
+        this.registerForm.get('dirruc').setValue(this.cotizacion.dirruc);
         this.registerForm.get('desruc').setValue(this.cotizacion.desruc);
         this.registerForm.get('telruc').setValue(this.cotizacion.telruc);
         this.registerForm.get('correoruc').setValue(this.cotizacion.correoruc);
         this.registerForm.get('desmonepago').setValue(this.cotizacion.desmonepago);
+        this.registerForm.get('desconpag').setValue(this.cotizacion.desconpag);
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
     }
+
 
     onBack(): void {
         this.back.emit(true);

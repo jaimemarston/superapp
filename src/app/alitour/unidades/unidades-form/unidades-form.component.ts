@@ -131,6 +131,8 @@ export class UnidadesFormComponent implements OnInit {
         this.registerForm.get('modelo').setValue(this.unidad.modelo);
         this.registerForm.get('aniofab').setValue(this.unidad.aniofab);
         this.registerForm.get('combustible').setValue(this.unidad.combustible);
+        this.registerForm.get('color').setValue(this.unidad.color);
+        this.registerForm.get('marca').setValue(this.unidad.marca);
        // this.registerForm.get('empresa').setValue(this.unidad.empresa);
         this.registerForm.get('cadsoat').setValue(this.unidad.cadsoat);
         this.registerForm.get('revtec').setValue(this.unidad.revtec);
