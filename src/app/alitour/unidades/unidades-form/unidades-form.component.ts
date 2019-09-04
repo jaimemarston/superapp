@@ -104,6 +104,10 @@ export class UnidadesFormComponent implements OnInit {
             doccursos: [''],
             docantepoli: [''],
             docantepena: [''],
+            empsoat: [''],
+            emprevtec: [''],
+            empsegveh: [''],
+            empglp: ['']
         });
     }
 
@@ -138,7 +142,12 @@ export class UnidadesFormComponent implements OnInit {
         this.registerForm.get('revtec').setValue(this.unidad.revtec);
         this.registerForm.get('segveh').setValue(this.unidad.segveh);
         this.registerForm.get('mantglp').setValue(this.unidad.mantglp);
+        this.registerForm.get('empsoat').setValue(this.unidad.empsoat);
+        this.registerForm.get('emprevtec').setValue(this.unidad.emprevtec);
+        this.registerForm.get('empsegveh').setValue(this.unidad.empsegveh);
+        this.registerForm.get('empglp').setValue(this.unidad.empglp);
         
+
         // Categoria 
         let array1 = this.unidad && this.unidad.empresa ? this.unidad.empresa.split(',') : [];
 

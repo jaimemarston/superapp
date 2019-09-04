@@ -38,4 +38,8 @@ export class Guias {
   banco_nomdest3: string;
   idioma: string;
   categprov: string;
+  foto1: string;
+  foto2: string;
+  foto3: string;
+  tipocontrato: string;
 }

@@ -23,6 +23,10 @@ export interface IUnidad {
   doccursos: string;
   docantepoli: string;
   docantepena: string;
+  empsoat: string;
+  emprevtec: string;
+  empsegveh: string;
+  empglp: string;
 }
 
 //https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html

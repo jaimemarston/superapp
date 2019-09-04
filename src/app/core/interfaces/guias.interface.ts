@@ -38,6 +38,10 @@ export interface IGuias {
     banco_nomdest3: string;
     idioma: string;
     categprov: string;
+    foto1: string;
+    foto2: string;
+    foto3: string;
+    tipocontrato: string;
   }
 
 // https://www.desarrolloweb.com/articulos/clases-interfaces-servicios-angular.html

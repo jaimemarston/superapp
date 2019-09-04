@@ -10,6 +10,7 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatCardModule,
     MatMenuModule, MatOptionModule, MatPaginatorModule,
     MatRippleModule, MatSelectModule, MatSnackBarModule,
     MatTableModule, MatToolbarModule
@@ -55,6 +56,7 @@ const routes: Routes = [
         MatRippleModule,
         MatTableModule,
         MatToolbarModule,
+        MatCardModule,
         MatPaginatorModule,
         MatSnackBarModule,
         MatOptionModule,

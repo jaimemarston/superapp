@@ -23,4 +23,8 @@ export class Unidades {
   doccursos: string;
   docantepoli: string;
   docantepena: string;
+  empsoat: string;
+  emprevtec: string;
+  empsegveh: string;
+  empglp: string;
 }

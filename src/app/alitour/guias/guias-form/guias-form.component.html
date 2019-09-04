@@ -41,6 +41,9 @@
             <input matInput placeholder="Pagina Web" formControlName="paginaweb">
             
         </mat-form-field>
+        <mat-form-field fxFlex="50">
+            <input matInput placeholder="Asociacion" formControlName="grupo">
+        </mat-form-field>
         <!-- <mat-form-field fxFlex="20">
             <input matInput placeholder="Grupo" formControlName="grupo"> 
             <mat-select formControlName="grupo" class="form-control" placeholder="Vehiculo"
@@ -170,23 +173,70 @@
             </mat-select>
         </mat-form-field>
     </div> -->
-    <!-- <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="35px">
 
-        <mat-form-field fxFlex="33">
-            <input #inputs matInput type="date" formControlName="fechanac" class="form-control"
-                   placeholder="Fecha Nacimiento"/>
+        <mat-form-field fxFlex="23">
+            <input #inputs matInput  formControlName="tipocontrato" class="form-control"
+                   placeholder="Tipo Contrato"/>
         </mat-form-field>
 
-        <mat-form-field fxFlex="33">
-            <input #inputs matInput type="date" formControlName="fechaini" class="form-control"
-                   placeholder="Fecha Inicial"/>
+        <mat-form-field fxFlex="23">
+            <input #inputs matInput  formControlName="destipocc" class="form-control"
+                   placeholder="Emite Documento"/>
         </mat-form-field>
 
-        <mat-form-field fxFlex="34">
-            <input #inputs matInput type="date" formControlName="fechafin" class="form-control"
-                   placeholder="Fecha Fin"/>
-        </mat-form-field>
-    </div> -->
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="60px">
+        
+        <mat-card>
+        <h3>DNI</h3>
+        <a [href]="guia?.foto1 || 'assets/images/avatars/profile.jpg'" target="_blank">
+        <img #imgAvatar1 class="img80" [src]="guia?.foto1 || 'assets/images/avatars/profile.jpg'" [alt]="guia?.foto1" />
+        </a>
+        <div class="avatar-upload">
+            <label for="file_input1">
+                <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+            </label>
+            <input type="file" id="file_input1" (change)="uploadSuccess1($event)">
+        </div>
+        </mat-card>
+
+        
+        <mat-card>
+        <h3>Pasaporte</h3>
+        <a [href]="guia?.foto2" target="_blank">
+        <img #imgAvatar2 class="img80" [src]="guia?.foto2 || 'assets/images/avatars/profile.jpg'" [alt]="guia?.foto2" />
+        </a>
+        <div class="avatar-upload">
+            <label for="file_input2">
+                <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+            </label>
+            <input type="file" id="file_input2" (change)="uploadSuccess2($event)">
+        </div>
+        </mat-card>
+
+
+        <mat-card>
+        <h3>Carnet GUIA</h3>
+        <a [href]="guia?.foto3" target="_blank">
+            <img #imgAvatar3 class="img80" [src]="guia?.foto3 || 'assets/images/avatars/profile.jpg'" [alt]="guia?.foto3" />
+        </a>
+        <div class="avatar-upload">
+            <label for="file_input3">
+                <mat-icon class="mt-8 cursor-pointer">camera_alt</mat-icon>
+            </label>
+            <input type="file" id="file_input3" (change)="uploadSuccess3($event)">
+        </div>
+        </mat-card>
+
+
+
+
+    </div>
+
+
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center" >
         <button (click)="back()" mat-raised-button class="mat-primary">Volver</button>
         <button (click)="saveGuia()" mat-raised-button [disabled]="registerForm.invalid" class="mat-accent">Guardar</button>

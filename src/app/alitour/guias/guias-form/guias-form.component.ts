@@ -34,6 +34,17 @@ export interface Monedas {
     styleUrls: ['./guias-form.component.scss']
 })
 export class GuiasFormComponent implements OnInit {
+
+    @ViewChild('imgAvatar1') imgAvatar1: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar2') imgAvatar2: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar3') imgAvatar3: ElementRef<HTMLImageElement>;
+    
+    userPhoto1: File;
+    userPhoto2: File;
+    userPhoto3: File;
+    
+
+
     selectedmon = '0';
     /* moneda por defecto */
     selectedmon2 = '0';
@@ -164,6 +175,10 @@ export class GuiasFormComponent implements OnInit {
             banco_nomdest3: [null],
             idioma: [null],
             categprov: [null],
+            foto1: [null],
+            foto2: [null],
+            foto3: [null],
+            tipocontrato: [null],
         });
     }
 
@@ -222,7 +237,11 @@ export class GuiasFormComponent implements OnInit {
         this.registerForm.get('banco_nomdest1').setValue(this.guia.banco_nomdest1);
         this.registerForm.get('banco_nomdest2').setValue(this.guia.banco_nomdest2);
         this.registerForm.get('banco_nomdest3').setValue(this.guia.banco_nomdest3);
+        this.registerForm.get('tipocontrato').setValue(this.guia.tipocontrato);
         
+        this.registerForm.get('grupo').setValue(this.guia.grupo); // asociacion
+
+       
         // const array = this.guia.idioma.split(',');
         // console.log('idioma', array);
         // this.registerForm.get('idioma').setValue(array);
@@ -232,9 +251,9 @@ export class GuiasFormComponent implements OnInit {
         //     array = this.guia.idioma.split(',');
         // }
         
-        let arrayg = this.guia && this.guia.grupo ? this.guia.grupo.split(',') : []; 
-        this.selectedGru = arrayg;
-        this.registerForm.get('grupo').setValue(arrayg);
+        // let arrayg = this.guia && this.guia.grupo ? this.guia.grupo.split(',') : []; 
+        // this.selectedGru = arrayg;
+        // this.registerForm.get('grupo').setValue(arrayg);
 
 
         let array = this.guia && this.guia.idioma ? this.guia.idioma.split(',') : [];
@@ -265,15 +284,37 @@ export class GuiasFormComponent implements OnInit {
         }
     }
 
-    updateGuia(): void {     
-        // Ajuste Jaime
+    prepareData(): any {
         const data: IGuias = this.registerForm.getRawValue();
+        delete data.id;
+        const formData = new FormData();
+        for (const k in data) {
+            if (data[k]) {
+                formData.append(k, data[k]);
+            }
+        }
+        if (this.userPhoto1) {
+            formData.append('foto1', this.userPhoto1);
+        }
+        if (this.userPhoto2) {
+            formData.append('foto2', this.userPhoto2);
+        }
+        if (this.userPhoto3) {
+            formData.append('foto3', this.userPhoto3);
+        }
+        return formData;
+    }
+
+    updateGuia(): void {     
+        
+        
+        const data = this.prepareData();
+        
         
         data.idioma = this.selectedIdi.join(',');      
         data.categprov = this.selectedCat.join(',');
-        data.grupo = this.selectedGru.join(',');
+        //data.grupo = this.selectedGru.join(',');
         
-
         // for ( let i = 0; i < this.selectedCat.length; i++)
         // { 
         //     console.log(this.selectedCat[i]); 
@@ -292,7 +333,7 @@ export class GuiasFormComponent implements OnInit {
         const data: IGuias = this.registerForm.getRawValue();
         data.categprov = this.selectedCat.join(',');
         data.idioma = this.selectedIdi.join(',');
-        data.grupo = this.selectedGru.join(',');
+        // data.grupo = this.selectedGru.join(',');
         this.guiaService.addGuia(data)
             .subscribe(response => {
                 this.update.emit(response);
@@ -310,5 +351,41 @@ export class GuiasFormComponent implements OnInit {
       
         this.id ? this.updateGuia() : this.addGuia();
     }
+
+    uploadSuccess1(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        const reader = new FileReader();
+        this.imgAvatar1.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar1.nativeElement.src = (ev.target as any).result;
+            this.userPhoto1 = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    uploadSuccess2(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        const reader = new FileReader();
+        this.imgAvatar1.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar2.nativeElement.src = (ev.target as any).result;
+            this.userPhoto2 = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    uploadSuccess3(event): void {
+        const files: FileList = event.target.files;
+        const file = files.item(0);
+        const reader = new FileReader();
+        this.imgAvatar1.nativeElement.name = file.name;
+        reader.onload = ((ev: Event) => {
+            this.imgAvatar3.nativeElement.src = (ev.target as any).result;
+            this.userPhoto3 = file;
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
 
 }

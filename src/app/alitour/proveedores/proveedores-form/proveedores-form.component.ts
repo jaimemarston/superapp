@@ -88,12 +88,12 @@ export class ProveedoresFormComponent implements OnInit {
         {codigo: 'BUS', descripcion: 'BUS'},
         {codigo: 'OTROS', descripcion: 'OTROS'},
     ];
-
+    
     categoprov: Categoprov[] = [
-        {codigo: 'CHOFER', descripcion: 'CHOFER'},
-        {codigo: 'GUIA', descripcion: 'GUIA'},
-        {codigo: 'TRADUCTOR', descripcion: 'TRADUCTOR'},
-        {codigo: 'OTROS', descripcion: 'OTROS'},
+        {codigo: 'AGENCIA', descripcion: 'AGENCIA'},
+        {codigo: 'TRANSPORTE', descripcion: 'TRANSPORTE'},
+        {codigo: 'SERVICIOS', descripcion: 'SERVICIOS'},
+        {codigo: 'ASEGURADORAS', descripcion: 'ASEGURADORAS'},
     ];
 
 
