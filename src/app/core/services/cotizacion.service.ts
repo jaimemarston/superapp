@@ -34,7 +34,7 @@ export class CotizacionService {
     updateCotizacion(id: number, data: ICotizacion): Observable<ICotizacion> {
         const url = `${CotizacionEndpoint.rest}/${id}/`;
         console.log('envio update put url');
-        console.log(url);
+        console.log(url, data);
         return this.http.put<ICotizacion>(url, data);
     }
 

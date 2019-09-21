@@ -59,6 +59,8 @@ export class CotizaciondetalleComponent implements OnInit {
 
     @Output() updated: EventEmitter<any> = new EventEmitter();
 
+    @Output() totales: any;
+
     displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'estado', 'options']
     @ViewChild(MatPaginator) paginatordet: MatPaginator;
     cotizacion: Array<ICotizaciondetalle>;
@@ -172,9 +174,11 @@ export class CotizaciondetalleComponent implements OnInit {
     calculateTotales(descuento = 0): void {
         this.cotizacionTotales.descuento = descuento;
         /*this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal * b.cantidad) + a, 0);*/
-        this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal), 0);
+        this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal) + a, 0);
         this.cotizacionTotales.total_general = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) + this.cotizacionTotales.igv;
         this.cotizacionTotales.igv = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) * 0.18;
+        this.totales = this.cotizacionTotales;
+        
     }
 
     onChangeDscto(event): void {

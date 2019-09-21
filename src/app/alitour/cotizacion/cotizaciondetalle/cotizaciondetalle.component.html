@@ -2,7 +2,7 @@
     <toolbar-table [title]="'Detalle'"  [urlPrint]="'generate_pdf/'+idMaster" (inputText)="applyFilter($event)" [hidden]="edit"
                    (add)="addRecord()" (delete)="deleteAllSelecteds()"></toolbar-table>
     <div [hidden]="!edit">
-        <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()"
+        <app-editcotizaciondetalle [idMaster]="idMaster" [id]="selectedId" (back)="showDataTable()" [totales]="totales"
                                    (update)="updateDataTable($event)"></app-editcotizaciondetalle>
     </div>
     <div fxFlex>

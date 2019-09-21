@@ -3,7 +3,7 @@
 
     <div class="h2 mb-24">Agregar Detalle cotización</div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
         <mat-form-field fxFlex="80">
             <input #inputs matInput type="text" placeholder="Descripcion del Servicio" formControlName="descripcion">
@@ -21,39 +21,39 @@
         </mat-form-field> 
     -->
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-        <mat-form-field>
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field >
             <input #inputs matInput type="date" placeholder="Fechaini" formControlName="fechaini">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field >
             <input #inputs matInput type="time" placeholder="Horaini" formControlName="horaini">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field >
             <input #inputs matInput type="date" placeholder="Fechafin" formControlName="fechafin">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field >
             <input #inputs matInput type="time" placeholder="horafin" formControlName="horafin">
         </mat-form-field>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
-        <mat-form-field>
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field fxFlex="40">
             <input #inputCodigo type="text" placeholder="Transporte" aria-label="Number" matInput
                 formControlName="desunimed" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let optionu of filteredUnidades | async" [value]="optionu.descripcion">
-                    {{optionu.descripcion}}
+                    {{optionu.descripcion }}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field fxFlex="25">
             <input #inputs matInput placeholder="Origen" formControlName="lugorigen">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field fxFlex="25">
             <input #inputs matInput placeholder="Destino" formControlName="lugdestino">
         </mat-form-field>
-        <mat-form-field fxFlex="20">
+        <mat-form-field fxFlex="15">
 
             <mat-select formControlName="estado" class="form-control" placeholder="Estado" [(value)]="selectedestado">
                 <mat-option class="pantallafiltro" *ngFor="let mon of estados" [value]="mon.codigo">
@@ -64,12 +64,12 @@
         </mat-form-field>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
         <!-- <mat-form-field>
             <input #inputs matInput placeholder="conductor" formControlName="conductor">
         </mat-form-field> -->
-        <mat-form-field>
+        <mat-form-field fxFlex="25">
 
             <mat-select formControlName="conductor" class="form-control" placeholder="Conductor" [(value)]="selectedconductor">
                 <mat-option class="pantallafiltro" *ngFor="let mon of filteredUsuarios | async" [value]="mon.id">{{mon.nombre}}
@@ -78,20 +78,20 @@
         </mat-form-field>
 
 
-        <mat-form-field>
+        <mat-form-field fxFlex="15">
             <input #inputs matInput placeholder="N° Vuelo" formControlName="nvuelo">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field fxFlex="35">
             <input #inputs matInput placeholder="proveedor" formControlName="proveedor">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field fxFlex="15">
             <input #inputs matInput placeholder="obs" formControlName="obs">
         </mat-form-field>
 
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
         <mat-form-field>
             <input #inputs matInput placeholder="PAX" formControlName="cantidad">
@@ -105,7 +105,7 @@
             <input type="number" readonly #inputs matInput placeholder="imptotal" formControlName="imptotal">
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field fxFlex="10">
             <mat-select formControlName="opcviaje" class="form-control" placeholder="Opc" [(value)]="selectedopc">
                 <mat-option class="pantallafiltro" *ngFor="let mon of opcviaje" [value]="mon.codigo">{{mon.descripcion}}
                 </mat-option>

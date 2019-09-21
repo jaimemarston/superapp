@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { CotizaciondetalleService } from '../../../../core/services/cotizaciondetalle.service';
-import { ICotizaciondetalle } from '../../../../core/interfaces/cotizacion.interface';
+import { CotizacionService } from '../../../../core/services/cotizacion.service';
+import { ICotizaciondetalle, ICotizacion } from '../../../../core/interfaces/cotizacion.interface';
 import { IArticulo } from '../../../../core/interfaces/articulo.interface';
 import { IUser } from '../../../../core/interfaces/user.interface';
 import { IUnidad } from '../../../../core/interfaces/unidad.interface';
@@ -50,7 +51,8 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     }
 
     @Input() idMaster: number;
-    
+    @Input() totales: any; 
+
     selectedestado = 'Agendado';
     selectedopc = '0';
     selectedconductor = '';
@@ -77,17 +79,21 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     articulos: Array<IArticulo>;
     unidades: Array<IUnidad>;
     usuarios: Array<IUser>;
-
+    cotizacionmaster: ICotizacion;
 
     registerForm: FormGroup;
 
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() update: EventEmitter<ICotizaciondetalle> = new EventEmitter<ICotizaciondetalle>();
+    
+
+
 
     @ViewChild('inputCodigo') inputCodigo: ElementRef<HTMLInputElement>;
 
     constructor(private cotizacionService: CotizaciondetalleService,
         private formBuilder: FormBuilder,
+        private cotizacionmasterService: CotizacionService,
         private articuloService: ArticuloService,
         private unidadService: UnidadService,
         private userService: UserService,
@@ -142,7 +148,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             const filterValue = value.toLowerCase();
             return this.articulos.filter(option => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
         }
-
         return [];
     }
 
@@ -160,7 +165,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         const result = this.usuarios.filter(option => option.id = filterValue3);
         console.log(result);
         return result ;
-       
         }
         return [];
     }
@@ -235,6 +239,8 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
                 this.cotizacion = response;
                 this.setForm();
             });
+
+        this.getMaster();
     }
 
     setForm(): void {
@@ -291,7 +297,34 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             .subscribe(response => {
                 this.update.emit(response);
                 this.snackBar.open('Registro agregado satisfactoriamente...!');
+               
             });
+        
+        this.updateMaster();
+    }
+
+
+    getMaster(): void {
+        this.cotizacionmasterService.getCotizacion(this.idMaster)
+            .subscribe(responsmaster => {
+            this.cotizacionmaster = responsmaster;
+            console.log('carga master', this.idMaster, this.cotizacionmaster);
+        }); 
+    }
+   
+
+    updateMaster(): void {
+            console.log('this.totales', this.totales);
+            this.cotizacionmaster.impsubtotal = this.totales.subtotal; 
+            this.cotizacionmaster.imptotal = this.totales.subtotal;
+            this.cotizacionmaster.impigv = this.totales.igv;
+
+            this.cotizacionmasterService.updateCotizacion(this.idMaster, this.cotizacionmaster)
+            .subscribe(response => {
+                         console.log('graba Maestro');
+                         console.log(response);
+                     });
+            console.log('Graba cotizacionmasterService', this.idMaster, this.cotizacionmaster);
     }
 
     addCotizacion(): void {
