@@ -7,6 +7,7 @@ import { CotizaciondetalleService } from '../../../core/services/cotizaciondetal
 import { ICotizaciondetalle } from '../../../core/interfaces/cotizacion.interface';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fuseAnimations } from '../../../../@fuse/animations';
+import { EditcotizaciondetalleComponent } from '../../cotizacion/cotizaciondetalle/editcotizaciondetalle/editcotizaciondetalle.component';
 import { map } from 'rxjs/operators';
 
 /**
@@ -26,11 +27,13 @@ export interface Estados {
 
 export class CotizaciondetalleComponent implements OnInit {
     _cotizacionesDetalle: Array<ICotizaciondetalle>;
+    @ViewChild(EditcotizaciondetalleComponent) cotizacionDetalle: EditcotizaciondetalleComponent;
+    
     cotizacionTotales = {
-        subtotal: 0,
-        descuento: 0,
-        igv: 0,
-        total_general: 0
+        subtotal: 0.00,
+        descuento: 0.00,
+        igv: 0.00,
+        total_general: 0.00
     }
     
     estados: Estados[] = [
@@ -173,15 +176,25 @@ export class CotizaciondetalleComponent implements OnInit {
 
     calculateTotales(descuento = 0): void {
         this.cotizacionTotales.descuento = descuento;
+        console.log('this.totalesdes', this.cotizacionTotales.descuento);
         /*this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal * b.cantidad) + a, 0);*/
-        this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal) + a, 0);
-        this.cotizacionTotales.total_general = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) + this.cotizacionTotales.igv;
-        this.cotizacionTotales.igv = (this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) * 0.18;
+        this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => +(b.imptotal) + a, 0);
+        this.cotizacionTotales.igv = +((this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) * 0.18).toFixed(2);
+        this.cotizacionTotales.total_general = +((this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) + this.cotizacionTotales.igv).toFixed(2);
         this.totales = this.cotizacionTotales;
-        
     }
+    updateMaestro(event): void {
+        // aqui cambiar a otra update si no se llega a grabar
+        this.cotizacionDetalle.getMaster();
+        console.log('this.totales.impdescuentos', this.totales.impdescuentos);
+        this.cotizacionDetalle.updateMaster();
+        console.log('updateMaster cotizaciondetallecomponent');
 
+    } 
     onChangeDscto(event): void {
-        this.calculateTotales(+(event.target.value ? event.target.value !== '' : 0));
+        console.log('event.target.value', event.target.value);
+        // this.calculateTotales(+(event.target.value ? event.target.value !== '' : 0));
+        this.calculateTotales(event.target.value);
+        
     }
 }

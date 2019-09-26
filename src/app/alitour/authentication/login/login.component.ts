@@ -6,6 +6,8 @@ import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { ALITOUR, DEFAULT_ROUTE } from '../../../../environments/environment';
+import to from 'await-to-js';
+
 
 @Component({
     selector: 'login',
@@ -64,10 +66,22 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    authenticate(): void {
-        this.authService.authenticate(this.loginForm.getRawValue());
-        if (AuthService.isAuthenticated()) {
-            this.router.navigate([DEFAULT_ROUTE]);
+    async authenticate(): Promise<void> {
+        const [error, auth] = await to(this.authService.authenticate(this.loginForm.getRawValue()).toPromise());
+        if (auth) {
+            if (AuthService.isAuthenticated()) {
+                this.router.navigate([DEFAULT_ROUTE]);
+            }
+        } else {
+            console.log(error, auth);
+            alert('Usuario y/o contraseña incorrecta');
         }
     }
+
+    // authenticate(): void {
+    //     this.authService.authenticate(this.loginForm.getRawValue());
+    //     if (AuthService.isAuthenticated()) {
+    //         this.router.navigate([DEFAULT_ROUTE]);
+    //     }
+    // }
 }

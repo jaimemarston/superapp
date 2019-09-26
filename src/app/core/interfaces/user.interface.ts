@@ -10,3 +10,8 @@ export interface IUser {
     dni: string;
     cargo: string;
 }
+
+export interface IUserAuth {
+    token: string;
+    user: IUser;
+}

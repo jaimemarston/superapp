@@ -4,10 +4,12 @@ import { CotizacionService } from '../../../../core/services/cotizacion.service'
 import { ICotizaciondetalle, ICotizacion } from '../../../../core/interfaces/cotizacion.interface';
 import { IArticulo } from '../../../../core/interfaces/articulo.interface';
 import { IUser } from '../../../../core/interfaces/user.interface';
+import { IChoferes } from '../../../../core/interfaces/choferes.interface';
 import { IUnidad } from '../../../../core/interfaces/unidad.interface';
 import { ArticuloService } from '../../../../core/services/articulo.service';
 import { UnidadService } from '../../../../core/services/unidad.service';
 import { UserService } from '../../../../core/services/user.service';
+import { ChoferService } from '../../../../core/services/chofer.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
@@ -24,6 +26,12 @@ export interface Opcviaje {
     codigo: string;
     descripcion: string;
 }
+
+export interface Listtipdoc {
+    codigo: string;
+    descripcion: string;
+}
+
 
 @Component({
     selector: 'app-editcotizaciondetalle',
@@ -56,9 +64,19 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     selectedestado = 'Agendado';
     selectedopc = '0';
     selectedconductor = '';
+    selecteddoc = 'Pendiente';
+    
+
     filteredArticulos: Observable<Array<IArticulo>>;
     filteredUnidades: Observable<Array<IUnidad>>;
-    filteredUsuarios: Observable<Array<IUser>>;
+    // filteredUsuarios: Observable<Array<IUser>>;
+    filteredChoferes: Observable<Array<IChoferes>>;
+
+    listtipdoc: Listtipdoc[] = [
+        { codigo: 'Factura', descripcion: 'Factura' },
+        { codigo: 'Boleta', descripcion: 'Boleta' },
+        { codigo: 'Pendiente', descripcion: 'Pendiente' },
+    ];
 
     opcviaje: Opcviaje[] = [
         { codigo: 'A disposición', descripcion: 'A disposición' },
@@ -80,6 +98,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     unidades: Array<IUnidad>;
     usuarios: Array<IUser>;
     cotizacionmaster: ICotizacion;
+    choferes: Array<IChoferes>;
 
     registerForm: FormGroup;
 
@@ -96,8 +115,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         private cotizacionmasterService: CotizacionService,
         private articuloService: ArticuloService,
         private unidadService: UnidadService,
-        private userService: UserService,
-        
+        private choferService: ChoferService,
         public snackBar: MatSnackBar) {
     }
 
@@ -115,21 +133,30 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             });
     }
 
-    getUsuario(): void {
-        this.userService.getUsers()
-            .subscribe(response => {
-                this.usuarios = response;
+    // getUsuario(): void {
+    //     this.userService.getUsers()
+    //         .subscribe(response => {
+    //             this.usuarios = response;
                 
+    //         });
+    // }
+
+    getChofer(): void {
+        this.choferService.getChoferes()
+            .subscribe(response => {
+                this.choferes = response;
+                // console.log('this.choferes', this.choferes);
+               
             });
+        
+        
     }
-
-
 
     ngOnInit(): void {
         this.createForm();
         this.getArticulo();
         this.getUnidad();
-        this.getUsuario();
+        this.getChofer();
         
     }
 
@@ -159,10 +186,10 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         return [];
     }
 
-    private _filter3(value: number): IUser[] {
-        if (value && this.usuarios) {
+    private _filter3(value: number): IChoferes[] {
+        if (value && this.choferes) {
         const filterValue3 = value;
-        const result = this.usuarios.filter(option => option.id = filterValue3);
+        const result = this.choferes.filter(option => option.id = filterValue3);
         console.log(result);
         return result ;
         }
@@ -194,7 +221,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
         const descripcionForm = this.registerForm.get('descripcion');
         const desunimedForm = this.registerForm.get('desunimed');
-        const desconductor = this.registerForm.get('conductor');
+        // const desconductor = this.registerForm.get('conductor');
 
         this.filteredArticulos = descripcionForm.valueChanges.pipe(
             map(value => this._filter(value))
@@ -204,9 +231,11 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             map(value => this._filter2(value))
         );
         
-        this.filteredUsuarios = desconductor.valueChanges.pipe(
-            map(value => this._filter3(value))
-        );
+        // this.filteredChoferes = desconductor.valueChanges.pipe(
+        //     map(value => this._filter3(value))
+        // );
+        
+        
 
         this.valueChanges();
         
@@ -254,7 +283,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.registerForm.get('lugorigen').setValue(this.cotizacion.lugorigen);
         this.registerForm.get('lugdestino').setValue(this.cotizacion.lugdestino);
         this.registerForm.get('opcviaje').setValue(this.cotizacion.opcviaje);
-        this.registerForm.get('conductor').setValue(this.cotizacion.conductor);
         this.registerForm.get('nvuelo').setValue(this.cotizacion.nvuelo);
         this.registerForm.get('proveedor').setValue(this.cotizacion.proveedor);
         this.registerForm.get('obs').setValue(this.cotizacion.obs);
@@ -263,6 +291,10 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.registerForm.get('precio').setValue(this.cotizacion.precio);
         this.registerForm.get('imptotal').setValue(this.cotizacion.imptotal);
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
+
+        this.registerForm.get('conductor').setValue(this.cotizacion.conductor);
+        
+
     }
 
     onBack(): void {
@@ -314,10 +346,12 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
    
 
     updateMaster(): void {
-            console.log('this.totales', this.totales);
-            this.cotizacionmaster.impsubtotal = this.totales.subtotal; 
-            this.cotizacionmaster.imptotal = this.totales.subtotal;
-            this.cotizacionmaster.impigv = this.totales.igv;
+            // console.log('updatethis.totales', typeof(this.totales.subtotal) , parseFloat(this.totales.subtotal), this.totales);
+            
+            this.cotizacionmaster.impsubtotal = +this.totales.subtotal; 
+            this.cotizacionmaster.impdescuentos = +this.totales.impdescuentos; 
+            this.cotizacionmaster.impigv = +(this.totales.igv).toFixed(2);
+            this.cotizacionmaster.imptotal = +this.totales.total_general.toFixed(2);
 
             this.cotizacionmasterService.updateCotizacion(this.idMaster, this.cotizacionmaster)
             .subscribe(response => {
@@ -329,7 +363,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
 
     addCotizacion(): void {
         const data = this.prepareData();
-
         this.cotizacionService.addCotizacion(data)
             .subscribe(response => {
                 this.update.emit(response);
