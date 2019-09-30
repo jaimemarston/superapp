@@ -158,6 +158,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.getUnidad();
         this.getChofer();
         
+        
     }
 
 

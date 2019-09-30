@@ -48,6 +48,7 @@ export class Cotizacion {
   fechaini: Date;
   fechafin: Date;
   estado: number;
+  obs: string;
 }
 
 export class Cotizaciondetalle {

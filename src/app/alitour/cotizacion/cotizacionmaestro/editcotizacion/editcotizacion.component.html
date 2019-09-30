@@ -73,8 +73,18 @@
         <mat-form-field fxFlex="20">
             <input #inputs matInput placeholder="Forma Pago" formControlName="desconpag">
         </mat-form-field>
-        
     </div>
+    <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+
+           <mat-form-field fxFlex="130">
+               <input #inputs matInput placeholder="Observaciones" formControlName="obs">
+           </mat-form-field>
+   
+           
+       </div>
+
+
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="end center" fxFlex="1 0 auto">
         <button type="button" (click)="onBack()" mat-raised-button class="mat-primary">Volver</button>
         <button (click)="saveCotizacion()" mat-raised-button [disabled]="registerForm.invalid" class="mat-accent">

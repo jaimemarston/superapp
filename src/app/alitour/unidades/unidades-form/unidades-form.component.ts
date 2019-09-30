@@ -234,14 +234,17 @@ export class UnidadesFormComponent implements OnInit {
     uploadSuccess2(event): void {
         const files: FileList = event.target.files;
         const file = files.item(0);
-        console.log(file);  
-        const reader = new FileReader();
-        this.imgAvatar2.nativeElement.name = file.name;
-        reader.onload = ((ev: Event) => {
-            this.imgAvatar2.nativeElement.src = (ev.target as any).result;
-            this.userPhoto2 = file;
-        });
-        reader.readAsDataURL(event.target.files[0]);
+        if (file.size < 1024) {
+            const reader = new FileReader();
+            this.imgAvatar2.nativeElement.name = file.name;
+            reader.onload = ((ev: Event) => {
+                this.imgAvatar2.nativeElement.src = (ev.target as any).result;
+                this.userPhoto2 = file;
+            });
+            reader.readAsDataURL(event.target.files[0]);
+        } else {
+            this.snackBar.open('Solo esta permitido archivos de 1MB');
+        }
     }
 
     saveClient(): void {

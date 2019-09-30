@@ -71,7 +71,7 @@ export class CotizaciondetalleComponent implements OnInit {
     errorMessage: String;
     selectedId: number;
     edit: boolean;
-
+    userName: String;
     /** checkbox datatable */
     selection = new SelectionModel<ICotizaciondetalle>(true, []);
 
@@ -85,6 +85,9 @@ export class CotizaciondetalleComponent implements OnInit {
 
     ngOnInit(): void {
         this.dataSource.data = this.cotizacionesDetalle;
+        const currentUser = JSON.parse(localStorage.getItem('user'));
+        this.userName = currentUser.username;
+        console.log(' this.userName', this.userName);
     }
 
     getCotizacion(): void {

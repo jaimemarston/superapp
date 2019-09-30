@@ -105,6 +105,7 @@ export class EditCotizacionComponent implements OnInit {
             dirruc: [''],
             desconpag: [''],
             desmonepago: [''],
+            obs: [''],
             estado: [0],
         });
 
@@ -124,6 +125,7 @@ export class EditCotizacionComponent implements OnInit {
         this.registerForm.get('telruc').setValue(a.telefono1);
         this.registerForm.get('correoruc').setValue(a.correo);
         this.registerForm.get('dirruc').setValue(a.direccion);
+        this.registerForm.get('obs').setValue(a.obs);
         
     }
 
@@ -155,6 +157,7 @@ export class EditCotizacionComponent implements OnInit {
         this.registerForm.get('desmonepago').setValue(this.cotizacion.desmonepago);
         this.registerForm.get('desconpag').setValue(this.cotizacion.desconpag);
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
+        this.registerForm.get('obs').setValue(this.cotizacion.obs);
     }
 
 

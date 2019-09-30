@@ -48,6 +48,7 @@ export interface ICotizacion {
     horaini: string;
     horafin: string;
     unidadtransporte: string;
+    obs: string;
     cotizaciones?: Array<ICotizaciondetalle> | null;
 }
 
