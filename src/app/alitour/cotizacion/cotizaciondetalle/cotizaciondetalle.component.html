@@ -22,8 +22,8 @@
             </ng-container>
 
             <ng-container matColumnDef="fechaini">
-                <mat-header-cell *matHeaderCellDef> FECHA INI</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.fechaini}}</mat-cell>
+                <mat-header-cell fxFlex="70px" *matHeaderCellDef> FECHA INI</mat-header-cell>
+                <mat-cell fxFlex="70px" *matCellDef="let element"> {{element.fechaini}}</mat-cell>
             </ng-container>
 
               <ng-container matColumnDef="horaini">
@@ -32,32 +32,37 @@
             </ng-container>
 
             <ng-container matColumnDef="fechafin">
-                <mat-header-cell  *matHeaderCellDef> FECHA FIN</mat-header-cell>
-                <mat-cell  *matCellDef="let element"> {{element.fechafin}}</mat-cell>
+                <mat-header-cell fxFlex="70px" *matHeaderCellDef> FECHA FIN</mat-header-cell>
+                <mat-cell fxFlex="70px" *matCellDef="let element"> {{element.fechafin}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="horafin">
-                <mat-header-cell *matHeaderCellDef> HORA FIN</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.horafin}}</mat-cell>
+                <mat-header-cell fxFlex="70px" *matHeaderCellDef> HORA FIN</mat-header-cell>
+                <mat-cell fxFlex="70px" *matCellDef="let element"> {{element.horafin}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="descripcion">
-                <mat-header-cell *matHeaderCellDef> DESCRIPCIÓN</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.descripcion}}</mat-cell>
+                <mat-header-cell fxFlex="150px" *matHeaderCellDef> DESCRIPCIÓN</mat-header-cell>
+                <mat-cell fxFlex="150px" *matCellDef="let element"> {{element.descripcion}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="desunimed">
-                <mat-header-cell *matHeaderCellDef> TRANSPORTE</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.desunimed}}</mat-cell>
+                <mat-header-cell fxFlex="250px" *matHeaderCellDef> TRANSPORTE</mat-header-cell>
+                <mat-cell  fxFlex="250px"  *matCellDef="let element"> {{element.desunimed}}</mat-cell>
             </ng-container>
-  
+            
+            <ng-container matColumnDef="pax">
+                <mat-header-cell fxFlex="40px" *matHeaderCellDef> PAX</mat-header-cell>
+                <mat-cell fxFlex="40px" *matCellDef="let element"> {{element.pax}}</mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="cantidad">
-                <mat-header-cell *matHeaderCellDef> PAX</mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.cantidad}}</mat-cell>
+                <mat-header-cell fxFlex="50px" *matHeaderCellDef> CANTI</mat-header-cell>
+                <mat-cell fxFlex="50px" *matCellDef="let element"> {{element.cantidad}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="imptotal">
-                <mat-header-cell *matHeaderCellDef> IMPORTE TOTAL</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>TOTAL</mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.imptotal}}</mat-cell>
             </ng-container>
 
@@ -65,6 +70,7 @@
                 <mat-header-cell *matHeaderCellDef> ESTADO</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <mat-chip-list>
+                        <mat-chip *ngIf="element.estado === 0" class="green-50"  selected>Cotizado</mat-chip>
                         <mat-chip *ngIf="element.estado === 1" class="green-300" selected>Confirmado</mat-chip>
                         <mat-chip *ngIf="element.estado === 2" class="green-100" selected>Programado</mat-chip>
                         <mat-chip *ngIf="element.estado === 3" class="cyan-100"  selected>Atendido</mat-chip>

@@ -37,6 +37,7 @@ export class CotizaciondetalleComponent implements OnInit {
     }
     
     estados: Estados[] = [
+        {codigo: 0, descripcion: 'Cotizado'},
         {codigo: 1, descripcion: 'Confirmado'},
         {codigo: 2, descripcion: 'Programado'},
         {codigo: 3, descripcion: 'Atendido'},
@@ -64,7 +65,7 @@ export class CotizaciondetalleComponent implements OnInit {
 
     @Output() totales: any;
 
-    displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'estado', 'options']
+    displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'pax', 'cantidad', 'imptotal', 'estado', 'options']
     @ViewChild(MatPaginator) paginatordet: MatPaginator;
     cotizacion: Array<ICotizaciondetalle>;
     dataSource = new MatTableDataSource<ICotizaciondetalle>();

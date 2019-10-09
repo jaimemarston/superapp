@@ -37,11 +37,11 @@
 </div>
 
 <mat-menu #menu="matMenu">
-    <button (click)="printing.emit(true)" mat-menu-item>
+    <button (click)="print_pdf()" mat-menu-item>
         <mat-icon>dialpad</mat-icon>
         <span>Previo</span>
     </button>
-    <button (click)="print_pdf()" mat-menu-item>
+    <button (click)="printing.emit(true)" mat-menu-item>
         <mat-icon>file_copy</mat-icon>
         <span>Excel</span>
     </button>

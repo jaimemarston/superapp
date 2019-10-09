@@ -75,6 +75,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     listtipdoc: Listtipdoc[] = [
         { codigo: 'Factura', descripcion: 'Factura' },
         { codigo: 'Boleta', descripcion: 'Boleta' },
+        { codigo: 'Recibo', descripcion: 'Recibo' },
         { codigo: 'Pendiente', descripcion: 'Pendiente' },
     ];
 
@@ -87,6 +88,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     ];
 
     estados: Estados[] = [
+        { codigo: 0, descripcion: 'Cotizado'},
         { codigo: 1, descripcion: 'Confirmado'},
         { codigo: 2, descripcion: 'Programado'},
         { codigo: 3, descripcion: 'Atendido'},
@@ -203,6 +205,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             horaini: [''],
             fechafin: [''],
             horafin: [''],
+            pax: [''],
             descripcion: ['', Validators.required],
             desunimed: [''],
             lugorigen: [''],
@@ -288,6 +291,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.registerForm.get('proveedor').setValue(this.cotizacion.proveedor);
         this.registerForm.get('obs').setValue(this.cotizacion.obs);
         this.registerForm.get('tipodoc').setValue(this.cotizacion.tipodoc);
+        this.registerForm.get('pax').setValue(this.cotizacion.pax);
         this.registerForm.get('cantidad').setValue(this.cotizacion.cantidad);
         this.registerForm.get('precio').setValue(this.cotizacion.precio);
         this.registerForm.get('imptotal').setValue(this.cotizacion.imptotal);

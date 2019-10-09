@@ -51,10 +51,12 @@
                 <mat-header-cell *matHeaderCellDef> ESTADO</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <mat-chip-list>
+                        <mat-chip *ngIf="element.estado === 0" class="green-50"  selected>Cotizado</mat-chip>    
                         <mat-chip *ngIf="element.estado === 1" class="green-300" selected>Agendado</mat-chip>
                         <mat-chip *ngIf="element.estado === 2" class="green-100" selected>Atendido</mat-chip>
                         <mat-chip *ngIf="element.estado === 3" class="cyan-100"  selected>Pagado</mat-chip>
                         <mat-chip *ngIf="element.estado === 4" class="red-100"   selected>Anulado</mat-chip>
+                        <mat-chip *ngIf="element.estado === 5" class="cyan-200"   selected>Rechazado</mat-chip>
                     </mat-chip-list>
                 </mat-cell>
             </ng-container>

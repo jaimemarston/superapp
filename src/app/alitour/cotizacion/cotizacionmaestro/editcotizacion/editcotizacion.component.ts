@@ -18,6 +18,10 @@ export interface Opcmoneda {
     descripcion: string;
 }
 
+export interface Listtipdoc {
+    codigo: string;
+    descripcion: string;
+}
 
 @Component({
     selector: 'app-editcotizacion',
@@ -32,7 +36,7 @@ export class EditCotizacionComponent implements OnInit {
     }
 
     selectedest: 0;
-
+    selecteddoc = 'Pendiente';
     selectedmoneda = 'SOLES';
     selectedestado = 'Agendado';
     filteredClientes: Observable<Array<IClientes>>;
@@ -43,12 +47,22 @@ export class EditCotizacionComponent implements OnInit {
         { codigo: 'DOLARES', descripcion: 'DOLARES' },
     ];
 
+    listtipdoc: Listtipdoc[] = [
+        { codigo: 'Factura', descripcion: 'Factura' },
+        { codigo: 'Boleta', descripcion: 'Boleta' },
+        { codigo: 'Recibo', descripcion: 'Recibo' },
+        { codigo: 'Pendiente', descripcion: 'Pendiente' },
+    ];
 
     estados: Estados[] = [
+        {codigo: 0, descripcion: 'Cotizado'},
         {codigo: 1, descripcion: 'Agendado'},
         {codigo: 2, descripcion: 'Atendido'},
         {codigo: 3, descripcion: 'Pagado'},
         {codigo: 4, descripcion: 'Anulado'},
+        {codigo: 5, descripcion: 'Rechazado'},
+        
+        
     ];
 
 
@@ -103,6 +117,7 @@ export class EditCotizacionComponent implements OnInit {
             telruc: [''],
             correoruc: [''],
             dirruc: [''],
+            destipdoc: [''],
             desconpag: [''],
             desmonepago: [''],
             obs: [''],
@@ -156,6 +171,7 @@ export class EditCotizacionComponent implements OnInit {
         this.registerForm.get('correoruc').setValue(this.cotizacion.correoruc);
         this.registerForm.get('desmonepago').setValue(this.cotizacion.desmonepago);
         this.registerForm.get('desconpag').setValue(this.cotizacion.desconpag);
+        this.registerForm.get('destipdoc').setValue(this.cotizacion.destipdoc);
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
         this.registerForm.get('obs').setValue(this.cotizacion.obs);
     }

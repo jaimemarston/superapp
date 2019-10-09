@@ -57,6 +57,7 @@ export interface ICotizaciondetalle {
     codigo: number;
     codpro: string;
     descripcion: string;
+    pax: number;
     unimed: string;
     desunimed: string;
     cantidad: number;
