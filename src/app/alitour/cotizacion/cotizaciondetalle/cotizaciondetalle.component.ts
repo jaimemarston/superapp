@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Cotizacion } from '../../../dataservice/cotizacion';
 import { DataService } from '../../../dataservice/data.service';
 import { CotizaciondetalleService } from '../../../core/services/cotizaciondetalle.service';
-import { ICotizaciondetalle } from '../../../core/interfaces/cotizacion.interface';
+import { ICotizaciondetalle, ICotizacion } from '../../../core/interfaces/cotizacion.interface';
+import { CotizacionService } from '../../../core/services/cotizacion.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fuseAnimations } from '../../../../@fuse/animations';
 import { EditcotizaciondetalleComponent } from '../../cotizacion/cotizaciondetalle/editcotizaciondetalle/editcotizaciondetalle.component';
@@ -61,6 +62,8 @@ export class CotizaciondetalleComponent implements OnInit {
 
     @Input() idMaster: number;
 
+    @Input() iddestipdoc: string;
+
     @Output() updated: EventEmitter<any> = new EventEmitter();
 
     @Output() totales: any;
@@ -75,10 +78,12 @@ export class CotizaciondetalleComponent implements OnInit {
     userName: String;
     /** checkbox datatable */
     selection = new SelectionModel<ICotizaciondetalle>(true, []);
+    cotizacionmaster: ICotizacion;
 
     constructor(
         private cotizacionService: CotizaciondetalleService,
         private router: Router,
+        private cotizacionmasterService: CotizacionService,
         public dialog: MatDialog,
         private snackBar: MatSnackBar
     ) {
@@ -92,11 +97,12 @@ export class CotizaciondetalleComponent implements OnInit {
     }
 
     getCotizacion(): void {
+        // this.getMaster();
         this.cotizacionService.getCotizaciones()
             .pipe(map(cotizaciones => {
                 cotizaciones = cotizaciones.map(c => {
-                    /*c.imptotal = c.cantidad * c.precio;*/
-                    c.imptotal = c.precio;
+                    c.imptotal = c.cantidad * c.precio;
+                    // c.imptotal = c.precio;
                     return c;
                 });
                 return cotizaciones;
@@ -179,21 +185,33 @@ export class CotizaciondetalleComponent implements OnInit {
     }
 
     calculateTotales(descuento = 0): void {
+       
+        
         this.cotizacionTotales.descuento = descuento;
-        console.log('this.totalesdes', this.cotizacionTotales.descuento);
-        /*this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal * b.cantidad) + a, 0);*/
+        // this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => (b.imptotal * b.cantidad) + a, 0);
         this.cotizacionTotales.subtotal = this.cotizacionesDetalle.reduce((a, b) => +(b.imptotal) + a, 0);
-        this.cotizacionTotales.igv = +((this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) * 0.18).toFixed(2);
+        
+        
+        
+        if (this.iddestipdoc === 'Recibo'){
+             this.cotizacionTotales.igv = 0.00;
+             // console.log('this.iddestipdoc recibo', this.iddestipdoc, this.cotizacionTotales.igv);
+        }
+        else
+        {
+            // console.log('this.iddestipdoc otros', this.iddestipdoc, this.cotizacionTotales.igv);
+            this.cotizacionTotales.igv = +((this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) * 0.18).toFixed(2);
+        }
+    
         this.cotizacionTotales.total_general = +((this.cotizacionTotales.subtotal - this.cotizacionTotales.descuento) + this.cotizacionTotales.igv).toFixed(2);
         this.totales = this.cotizacionTotales;
     }
     updateMaestro(event): void {
         // aqui cambiar a otra update si no se llega a grabar
         this.cotizacionDetalle.getMaster();
-        console.log('this.totales.impdescuentos', this.totales.impdescuentos);
+        console.log('this.totales.descuento', this.totales.descuento);
         this.cotizacionDetalle.updateMaster();
         console.log('updateMaster cotizaciondetallecomponent');
-
     } 
     onChangeDscto(event): void {
         console.log('event.target.value', event.target.value);
@@ -201,4 +219,12 @@ export class CotizaciondetalleComponent implements OnInit {
         this.calculateTotales(event.target.value);
         
     }
+    getMaster(): void {
+        this.cotizacionmasterService.getCotizacion(this.selectedId)
+            .subscribe(responsmaster => {
+            this.cotizacionmaster = responsmaster;
+            console.log('carga master en detalle cotizacion', this.selectedId, this.cotizacionmaster);
+        }); 
+    }
+
 }

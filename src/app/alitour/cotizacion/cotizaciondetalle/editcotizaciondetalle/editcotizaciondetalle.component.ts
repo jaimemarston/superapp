@@ -10,11 +10,13 @@ import { ArticuloService } from '../../../../core/services/articulo.service';
 import { UnidadService } from '../../../../core/services/unidad.service';
 import { UserService } from '../../../../core/services/user.service';
 import { ChoferService } from '../../../../core/services/chofer.service';
+import { GuiaService } from '../../../../core/services/guia.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '../../../../../@fuse/animations';
+import { IGuias } from 'app/core/interfaces/guias.interface';
 
 
 export interface Estados {
@@ -64,6 +66,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     selectedestado = 'Agendado';
     selectedopc = '0';
     selectedconductor = '';
+    selectednombreguia = '';
     selecteddoc = 'Pendiente';
     
 
@@ -71,6 +74,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     filteredUnidades: Observable<Array<IUnidad>>;
     // filteredUsuarios: Observable<Array<IUser>>;
     filteredChoferes: Observable<Array<IChoferes>>;
+    
 
     listtipdoc: Listtipdoc[] = [
         { codigo: 'Factura', descripcion: 'Factura' },
@@ -101,14 +105,14 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     usuarios: Array<IUser>;
     cotizacionmaster: ICotizacion;
     choferes: Array<IChoferes>;
+    guias: Array<IGuias>;
 
     registerForm: FormGroup;
 
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() update: EventEmitter<ICotizaciondetalle> = new EventEmitter<ICotizaciondetalle>();
     
-
-
+ 
 
     @ViewChild('inputCodigo') inputCodigo: ElementRef<HTMLInputElement>;
 
@@ -118,6 +122,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         private articuloService: ArticuloService,
         private unidadService: UnidadService,
         private choferService: ChoferService,
+        private guiaService: GuiaService,
         public snackBar: MatSnackBar) {
     }
 
@@ -150,15 +155,25 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
                 // console.log('this.choferes', this.choferes);
                
             });
-        
-        
     }
+
+
+    getGuia(): void {
+        this.guiaService.getGuias()
+            .subscribe(response => {
+                this.guias = response;
+                // console.log('this.choferes', this.choferes);
+               
+            });
+    }
+
 
     ngOnInit(): void {
         this.createForm();
         this.getArticulo();
         this.getUnidad();
         this.getChofer();
+        this.getGuia();
         
         
     }
@@ -215,6 +230,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             imptotal: [''],
             opcviaje: [''],
             conductor: [''],
+            nombreguia: [''],
             nvuelo: [''],
             proveedor: [''],
             obs: [''],
@@ -262,8 +278,8 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     }
 
     setImporteTotal(a, b): void {
-        /*this.registerForm.get('imptotal').setValue(a * b);*/
-        this.registerForm.get('imptotal').setValue(a);
+        this.registerForm.get('imptotal').setValue(a * b);
+        // this.registerForm.get('imptotal').setValue(a);
     }
 
     getCotizacion(): void {
@@ -298,6 +314,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
 
         this.registerForm.get('conductor').setValue(this.cotizacion.conductor);
+        this.registerForm.get('nombreguia').setValue(this.cotizacion.nombreguia);
         
 
     }
@@ -345,25 +362,30 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.cotizacionmasterService.getCotizacion(this.idMaster)
             .subscribe(responsmaster => {
             this.cotizacionmaster = responsmaster;
-            console.log('carga master', this.idMaster, this.cotizacionmaster);
         }); 
     }
    
 
     updateMaster(): void {
-            // console.log('updatethis.totales', typeof(this.totales.subtotal) , parseFloat(this.totales.subtotal), this.totales);
+            console.log('updatethis.totales', typeof(this.totales.subtotal) , parseFloat(this.totales.subtotal), this.totales);
             
             this.cotizacionmaster.impsubtotal = +this.totales.subtotal; 
-            this.cotizacionmaster.impdescuentos = +this.totales.impdescuentos; 
+            this.cotizacionmaster.impdescuentos = +this.totales.descuento;
             this.cotizacionmaster.impigv = +(this.totales.igv).toFixed(2);
+            // si funaciona pero no hace nada
+            
+            // if (this.cotizacionmaster.destipdoc = 'Recibo'){
+            //     this.cotizacionmaster.impigv = 0.00;
+            // }
             this.cotizacionmaster.imptotal = +this.totales.total_general.toFixed(2);
-
+            
+            
             this.cotizacionmasterService.updateCotizacion(this.idMaster, this.cotizacionmaster)
             .subscribe(response => {
                          console.log('graba Maestro');
                          console.log(response);
                      });
-            console.log('Graba cotizacionmasterService', this.idMaster, this.cotizacionmaster);
+            
     }
 
     addCotizacion(): void {

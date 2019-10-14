@@ -87,6 +87,13 @@
             <input #inputs matInput placeholder="proveedor" formControlName="proveedor">
         </mat-form-field>
     
+        <mat-form-field fxFlex="30">
+                <mat-select formControlName="nombreguia" class="form-control" placeholder="Guia"
+                [(value)]="selectednombreguia">
+                <mat-option class="pantallafiltro" *ngFor="let mon of guias" [value]="mon.nombre">{{mon.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
     </div>
     <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">

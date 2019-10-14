@@ -34,7 +34,7 @@
             <div class="content mat-elevation-z4">
 
                 <app-cotizacionmaestro (detalle)="setDetail($event)"></app-cotizacionmaestro>
-                <app-cotizaciondetalle [cotizacionesDetalle]="detail" [idMaster]="cotizacionMaestro.cotizacionSelected?.id"
+                <app-cotizaciondetalle [cotizacionesDetalle]="detail" [idMaster]="cotizacionMaestro.cotizacionSelected?.id" [iddestipdoc]="cotizacionMaestro.cotizacionSelected?.destipdoc"
                                        (updated)="getCotizaciones()"></app-cotizaciondetalle>
             </div>
             <!-- / CONTENT -->

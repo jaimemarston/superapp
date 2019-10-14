@@ -75,7 +75,9 @@ export class GuiasFormComponent implements OnInit {
     }
 
     Idiomaprov: Idiomaprov[] = [
-        {codigo: 'Ingles', descripcion: 'Ingles'},
+        {codigo: 'Ingles-Basico', descripcion: 'Ingles-Basico'},
+        {codigo: 'Ingles-Intermedio', descripcion: 'Ingles-Intermedio'},
+        {codigo: 'Ingles-Avanzado', descripcion: 'Ingles-Avanzado'},
         {codigo: 'Chino', descripcion: 'Chino'},
         {codigo: 'Portugues', descripcion: 'Portugues'},
         {codigo: 'Frances', descripcion: 'Frances'},

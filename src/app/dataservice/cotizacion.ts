@@ -82,6 +82,7 @@ export class Cotizaciondetalle {
   lugdestino: string;
   opcviaje: string;
   conductor: string;
+  nombreguia: string;
   nvuelo: string;
   proveedor: string;
   obs: string;
