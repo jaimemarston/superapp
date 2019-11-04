@@ -17,6 +17,7 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { map, startWith, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '../../../../../@fuse/animations';
 import { IGuias } from 'app/core/interfaces/guias.interface';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 export interface Estados {
@@ -108,6 +109,10 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     guias: Array<IGuias>;
 
     registerForm: FormGroup;
+
+
+    // _cotizacionesDetalle: Array<ICotizaciondetalle>;
+    _cotizacionesDetalle: any;
 
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() update: EventEmitter<ICotizaciondetalle> = new EventEmitter<ICotizaciondetalle>();
@@ -288,7 +293,9 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
                 this.cotizacion = response;
                 this.setForm();
             });
+        
 
+        
         this.getMaster();
     }
 
@@ -312,7 +319,6 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.registerForm.get('precio').setValue(this.cotizacion.precio);
         this.registerForm.get('imptotal').setValue(this.cotizacion.imptotal);
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
-
         this.registerForm.get('conductor').setValue(this.cotizacion.conductor);
         this.registerForm.get('nombreguia').setValue(this.cotizacion.nombreguia);
         
@@ -339,9 +345,10 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         /** rest spread, paso de parametros REST, este método sirve para clonar objetos. destructuración de datos
          * http://www.etnassoft.com/2016/07/04/desestructuracion-en-javascript-parte-1/ */
         this.registerForm.get('codigo').setValue(this.idMaster);
+        
         const data: ICotizaciondetalle = { ...this.registerForm.getRawValue() };
         data.master = this.idMaster;
-
+        
         return data;
     }
 
@@ -351,51 +358,79 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             .subscribe(response => {
                 this.update.emit(response);
                 this.snackBar.open('Registro agregado satisfactoriamente...!');
-               
+                
             });
+
         
         this.updateMaster();
     }
 
 
     getMaster(): void {
+        
         this.cotizacionmasterService.getCotizacion(this.idMaster)
             .subscribe(responsmaster => {
             this.cotizacionmaster = responsmaster;
+            // this._cotizacionesDetalle = responsmaster;
         }); 
     }
    
-
-    updateMaster(): void {
-            console.log('updatethis.totales', typeof(this.totales.subtotal) , parseFloat(this.totales.subtotal), this.totales);
-            
-            this.cotizacionmaster.impsubtotal = +this.totales.subtotal; 
-            this.cotizacionmaster.impdescuentos = +this.totales.descuento;
-            this.cotizacionmaster.impigv = +(this.totales.igv).toFixed(2);
-            // si funaciona pero no hace nada
-            
-            // if (this.cotizacionmaster.destipdoc = 'Recibo'){
-            //     this.cotizacionmaster.impigv = 0.00;
-            // }
-            this.cotizacionmaster.imptotal = +this.totales.total_general.toFixed(2);
-            
-            
-            this.cotizacionmasterService.updateCotizacion(this.idMaster, this.cotizacionmaster)
-            .subscribe(response => {
-                         console.log('graba Maestro');
-                         console.log(response);
-                     });
-            
-    }
-
     addCotizacion(): void {
         const data = this.prepareData();
         this.cotizacionService.addCotizacion(data)
             .subscribe(response => {
                 this.update.emit(response);
                 this.snackBar.open('Registro agregado satisfactoriamente...!');
+                
             });
+        
+       
+        this.updateMaster();
     }
+
+    updateMaster(): void {
+
+            
+            this.getMaster();
+            // this.getCotizacion();
+            // console.log('cotizacionmaster', this.idMaster, this.cotizacionmaster);
+            // console.log('cotizacionmaster', this.idMaster, this.cotizacionmaster);  
+            
+            // console.log('_cotizacionesDetalle', this._cotizacionesDetalle); 
+            // const subtotal = this._cotizacionesDetalle.reduce((a, b) => +(b.imptotal) + a, 0);
+            // console.log('subtotal', subtotal); 
+             
+            
+                      
+            this.cotizacionmasterService.updateCotizacion(this.idMaster, this.cotizacionmaster)
+            .subscribe(response => {
+                        console.log('graba Maestro');
+                        console.log('graba Maestrofinal', response.cotizaciones);
+                        console.log('this.totales', this.totales);
+                        
+                        this.cotizacionmaster.impsubtotal =  response.cotizaciones.reduce((a, b) => +(b.imptotal) + a, 0);
+                       // this.cotizacionmaster.impdescuentos = +this.totales.descuento;
+                       // this.cotizacionmaster.impigv = +(this.totales.igv).toFixed(2);
+                       // this.cotizacionmaster.imptotal = +this.totales.total_general.toFixed(2);
+                        console.log('this.cotizacionmaster.impsubtotal', this.cotizacionmaster.impsubtotal);
+                    });
+            
+
+            this.cotizacionmasterService.updateCotizacion(this.idMaster, this.cotizacionmaster)
+            .subscribe(response => {
+                       // this.cotizacionmaster.impdescuentos = +this.totales.descuento;
+                       // this.cotizacionmaster.impigv = +(this.totales.igv).toFixed(2);
+                       // this.cotizacionmaster.imptotal = +this.totales.total_general.toFixed(2);
+                        console.log('this.cotizacionmaster.impsubtotal2', this.cotizacionmaster.impsubtotal);
+                    });
+            // console.log(' this._cotizacionesDetalle', this._cotizacionesDetalle);
+            // console.log('updatethis.totales', parseFloat(this.totales.subtotal), this.totales);
+            
+           
+            
+    }
+
+   
 
     saveCotizacion(): void {
         this.id ? this.updateCotizacion() : this.addCotizacion();
