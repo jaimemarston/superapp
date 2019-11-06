@@ -208,7 +208,7 @@ export class CotizaciondetalleComponent implements OnInit {
     }
     updateMaestro(event): void {
         // aqui cambiar a otra update si no se llega a grabar
-        this.cotizacionDetalle.getMaster();
+        // this.cotizacionDetalle.getMaster();
         console.log('this.totales.descuento', this.totales.descuento);
         this.cotizacionDetalle.updateMaster();
         console.log('updateMaster cotizaciondetallecomponent');

@@ -409,20 +409,14 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
                         console.log('this.totales', this.totales);
                         
                         this.cotizacionmaster.impsubtotal =  response.cotizaciones.reduce((a, b) => +(b.imptotal) + a, 0);
-                       // this.cotizacionmaster.impdescuentos = +this.totales.descuento;
+                        // this.cotizacionmaster.impdescuentos = +this.totales.descuento;
                        // this.cotizacionmaster.impigv = +(this.totales.igv).toFixed(2);
                        // this.cotizacionmaster.imptotal = +this.totales.total_general.toFixed(2);
                         console.log('this.cotizacionmaster.impsubtotal', this.cotizacionmaster.impsubtotal);
                     });
             
 
-            this.cotizacionmasterService.updateCotizacion(this.idMaster, this.cotizacionmaster)
-            .subscribe(response => {
-                       // this.cotizacionmaster.impdescuentos = +this.totales.descuento;
-                       // this.cotizacionmaster.impigv = +(this.totales.igv).toFixed(2);
-                       // this.cotizacionmaster.imptotal = +this.totales.total_general.toFixed(2);
-                        console.log('this.cotizacionmaster.impsubtotal2', this.cotizacionmaster.impsubtotal);
-                    });
+            
             // console.log(' this._cotizacionesDetalle', this._cotizacionesDetalle);
             // console.log('updatethis.totales', parseFloat(this.totales.subtotal), this.totales);
             
