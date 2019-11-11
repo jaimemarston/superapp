@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from '../../../core/services/cliente.service';
@@ -7,6 +7,9 @@ import { MatSnackBar } from '@angular/material';
 import { IClientes } from '../../../core/interfaces/clientes.interface';
 import { IRelcli } from '../../../core/interfaces/clientes.interface';
 import { Ibancos } from '../../../core/interfaces/varios.interface';
+import {CommonService} from '../../../core/services/common.service';
+import to from 'await-to-js';
+import {Subject} from 'rxjs';
 
 export interface Tipoprov {
     codigo: string;
@@ -23,7 +26,7 @@ export interface Monedas {
     templateUrl: './clientes-form.component.html',
     styleUrls: ['./clientes-form.component.scss']
 })
-export class ClientesFormComponent implements OnInit {
+export class ClientesFormComponent implements OnInit, OnDestroy {
     selectedmon = '0';
     /* moneda por defecto */
     selectedmon2 = '0';
@@ -67,6 +70,8 @@ export class ClientesFormComponent implements OnInit {
     registerForm: FormGroup;
     bancos: Array<Ibancos>;
     bancos2: Array<Ibancos>;
+    
+    unsubscribe = new Subject();
 
     @Output() update: EventEmitter<IClientes> = new EventEmitter<IClientes>();
 
@@ -79,7 +84,8 @@ export class ClientesFormComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 public snackBar: MatSnackBar,
                 private router: Router,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private commonService: CommonService) {
         this.id = this.route.snapshot.params['id'];
     }
 
@@ -226,16 +232,22 @@ export class ClientesFormComponent implements OnInit {
             });
     }
 
-    addClient(): void {
+    async addClient(): Promise<void> {
         const data: IClientes = this.registerForm.getRawValue();
-        this.clienteService.addClient(data)
-            .subscribe(response => {
+        const [error, response] = await to(this.clienteService.addClient(data).toPromise());
+        // this.clienteService.addClient(data)
+        // .subscribe(response => {
+        if (response) {
                 this.update.emit(response);
                 this.snackBar.open('Registro agregado satisfactoriamente...!');
                 this.registerForm.reset();
+                this.createForm();
                 this.inputNombre.nativeElement.focus();
-            });
+        } else {
+            this.commonService.showFormError(error);
+        }
     }
+
 
     goListClientes(): void {
         this.router.navigate(['clientes']);
@@ -245,4 +257,9 @@ export class ClientesFormComponent implements OnInit {
         this.id ? this.updateClient() : this.addClient();
     }
 
+    
+    ngOnDestroy(): void {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
 }
