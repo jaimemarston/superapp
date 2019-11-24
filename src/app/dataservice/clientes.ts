@@ -33,4 +33,5 @@ export class Clientes {
   correo3: string;
   banco_nomdest1: string;
   banco_nomdest2: string;
+  comonoscontacto: string;
 }

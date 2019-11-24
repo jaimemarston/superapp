@@ -119,7 +119,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     
  
 
-    @ViewChild('inputCodigo') inputCodigo: ElementRef<HTMLInputElement>;
+    @ViewChild('inputCodigo' , {static: false}) inputCodigo: ElementRef<HTMLInputElement>;
 
     constructor(private cotizacionService: CotizaciondetalleService,
         private formBuilder: FormBuilder,

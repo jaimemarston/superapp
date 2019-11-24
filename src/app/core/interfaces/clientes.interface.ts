@@ -33,6 +33,7 @@ export interface IClientes {
   correo3: string;
   banco_nomdest1: string;
   banco_nomdest2: string;
+  comonoscontacto: string;
 }
 
 export interface IRelcli {

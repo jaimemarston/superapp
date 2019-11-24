@@ -75,7 +75,7 @@ export class ClientesFormComponent implements OnInit, OnDestroy {
 
     @Output() update: EventEmitter<IClientes> = new EventEmitter<IClientes>();
 
-    @ViewChild('inputNombre') inputNombre: ElementRef<HTMLInputElement>;
+    @ViewChild('inputNombre' , {static: false}) inputNombre: ElementRef<HTMLInputElement>;
 
     form: FormGroup;
 
@@ -138,6 +138,7 @@ export class ClientesFormComponent implements OnInit, OnDestroy {
             telcontacto3: [null],
             correo3: [null],
             categprov: [null],
+            comonoscontacto: [null],
         });
     }
 
@@ -204,6 +205,8 @@ export class ClientesFormComponent implements OnInit, OnDestroy {
         this.registerForm.get('contacto3').setValue(this.cliente.contacto3);
         this.registerForm.get('telcontacto3').setValue(this.cliente.telcontacto3);
         this.registerForm.get('correo3').setValue(this.cliente.correo3);
+        this.registerForm.get('comonoscontacto').setValue(this.cliente.comonoscontacto);
+        
     }
 
     onBack(): void {

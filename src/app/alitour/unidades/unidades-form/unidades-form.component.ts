@@ -22,8 +22,8 @@ export interface Categoprov {
 
 export class UnidadesFormComponent implements OnInit {
 
-    @ViewChild('imgAvatar') imgAvatar: ElementRef<HTMLImageElement>;
-    @ViewChild('imgAvatar2') imgAvatar2: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar' , {static: false}) imgAvatar: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar2', {static: false}) imgAvatar2: ElementRef<HTMLImageElement>;
 
     userPhoto: File;
     userPhoto2: File;

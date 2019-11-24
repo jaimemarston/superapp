@@ -16,8 +16,8 @@ import { fuseAnimations } from '../../../../@fuse/animations';
 export class ArticulosListComponent implements OnInit {
 
     displayedColumns: string[] = ['select', 'codigo', 'descripcion', 'options'];
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-
+    // @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     articulos: Array<IArticulo>;
     dataSource = new MatTableDataSource<IArticulo>();
     errorMessage: String;

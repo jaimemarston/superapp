@@ -18,7 +18,7 @@ import { LiquidaciondetalleService } from '../../../core/services/liquidaciondet
 export class LiquidacionmaestroComponent implements OnInit {
 
     displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'estado', 'options']
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator , {static: false}) paginator: MatPaginator;
 
     liquidacion: Array<ILiquidacion>;
     liquidaciondetalle: Array<ILiquidaciondetalle>;

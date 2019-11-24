@@ -1,6 +1,6 @@
 <div id="clientes" fxLayout="column">
    
-    <toolbar-table [title]="'Detalle de Clientes'" [urlPrint]="'openPrint()'" 
+    <toolbar-table [title]="'Detalle de Clientes'"  [urlPrint]="'export_xls_clientes'"
     (inputText)="applyFilter($event)" 
     (fileSelected)="setFileSelected($event)"
     [hidden]="edit" (add)="addClient()"  (delete)="deleteAllSelecteds()"></toolbar-table>

@@ -17,7 +17,7 @@ export class GuiasListComponent implements OnInit {
 
     /* displayedColumns: string[] = ['select', 'id', 'codigo', 'ruc' ,'nombre', 'telefono1', 'correo', 'options'];*/
     displayedColumns: string[] = ['select', 'ruc', 'nombre', 'telefono1', 'correo', 'options'];
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator , {static: false}) paginator: MatPaginator;
 
     guias: Array<IGuias>;
     dataSource = new MatTableDataSource<IGuias>();

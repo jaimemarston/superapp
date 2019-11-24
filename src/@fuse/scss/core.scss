@@ -2,8 +2,10 @@
 // to the core Fuse and Angular Material mixins
 
 // ngx-datatable
-@import '~@swimlane/ngx-datatable/release/themes/material';
-
+// @import '~@swimlane/ngx-datatable/release/themes/material';
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.css';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
 // Perfect scrollbar
 @import '~perfect-scrollbar/css/perfect-scrollbar';
 

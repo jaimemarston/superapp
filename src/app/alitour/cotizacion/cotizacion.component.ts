@@ -17,7 +17,8 @@ import { ICotizaciondetalle } from '../../core/interfaces/cotizacion.interface';
 export class CotizacionComponent implements OnInit {
     detail: Array<ICotizaciondetalle>;
     idMaster: number;
-    @ViewChild(CotizacionmaestroComponent) cotizacionMaestro: CotizacionmaestroComponent;
+    cotizacionSelected: number;
+    @ViewChild(CotizacionmaestroComponent , {static: true}) cotizacionMaestro: CotizacionmaestroComponent;
 
     constructor() {
     }
@@ -28,9 +29,11 @@ export class CotizacionComponent implements OnInit {
     setDetail(detail: Array<ICotizaciondetalle>): any {
         this.detail = detail;
         this.idMaster = this.cotizacionMaestro.selectedId;
+        
     }
 
     getCotizaciones(): void {
+        console.log(this.cotizacionMaestro.selectedId);
         this.cotizacionMaestro.getCotizacion();
     }
 }

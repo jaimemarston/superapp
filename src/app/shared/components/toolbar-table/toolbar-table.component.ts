@@ -15,7 +15,8 @@ export class ToolbarTableComponent implements OnInit {
     @Input() search = true;
     @Input() urlPrint;
     @Input() title: string;
-
+    @Input() formato: string;
+    @Input() formatolink: string;
     @Output() add: EventEmitter<any> = new EventEmitter();
     @Output() printing: EventEmitter<any> = new EventEmitter();
     @Output() delete: EventEmitter<any> = new EventEmitter();
@@ -35,9 +36,20 @@ export class ToolbarTableComponent implements OnInit {
     print_pdf(): void {
         if (this.urlPrint) {
             window.open(`${BASEURL}${this.urlPrint}`, '_blank');
+            console.log(this.urlPrint);
             // window.location.replace(`${BASEURL}${this.urlPrint}`);
         }
     }
+
+    print_pdf_embajada(): void {
+        if (this.urlPrint) {
+           
+            window.open(`${BASEURL}${this.formatolink}`, '_blank');
+            
+            // window.location.replace(`${BASEURL}${this.urlPrint}`);
+        }
+    }
+    
 
     confirmar(): void {
         const dialogRef = this.dialog.open(ConfirmarComponent, {

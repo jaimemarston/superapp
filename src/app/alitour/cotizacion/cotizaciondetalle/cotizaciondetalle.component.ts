@@ -28,7 +28,7 @@ export interface Estados {
 
 export class CotizaciondetalleComponent implements OnInit {
     _cotizacionesDetalle: Array<ICotizaciondetalle>;
-    @ViewChild(EditcotizaciondetalleComponent) cotizacionDetalle: EditcotizaciondetalleComponent;
+    @ViewChild(EditcotizaciondetalleComponent , {static: false}) cotizacionDetalle: EditcotizaciondetalleComponent;
     
     cotizacionTotales = {
         subtotal: 0.00,
@@ -69,7 +69,7 @@ export class CotizaciondetalleComponent implements OnInit {
     @Output() totales: any;
 
     displayedColumns: string[] = ['select', 'fechaini', 'horaini', 'fechafin', 'horafin', 'descripcion', 'desunimed', 'pax', 'cantidad', 'imptotal', 'estado', 'options']
-    @ViewChild(MatPaginator) paginatordet: MatPaginator;
+    @ViewChild(MatPaginator , {static: false}) paginatordet: MatPaginator;
     cotizacion: Array<ICotizaciondetalle>;
     dataSource = new MatTableDataSource<ICotizaciondetalle>();
     errorMessage: String;

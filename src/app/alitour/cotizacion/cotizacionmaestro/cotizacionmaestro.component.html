@@ -2,7 +2,10 @@
     <toolbar-table [title]="'Maestro'" [urlPrint]="'generate_pdf'" (inputText)="applyFilter($event)" [hidden]="edit"
                    (add)="addRecord()"
                    (duplicar)="duplicarRecord()"
-                   (delete)="deleteAllSelecteds()"></toolbar-table>
+                   (delete)="deleteAllSelecteds()"
+                   [formato]="'EMBAJADA'"
+                   [formatolink]="'print_pdf_embajada/'+cotizacionSelected?.id"></toolbar-table>
+
     <div fxFlex [hidden]="edit">
         <mat-table #table [dataSource]="dataSource">
             <ng-container matColumnDef="select">

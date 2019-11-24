@@ -35,10 +35,10 @@ export interface Monedas {
 })
 export class ChoferesFormComponent implements OnInit {
 
-    @ViewChild('imgAvatar1') imgAvatar1: ElementRef<HTMLImageElement>;
-    @ViewChild('imgAvatar2') imgAvatar2: ElementRef<HTMLImageElement>;
-    @ViewChild('imgAvatar3') imgAvatar3: ElementRef<HTMLImageElement>;
-    @ViewChild('imgAvatar4') imgAvatar4: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar1', {static: false}) imgAvatar1: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar2', {static: false}) imgAvatar2: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar3', {static: false}) imgAvatar3: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar4', {static: false}) imgAvatar4: ElementRef<HTMLImageElement>;
     userPhoto1: File;
     userPhoto2: File;
     userPhoto3: File;
@@ -109,7 +109,7 @@ export class ChoferesFormComponent implements OnInit {
 
     @Output() update: EventEmitter<IChoferes> = new EventEmitter<IChoferes>();
 
-    @ViewChild('inputNombre') inputNombre: ElementRef<HTMLInputElement>;
+    @ViewChild('inputNombre', {static: false}) inputNombre: ElementRef<HTMLInputElement>;
 
     form: FormGroup;
 

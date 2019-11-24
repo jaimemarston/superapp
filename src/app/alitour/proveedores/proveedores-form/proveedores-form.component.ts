@@ -104,7 +104,7 @@ export class ProveedoresFormComponent implements OnInit {
 
     @Output() update: EventEmitter<IProveedores> = new EventEmitter<IProveedores>();
 
-    @ViewChild('inputNombre') inputNombre: ElementRef<HTMLInputElement>;
+    @ViewChild('inputNombre' , {static: false}) inputNombre: ElementRef<HTMLInputElement>;
 
     form: FormGroup;
 

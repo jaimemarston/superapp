@@ -48,7 +48,7 @@ export class LiquidaciondetalleComponent implements OnInit {
     @Output() updated: EventEmitter<any> = new EventEmitter();
 
     displayedColumns: string[] = ['select', 'descripcion', 'desunimed', 'cantidad', 'imptotal', 'options']
-    @ViewChild(MatPaginator) paginatordet: MatPaginator;
+    @ViewChild(MatPaginator, {static: false}) paginatordet: MatPaginator;
 
     liquidacion: Array<ILiquidaciondetalle>;
     dataSource = new MatTableDataSource<ILiquidaciondetalle>();

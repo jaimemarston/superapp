@@ -17,7 +17,7 @@ import { ILiquidaciondetalle } from '../../core/interfaces/liquidacion.interface
 export class LiquidacionComponent implements OnInit {
     detail: Array<ILiquidaciondetalle>;
     idMaster: number;
-    @ViewChild(LiquidacionmaestroComponent) liquidacionMaestro: LiquidacionmaestroComponent;
+    @ViewChild(LiquidacionmaestroComponent , {static: false}) liquidacionMaestro: LiquidacionmaestroComponent;
 
     constructor() {
     }

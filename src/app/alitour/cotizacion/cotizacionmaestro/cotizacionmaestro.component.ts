@@ -21,7 +21,7 @@ import { CotizaciondetalleComponent } from '../cotizaciondetalle/cotizaciondetal
 export class CotizacionmaestroComponent implements OnInit {
 
     displayedColumns: string[] = ['select', 'codigo', 'fechadoc', 'ruc', 'desruc', 'telruc', 'correoruc', 'estado', 'options'];
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator , {static: false}) paginator: MatPaginator;
 
     cotizacion: Array<ICotizacion>;
     cotizaciondetalle: Array<ICotizaciondetalle>;

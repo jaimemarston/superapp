@@ -65,7 +65,7 @@ export class EditliquidaciondetalleComponent implements OnInit, OnDestroy, OnCha
     @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() update: EventEmitter<ILiquidaciondetalle> = new EventEmitter<ILiquidaciondetalle>();
 
-    @ViewChild('inputCodigo') inputCodigo: ElementRef<HTMLInputElement>;
+    @ViewChild('inputCodigo' , {static: false}) inputCodigo: ElementRef<HTMLInputElement>;
 
     constructor(private liquidacionService: LiquidaciondetalleService,
         private formBuilder: FormBuilder,

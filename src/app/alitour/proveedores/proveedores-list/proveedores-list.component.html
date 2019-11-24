@@ -1,6 +1,6 @@
 <div id="proveedores" fxLayout="column">
 
-    <toolbar-table [title]="'Detalle de proveedores'" [urlPrint]="'openPrint()'" (inputText)="applyFilter($event)"
+    <toolbar-table [title]="'Detalle de proveedores'" [urlPrint]="'export_xls_proveedores'" (inputText)="applyFilter($event)"
         [hidden]="edit" (add)="addProveedor()" (delete)="deleteAllSelecteds()"></toolbar-table>
 
     <div fxFlex>

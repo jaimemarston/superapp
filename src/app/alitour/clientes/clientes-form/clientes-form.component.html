@@ -155,6 +155,15 @@
                 placeholder="Fecha Fin" />
         </mat-form-field>
     </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+        <mat-form-field fxFlex="100">
+            <input matInput placeholder="Como nos Contacto" formControlName="comonoscontacto">
+        </mat-form-field>
+
+       
+    </div>
+    
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="start center">
         <button (click)="back()" mat-raised-button class="mat-primary">Volver</button>
         <button (click)="saveClient()" mat-raised-button [disabled]="registerForm.invalid"

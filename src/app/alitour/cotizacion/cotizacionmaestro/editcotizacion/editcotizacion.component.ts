@@ -121,6 +121,7 @@ export class EditCotizacionComponent implements OnInit {
             desconpag: [''],
             desmonepago: [''],
             obs: [''],
+            numordserv: [''],
             estado: [0],
         });
 
@@ -174,6 +175,8 @@ export class EditCotizacionComponent implements OnInit {
         this.registerForm.get('destipdoc').setValue(this.cotizacion.destipdoc);
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
         this.registerForm.get('obs').setValue(this.cotizacion.obs);
+        this.registerForm.get('numordserv').setValue(this.cotizacion.numordserv);
+        
     }
 
 

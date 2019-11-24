@@ -17,7 +17,7 @@ export interface Genero {
 })
 export class UsersFormComponent implements OnInit {
 
-    @ViewChild('imgAvatar') imgAvatar: ElementRef<HTMLImageElement>;
+    @ViewChild('imgAvatar', {static: false}) imgAvatar: ElementRef<HTMLImageElement>;
     selectedgen = '0';
     userPhoto: File;
 
