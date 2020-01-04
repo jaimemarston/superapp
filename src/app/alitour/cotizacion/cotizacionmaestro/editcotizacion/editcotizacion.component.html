@@ -14,10 +14,11 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="50">
-            <input #inputCodigo type="text" placeholder="Cliente" aria-label="Number" matInput
-                formControlName="desruc" [matAutocomplete]="auto">
+            <input #inputCodigo type="text" placeholder="Cliente" aria-label="Number" matInput formControlName="desruc"
+                [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
-                <mat-option (click)="getcodigo(optionu)" *ngFor="let optionu of filteredClientes | async" [value]="optionu.nombre">
+                <mat-option (click)="getcodigo(optionu)" *ngFor="let optionu of filteredClientes | async"
+                    [value]="optionu.nombre">
                     {{optionu.nombre}}
                 </mat-option>
             </mat-autocomplete>
@@ -26,13 +27,13 @@
         <mat-form-field fxFlex="15">
             <input #inputs matInput type="number" placeholder="Trip Ticket Number" formControlName="numordserv">
         </mat-form-field>
-        
+
     </div>
 
     <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
-     <!-- <mat-form-field fxFlex="25">
+        <!-- <mat-form-field fxFlex="25">
             <input #inputs matInput placeholder="Cliente" formControlName="desruc">
-        </mat-form-field> -->   
+        </mat-form-field> -->
         <mat-form-field fxFlex="20">
             <input #inputs matInput placeholder="RUC" formControlName="ruc">
         </mat-form-field>
@@ -42,13 +43,15 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="10">
-            <mat-select formControlName="destipdoc" class="form-control" placeholder="Documento" [(value)]="selecteddoc">
-                <mat-option class="pantallafiltro" *ngFor="let mon of listtipdoc" [value]="mon.codigo">{{mon.descripcion}}
+            <mat-select formControlName="destipdoc" class="form-control" placeholder="Documento"
+                [(value)]="selecteddoc">
+                <mat-option class="pantallafiltro" *ngFor="let mon of listtipdoc" [value]="mon.codigo">
+                    {{mon.descripcion}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
-        
+
     </div>
 
     <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
@@ -71,9 +74,8 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="15">
-           
-                <mat-select formControlName="estado" class="form-control" placeholder="Estado"
-                [(value)]="selectedestado">
+
+            <mat-select formControlName="estado" class="form-control" placeholder="Estado" [(value)]="selectedestado">
                 <mat-option class="pantallafiltro" *ngFor="let mon of estados" [value]="mon.codigo">
                     {{mon.descripcion}}
                 </mat-option>
@@ -86,16 +88,15 @@
         </mat-form-field>
     </div>
     <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <mat-form-field fxFlex="130">
+            <input #inputs matInput placeholder="Observaciones" formControlName="obs">
+        </mat-form-field>
 
 
-           <mat-form-field fxFlex="130">
-               <input #inputs matInput placeholder="Observaciones" formControlName="obs">
-           </mat-form-field>
-   
-           
-       </div>
-
-
+        <mat-form-field fxFlex="20">
+            <input #inputs matInput placeholder="Como nos contacto" formControlName="comonoscontacto">
+        </mat-form-field>
+    </div>
     <div class="crud-buttons" fxLayout="row" fxLayoutAlign="end center" fxFlex="1 0 auto">
         <button type="button" (click)="onBack()" mat-raised-button class="mat-primary">Volver</button>
         <button (click)="saveCotizacion()" mat-raised-button [disabled]="registerForm.invalid" class="mat-accent">

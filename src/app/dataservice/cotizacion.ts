@@ -48,6 +48,7 @@ export class Cotizacion {
   fechaini: Date;
   fechafin: Date;
   estado: number;
+  comonoscontacto: string;
   obs: string;
 }
 
