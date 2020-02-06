@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
             alert('Usuario y/o contraseña incorrecta');
         }
     }
-
+    
     // authenticate(): void {
     //     this.authService.authenticate(this.loginForm.getRawValue());
     //     if (AuthService.isAuthenticated()) {

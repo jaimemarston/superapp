@@ -100,6 +100,16 @@
         <mat-form-field fxFlex="65">
             <input #inputs matInput placeholder="Observaciones" formControlName="obs">
         </mat-form-field>
+
+        <mat-form-field fxFlex="35">
+
+            <mat-select formControlName="cc1" class="form-control" placeholder="Usuario App"
+                [(value)]="selectedusuarioapp">
+                <mat-option class="pantallafiltro" *ngFor="let mon of usuarios" [value]="mon.username">{{mon.username}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
     </div>
     <div fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="start center" fxFlex="1 0 auto">
 

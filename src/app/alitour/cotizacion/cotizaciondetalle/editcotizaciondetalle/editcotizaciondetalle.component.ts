@@ -69,11 +69,12 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     selectedconductor = '';
     selectednombreguia = '';
     selecteddoc = 'Pendiente';
+    selectedusuarioapp = '';
     
 
     filteredArticulos: Observable<Array<IArticulo>>;
     filteredUnidades: Observable<Array<IUnidad>>;
-    // filteredUsuarios: Observable<Array<IUser>>;
+    filteredUsuarios: Observable<Array<IUser>>;
     filteredChoferes: Observable<Array<IChoferes>>;
     
 
@@ -127,6 +128,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         private articuloService: ArticuloService,
         private unidadService: UnidadService,
         private choferService: ChoferService,
+        private userService: UserService,
         private guiaService: GuiaService,
         public snackBar: MatSnackBar) {
     }
@@ -145,13 +147,13 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             });
     }
 
-    // getUsuario(): void {
-    //     this.userService.getUsers()
-    //         .subscribe(response => {
-    //             this.usuarios = response;
-                
-    //         });
-    // }
+    getUsuario(): void {
+        this.userService.getUsers()
+            .subscribe(response => {
+                this.usuarios = response;
+                console.log('this.usuarios', this.usuarios);
+            });
+    }
 
     getChofer(): void {
         this.choferService.getChoferes()
@@ -178,6 +180,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.getArticulo();
         this.getUnidad();
         this.getChofer();
+        this.getUsuario();
         this.getGuia();
         
         
@@ -241,6 +244,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
             obs: [''],
             estado: [0],
             tipodoc: [''],
+            cc1: [''],
             codigo: [this.idMaster],
         });
 
@@ -321,6 +325,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
         this.registerForm.get('estado').setValue(this.cotizacion.estado);
         this.registerForm.get('conductor').setValue(this.cotizacion.conductor);
         this.registerForm.get('nombreguia').setValue(this.cotizacion.nombreguia);
+        this.registerForm.get('cc1').setValue(this.cotizacion.cc1);
         
 
     }

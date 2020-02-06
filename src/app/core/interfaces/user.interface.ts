@@ -9,6 +9,7 @@ export interface IUser {
     correo: string;
     dni: string;
     cargo: string;
+    username: string;
 }
 
 export interface IUserAuth {
