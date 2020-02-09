@@ -61,11 +61,14 @@ export class GuiasListComponent implements OnInit {
     }
 
     deleteGuia(): void {
-        this.guiaService.deleteGuia(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getGuias();
-            });
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.guiaService.deleteGuia(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getGuias();
+                });
+        }
     }
 
     public editRecord(id: number): void {

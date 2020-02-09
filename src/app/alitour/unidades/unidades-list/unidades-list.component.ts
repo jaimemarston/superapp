@@ -60,11 +60,15 @@ export class UnidadesListComponent implements OnInit {
     }
 
     deleteClient(): void {
-        this.unidadService.deleteUnidad(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getUnidades();
-            });
+
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.unidadService.deleteUnidad(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getUnidades();
+                });
+        }
     }
 
     public editRecord(id: number): void {

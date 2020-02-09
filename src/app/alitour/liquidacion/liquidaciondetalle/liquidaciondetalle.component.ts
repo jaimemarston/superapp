@@ -95,10 +95,14 @@ export class LiquidaciondetalleComponent implements OnInit {
     }
 
     deleteliquidacion(): void {
-        this.liquidacionService.deleteLiquidacion(this.selectedId)
-            .subscribe(response => {
-                this.updated.emit(true);
-            });
+        
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.liquidacionService.deleteLiquidacion(this.selectedId)
+                .subscribe(response => {
+                    this.updated.emit(true);
+                });
+        }
     }
 
     public editRecord(id: number): void {

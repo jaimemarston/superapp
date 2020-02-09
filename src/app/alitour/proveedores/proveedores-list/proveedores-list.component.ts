@@ -61,11 +61,14 @@ export class ProveedoresListComponent implements OnInit {
     }
 
     deleteProveedor(): void {
-        this.proveedorService.deleteProveedor(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getProveedores();
-            });
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.proveedorService.deleteProveedor(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getProveedores();
+                });
+        }
     }
 
     public editRecord(id: number): void {

@@ -42,6 +42,11 @@ export class UsersFormComponent implements OnInit {
         {codigo: 2, descripcion: 'Femenino'},
     ];
 
+    roles: Genero[] = [
+        {codigo: 1, descripcion: 'Monitor'},
+        {codigo: 2, descripcion: 'Usuario'},
+    ];
+
     user: IUser;
     registerForm: FormGroup;
 
@@ -79,13 +84,20 @@ export class UsersFormComponent implements OnInit {
             correo: [''],
             dni: [''],
             cargo: [''],
+            password: [''],
+            is_active: [''],
+            is_staff: [''],
+            role: [''],
 
         });
 
     console.log('this.user', this.user);
     this.generos.find(c => c.codigo === this.user.sexo);
-    
+    this.roles.find(c => c.codigo === this.user.role);
+
     }
+
+    
 
     getUser(): void {
         this.userService.getUser(this.id)
@@ -105,6 +117,12 @@ export class UsersFormComponent implements OnInit {
         this.registerForm.get('correo').setValue(this.user.correo);
         this.registerForm.get('dni').setValue(this.user.dni);
         this.registerForm.get('cargo').setValue(this.user.cargo);
+        this.registerForm.get('password').setValue(this.user.password);
+        // this.registerForm.get('is_active').setValue(this.user.is_active);
+        // this.registerForm.get('is_staff').setValue(this.user.is_staff);
+        this.registerForm.get('role').setValue(this.user.role);
+
+
     }
 
     back(): void {

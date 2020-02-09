@@ -15,3 +15,8 @@ export class ClientesdirecciondetailEndpoint {
     // public static getUser = BASEURL + 'cliente' + 1 + 'id';
     public static rest = `${BASEURL}clientesdirecciondetail`;
 }
+
+export class UsertrackingEndpoint {
+    // public static getUser = BASEURL + 'cliente' + 1 + 'id';
+    public static rest = `${BASEURL}usertracking`;
+}

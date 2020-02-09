@@ -58,11 +58,14 @@ export class ArticulosListComponent implements OnInit {
     }
 
     deleteClient(): void {
-        this.articuloService.deleteArticulo(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getArticulos();
-            });
+
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+            this.articuloService.deleteArticulo(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getArticulos();
+                });
+        }
     }
 
     public editRecord(id: number): void {

@@ -61,11 +61,15 @@ export class ChoferesListComponent implements OnInit {
     }
 
     deleteChofer(): void {
-        this.choferService.deleteChofer(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getChoferes();
-            });
+
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.choferService.deleteChofer(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getChoferes();
+                });
+        }
     }
 
     public editRecord(id: number): void {

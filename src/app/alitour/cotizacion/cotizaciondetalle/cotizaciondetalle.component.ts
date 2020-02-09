@@ -121,10 +121,13 @@ export class CotizaciondetalleComponent implements OnInit {
     }
 
     deleteCotizacion(): void {
-        this.cotizacionService.deleteCotizacion(this.selectedId)
-            .subscribe(response => {
-                this.updated.emit(true);
-            });
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.cotizacionService.deleteCotizacion(this.selectedId)
+                .subscribe(response => {
+                    this.updated.emit(true);
+                });
+            }
     }
 
     public editRecord(id: number): void {

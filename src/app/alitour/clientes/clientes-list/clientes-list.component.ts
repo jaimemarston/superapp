@@ -62,11 +62,15 @@ export class ClientesListComponent implements OnInit {
     }
 
     deleteClient(): void {
-        this.clienteService.deleteCliente(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getClientes();
-            });
+
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.clienteService.deleteCliente(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getClientes();
+                });
+        }
     }
 
     public editRecord(id: number): void {

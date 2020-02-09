@@ -59,11 +59,15 @@ export class UserListComponent implements OnInit {
     }
 
     deleteClient(): void {
-        this.userService.deleteUser(this.selectedId)
-            .subscribe(response => {
-                /* console.log(response); */
-                this.getUsers();
-            });
+
+        if (confirm('Esta seguro que desea borrar este registro?')) {
+
+            this.userService.deleteUser(this.selectedId)
+                .subscribe(response => {
+                    /* console.log(response); */
+                    this.getUsers();
+                });
+        }
     }
 
     public editRecord(id: number): void {

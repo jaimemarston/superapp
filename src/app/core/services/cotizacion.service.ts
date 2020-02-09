@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CotizacionEndpoint, ClientesdirecciondetailEndpoint} from '../endpoints/cotizacion.endpoint';
+import {CotizacionEndpoint, ClientesdirecciondetailEndpoint, UsertrackingEndpoint} from '../endpoints/cotizacion.endpoint';
 import {Observable} from 'rxjs';
 import {Cotizacion} from '../../dataservice/cotizacion';
 import {ICotizacion, ICotizacionEstados} from '../interfaces/cotizacion.interface';
+import {IUserTracking} from '../interfaces/user.interface';
 import {filter, map} from 'rxjs/operators';
 
 @Injectable({
@@ -46,6 +47,11 @@ export class CotizacionService {
     estadosCotizacion(): Observable<Array<ICotizacionEstados>> {
         return this.http.get<Array<ICotizacionEstados>>(CotizacionEndpoint.estados);
     }
-
+    
+    
+    addTravels(travel: Partial<IUserTracking>): Observable<IUserTracking> {
+        const url = `${UsertrackingEndpoint.rest}/`;
+        return this.http.post<IUserTracking>(url, travel);
+    }
 
 }
