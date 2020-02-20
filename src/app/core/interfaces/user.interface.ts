@@ -33,6 +33,12 @@ export interface IUserTracking {
     end_latitude: number;
     signature: string;
     rating: number;
+    alert: string;
+    detail: string;
+    is_active: string;
+    creation_date: string;
+    update_date: string;
+    
 }
 
 export interface IUserTrackingDetail {

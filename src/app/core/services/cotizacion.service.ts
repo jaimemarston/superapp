@@ -49,9 +49,6 @@ export class CotizacionService {
     }
     
     
-    addTravels(travel: Partial<IUserTracking>): Observable<IUserTracking> {
-        const url = `${UsertrackingEndpoint.rest}/`;
-        return this.http.post<IUserTracking>(url, travel);
-    }
+   
 
 }

@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CotizaciondetalleEndpoint } from '../endpoints/cotizacion.endpoint';
+import { CotizaciondetalleEndpoint, UsertrackingEndpoint } from '../endpoints/cotizacion.endpoint';
+
 import { Observable } from 'rxjs';
 import { Cotizaciondetalle } from '../../dataservice/cotizacion';
+import { IUserTracking } from '../interfaces/user.interface';
+
 import { ICotizaciondetalle } from '../interfaces/cotizacion.interface';
 import { filter, map } from 'rxjs/operators';
 
@@ -29,6 +32,7 @@ export class CotizaciondetalleService {
 
   updateCotizacion(id: number, data: ICotizaciondetalle): Observable<ICotizaciondetalle> {
     const url = `${CotizaciondetalleEndpoint.rest}/${id}`;
+    // console.log('ServiceaddTravels', url, data);
     return this.http.put<ICotizaciondetalle>(url, data);
   }
 
@@ -36,4 +40,13 @@ export class CotizaciondetalleService {
     const url = `${CotizaciondetalleEndpoint.rest}/${id}`;
     return this.http.delete(url);
   }
+
+  addTravels(travel: Partial<IUserTracking>): Observable<IUserTracking> {
+    const url = `${UsertrackingEndpoint.rest}/`;
+    console.log('ServiceaddTravels', url, travel);
+    return this.http.post<IUserTracking>(url, travel);
+}
+
+
+
 }

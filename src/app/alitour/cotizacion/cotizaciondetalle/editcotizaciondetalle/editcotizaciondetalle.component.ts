@@ -3,7 +3,7 @@ import { CotizaciondetalleService } from '../../../../core/services/cotizacionde
 import { CotizacionService } from '../../../../core/services/cotizacion.service';
 import { ICotizaciondetalle, ICotizacion } from '../../../../core/interfaces/cotizacion.interface';
 import { IArticulo } from '../../../../core/interfaces/articulo.interface';
-import { IUser } from '../../../../core/interfaces/user.interface';
+import { IUser, IUserTracking } from '../../../../core/interfaces/user.interface';
 import { IChoferes } from '../../../../core/interfaces/choferes.interface';
 import { IUnidad } from '../../../../core/interfaces/unidad.interface';
 import { ArticuloService } from '../../../../core/services/articulo.service';
@@ -18,6 +18,7 @@ import { map, startWith, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '../../../../../@fuse/animations';
 import { IGuias } from 'app/core/interfaces/guias.interface';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import to from 'await-to-js';
 
 
 export interface Estados {
@@ -125,6 +126,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
     constructor(private cotizacionService: CotizaciondetalleService,
         private formBuilder: FormBuilder,
         private cotizacionmasterService: CotizacionService,
+        private cotizaciondetalleService: CotizaciondetalleService,
         private articuloService: ArticuloService,
         private unidadService: UnidadService,
         private choferService: ChoferService,
@@ -389,9 +391,51 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
                 
             });
         
-       
+        this.addTravels();
         this.updateMaster();
     }
+
+    // async addTravel(): Promise<void> {
+    //     await this.presentLoading();
+    //     const travel: Partial<IUserTracking> = {
+    //         user: this.user.id,
+    //     };
+    //     console.log('travel', travel);
+    //     const [error, tracking] = await to(this.userService.addTravels(travel).toPromise());
+    //     await this.loading.dismiss();
+
+
+    async  addTravels(): Promise<void> {
+        console.log('this.usuarios', this.usuarios);
+        
+        const resultado = this.usuarios.find( fruta => fruta.username === this.cotizacion.cc1 );
+        const travel: Partial<IUserTracking> = {
+            user: resultado.id,
+            detail: this.cotizacion.descripcion + ', Punto de Recojo:' + this.cotizacion.lugorigen + ' Hora:' + this.cotizacion.horaini,
+        
+
+        // const travel: IUserTracking = {
+        //     user: this.idMaster,
+        //     starttask: '',
+        //     endtask: '',
+        //     start_longitude: 0,
+        //     end_longitude: 0,
+        //     start_latitude: 0,
+        //     end_latitude: 0,
+        //     signature: '',
+        //     rating: 0,
+        //     alert:  '',
+        //     detail:  '',
+        //     is_active:  '',
+        //     creation_date:  '',
+        //     update_date:  '',
+
+            
+        };
+        console.log('addTravels', travel);
+        const [error, tracking] = await to(this.cotizaciondetalleService.addTravels(travel).toPromise());
+
+    } 
 
     updateMaster(): void {
 
@@ -432,6 +476,7 @@ export class EditcotizaciondetalleComponent implements OnInit, OnDestroy, OnChan
    
 
     saveCotizacion(): void {
+        this.addTravels();
         this.id ? this.updateCotizacion() : this.addCotizacion();
     }
 
